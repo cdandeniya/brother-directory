@@ -2,680 +2,171 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
     <title>Brother Directory</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="logo.png">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <!-- Hero Section -->
-    <section class="hero-section">
-        <div class="container hero-container">
-            <div class="hero-content-wrapper">
-                <div class="hero-title-wrapper">
-                    <h1 class="hero-title headingReveal">Brother</h1>
-                    <h1 class="hero-title headingReveal">Directory<span class="highlight">/</span></h1>
+    <section class="hero">
+        <!-- Top blue line -->
+        <div class="top-line"></div>
+        
+        <!-- Header Navigation -->
+        <header class="header">
+            <div class="logo">
+                <img src="logo.png" alt="Delta Sigma Pi" class="logo-image">
+            </div>
+            <div class="header-center">
+                <span class="welcome-text">WELCOME TAU CLASS</span>
+            </div>
+            <div class="header-nav">
+                <a href="mailto:deltasigmapisbu@gmail.com" class="contact-btn">CONTACT</a>
+            </div>
+        </header>
+
+        <!-- Hero Content -->
+        <div class="hero-content">
+            <h1 class="hero-headline">
+                <span class="line-1">Meet Delta Sigma Pi's</span>
+                <span class="line-2">Brotherhood</span>
+            </h1>
+            <p class="hero-subtext">
+                Tap on each brother's profile to learn more about their personal achievements, interests, professional experiences, academic pursuits, and unique contributions to our community.
+            </p>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="scroll-indicator">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                <line x1="10" y1="2" x2="10" y2="18" stroke="currentColor" stroke-width="1.5"/>
+                <line x1="2" y1="10" x2="18" y2="10" stroke="currentColor" stroke-width="1.5"/>
+            </svg>
+        </div>
+    </section>
+
+    <!-- Meet our Brothers Section -->
+    <section class="brothers-section">
+        <h2 class="section-title">Meet our Brothers</h2>
+        <div class="brothers-grid">
+            <div class="brother-card">
+                <div class="card-image">
+                    <img src="brothers/Aidan Chan.jpg" alt="Aidan Chan">
                 </div>
-                <div class="hero-text-wrapper">
-                    <p class="hero-intro invisible">
-                        <span class="gold-text">Delta Sigma Pi's</span> commitment to Brotherhood is one of our core pillars. We foster a culture of unity, support, and lifelong connection among our members.
-                    </p>
-                    <p class="hero-description invisible">
-                        We believe that strong relationships create strong leaders. This sense of trust and connection guides everything we do, from professional development to chapter traditions.
-                    </p>
+                <div class="card-overlay">
+                    <h3 class="brother-name">Aidan Chan</h3>
+                    <button class="view-profile-btn">View Profile</button>
+                </div>
+            </div>
+            <div class="brother-card">
+                <div class="card-image">
+                    <img src="brothers/Ana Jiang.jpeg" alt="Ana Jiang">
+                </div>
+                <div class="card-overlay">
+                    <h3 class="brother-name">Ana Jiang</h3>
+                    <button class="view-profile-btn">View Profile</button>
+                </div>
+            </div>
+            <div class="brother-card">
+                <div class="card-image">
+                    <img src="brothers/Camila Sanchez.JPG" alt="Camila Sanchez">
+                </div>
+                <div class="card-overlay">
+                    <h3 class="brother-name">Camila Sanchez</h3>
+                    <button class="view-profile-btn">View Profile</button>
+                </div>
+            </div>
+            <div class="brother-card">
+                <div class="card-image">
+                    <img src="brothers/Chanul Dandeniya.jpeg" alt="Chanul Dandeniya">
+                </div>
+                <div class="card-overlay">
+                    <h3 class="brother-name">Chanul Dandeniya</h3>
+                    <button class="view-profile-btn">View Profile</button>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Knowledge Section -->
-    <section class="knowledge-section" id="meet-the-brothers">
-        <div class="container">
-            <div class="knowledge-content">
-                <h2 class="knowledge-title">Meet the <em>Brothers</em></h2>
-            </div>
-        </div>
-    </section>
-
-    <!-- Divider -->
-    <div class="divider"></div>
-
-    <!-- Meet the Team Section -->
-    <section class="team-section">
-        <div class="container">
-
-            <!-- Nu Class -->
-            <div class="team-category">
-                <div class="category-header">
-                    <h3 class="category-title headingReveal">NU CLASS</h3>
-                    <svg class="arrow-icon invisible" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80">
-                        <polygon points="62.6,67.5 12.4,67.5 12.4,17.2 13.6,17.2 13.6,66.2 62.6,66.2"></polygon>
-                        <rect x="2.2" y="39.3" transform="matrix(0.7075 -0.7067 0.7067 0.7075 -16.5202 40.0866)" width="75.9" height="1.3"></rect>
-                    </svg>
+    <!-- Profile Modal -->
+    <div class="profile-modal" id="profileModal">
+        <div class="profile-modal-overlay"></div>
+        <div class="profile-content">
+            <button class="profile-close" aria-label="Close profile">[ESC]</button>
+            <div class="profile-layout">
+                <div class="profile-image-section">
+                    <img class="profile-image" src="" alt="">
                 </div>
-                <div class="team-grid">
-                    <div class="team-member-card invisible">
-                        <div class="member-image-wrapper">
-                            <div class="member-image"></div>
-                            <div class="member-overlay">
-                                <a href="#" class="view-profile-link">VIEW PROFILE</a>
-                            </div>
+                <div class="profile-info-section">
+                    <div class="profile-header">
+                        <div>
+                            <h2 class="profile-name"></h2>
+                            <h3 class="profile-subtitle"></h3>
                         </div>
-                        <h4 class="member-name">David Glinatsis</h4>
-                        <p class="member-role">Managing Director | Principal Lawyer</p>
-                        <div class="member-social-icons">
-                            <a href="mailto:" class="member-email-icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36" fill="none">
-                                    <rect x="3.5" y="4.00391" width="28" height="28" rx="2" fill="#CEB477"></rect>
-                                    <path d="M28.499 10.5039C28.499 10.2278 28.2751 10.0039 27.999 10.0039H7C6.72386 10.0039 6.5 10.2278 6.5 10.5039V25.5039C6.5 25.78 6.72386 26.0039 7 26.0039H27.999C28.2751 26.0039 28.499 25.78 28.499 25.5039V10.5039Z" fill="#F4F3F1" stroke="#CEB477" stroke-width="1.4"></path>
-                                    <path d="M28.499 10.0039L17.857 20.8883C17.6609 21.0889 17.3381 21.0889 17.142 20.8883L6.5 10.0039" stroke="#CEB477" stroke-width="1.4"></path>
-                                    <path d="M6.5 26.0039L14.9747 18.5039" stroke="#CEB477" stroke-width="1.4"></path>
-                                    <path d="M20.0254 18.5039L28.5001 26.0039" stroke="#CEB477" stroke-width="1.4"></path>
+                        <div class="profile-social-buttons">
+                            <a href="#" target="_blank" class="social-btn linkedin-btn" data-field="linkedin" aria-label="LinkedIn">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
                                 </svg>
                             </a>
-                            <a href="#" target="_blank" class="member-linkedin-icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36" fill="none">
-                                    <rect x="3.5" y="4.00391" width="28" height="28" rx="2" fill="#CEB477"></rect>
-                                    <path d="M13.5 13.5C14.3284 13.5 15 12.8284 15 12C15 11.1716 14.3284 10.5 13.5 10.5C12.6716 10.5 12 11.1716 12 12C12 12.8284 12.6716 13.5 13.5 13.5Z" fill="#F4F3F1"/>
-                                    <path d="M12 15.5H15V25.5H12V15.5Z" fill="#F4F3F1"/>
-                                    <path d="M18.5 15.5H21.3V17.1C21.8 16.1 22.9 15.3 24.5 15.3C27.6 15.3 28.5 17.2 28.5 20.3V25.5H25.5V20.8C25.5 19.4 25.4 17.7 23.6 17.7C21.8 17.7 21.5 19.1 21.5 20.6V25.5H18.5V15.5Z" fill="#F4F3F1"/>
+                            <a href="#" class="social-btn gmail-btn" data-field="email" aria-label="Email">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                                    <polyline points="22,6 12,13 2,6"/>
                                 </svg>
                             </a>
                         </div>
                     </div>
-
-                    <div class="team-member-card invisible">
-                        <div class="member-image-wrapper">
-                            <div class="member-image"></div>
-                            <div class="member-overlay">
-                                <a href="#" class="view-profile-link">VIEW PROFILE</a>
-                            </div>
+                    <div class="profile-details">
+                        <div class="profile-detail-item">
+                            <span class="detail-label">About me:</span>
+                            <span class="detail-value" data-field="bio">-</span>
                         </div>
-                        <h4 class="member-name">Johnathan Glinatsis</h4>
-                        <p class="member-role">Associate Director</p>
-                        <div class="member-social-icons">
-                            <a href="mailto:" class="member-email-icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36" fill="none">
-                                <rect x="3.5" y="4.00391" width="28" height="28" rx="2" fill="#CEB477"></rect>
-                                <path d="M28.499 10.5039C28.499 10.2278 28.2751 10.0039 27.999 10.0039H7C6.72386 10.0039 6.5 10.2278 6.5 10.5039V25.5039C6.5 25.78 6.72386 26.0039 7 26.0039H27.999C28.2751 26.0039 28.499 25.78 28.499 25.5039V10.5039Z" fill="#F4F3F1" stroke="#CEB477" stroke-width="1.4"></path>
-                                <path d="M28.499 10.0039L17.857 20.8883C17.6609 21.0889 17.3381 21.0889 17.142 20.8883L6.5 10.0039" stroke="#CEB477" stroke-width="1.4"></path>
-                                <path d="M6.5 26.0039L14.9747 18.5039" stroke="#CEB477" stroke-width="1.4"></path>
-                                <path d="M20.0254 18.5039L28.5001 26.0039" stroke="#CEB477" stroke-width="1.4"></path>
-                                </svg>
-                            </a>
-                            <a href="#" target="_blank" class="member-linkedin-icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36" fill="none">
-                                    <rect x="3.5" y="4.00391" width="28" height="28" rx="2" fill="#CEB477"></rect>
-                                    <path d="M13.5 13.5C14.3284 13.5 15 12.8284 15 12C15 11.1716 14.3284 10.5 13.5 10.5C12.6716 10.5 12 11.1716 12 12C12 12.8284 12.6716 13.5 13.5 13.5Z" fill="#F4F3F1"/>
-                                    <path d="M12 15.5H15V25.5H12V15.5Z" fill="#F4F3F1"/>
-                                    <path d="M18.5 15.5H21.3V17.1C21.8 16.1 22.9 15.3 24.5 15.3C27.6 15.3 28.5 17.2 28.5 20.3V25.5H25.5V20.8C25.5 19.4 25.4 17.7 23.6 17.7C21.8 17.7 21.5 19.1 21.5 20.6V25.5H18.5V15.5Z" fill="#F4F3F1"/>
-                                </svg>
-                            </a>
+                        <div class="profile-detail-item">
+                            <span class="detail-label">Current/ Past Positions in DSP:</span>
+                            <span class="detail-value" data-field="dspPositions">-</span>
                         </div>
-                    </div>
-
-                    <div class="team-member-card invisible">
-                        <div class="member-image-wrapper">
-                            <div class="member-image"></div>
-                            <div class="member-overlay">
-                                <a href="#" class="view-profile-link">VIEW PROFILE</a>
-                            </div>
+                        <div class="profile-detail-item">
+                            <span class="detail-label">Current/ Past Committees:</span>
+                            <span class="detail-value" data-field="committees">-</span>
                         </div>
-                        <h4 class="member-name">Tristan Cockman</h4>
-                        <p class="member-role">Special Counsel</p>
-                        <div class="member-social-icons">
-                            <a href="mailto:" class="member-email-icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36" fill="none">
-                                <rect x="3.5" y="4.00391" width="28" height="28" rx="2" fill="#CEB477"></rect>
-                                <path d="M28.499 10.5039C28.499 10.2278 28.2751 10.0039 27.999 10.0039H7C6.72386 10.0039 6.5 10.2278 6.5 10.5039V25.5039C6.5 25.78 6.72386 26.0039 7 26.0039H27.999C28.2751 26.0039 28.499 25.78 28.499 25.5039V10.5039Z" fill="#F4F3F1" stroke="#CEB477" stroke-width="1.4"></path>
-                                <path d="M28.499 10.0039L17.857 20.8883C17.6609 21.0889 17.3381 21.0889 17.142 20.8883L6.5 10.0039" stroke="#CEB477" stroke-width="1.4"></path>
-                                <path d="M6.5 26.0039L14.9747 18.5039" stroke="#CEB477" stroke-width="1.4"></path>
-                                <path d="M20.0254 18.5039L28.5001 26.0039" stroke="#CEB477" stroke-width="1.4"></path>
-                                </svg>
-                            </a>
-                            <a href="#" target="_blank" class="member-linkedin-icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36" fill="none">
-                                    <rect x="3.5" y="4.00391" width="28" height="28" rx="2" fill="#CEB477"></rect>
-                                    <path d="M13.5 13.5C14.3284 13.5 15 12.8284 15 12C15 11.1716 14.3284 10.5 13.5 10.5C12.6716 10.5 12 11.1716 12 12C12 12.8284 12.6716 13.5 13.5 13.5Z" fill="#F4F3F1"/>
-                                    <path d="M12 15.5H15V25.5H12V15.5Z" fill="#F4F3F1"/>
-                                    <path d="M18.5 15.5H21.3V17.1C21.8 16.1 22.9 15.3 24.5 15.3C27.6 15.3 28.5 17.2 28.5 20.3V25.5H25.5V20.8C25.5 19.4 25.4 17.7 23.6 17.7C21.8 17.7 21.5 19.1 21.5 20.6V25.5H18.5V15.5Z" fill="#F4F3F1"/>
-                                </svg>
-                            </a>
+                        <div class="profile-detail-item">
+                            <span class="detail-label">Career Interests:</span>
+                            <span class="detail-value" data-field="careerInterests">-</span>
                         </div>
-                    </div>
-
-                    <div class="team-member-card invisible">
-                        <div class="member-image-wrapper">
-                            <div class="member-image"></div>
-                            <div class="member-overlay">
-                                <a href="#" class="view-profile-link">VIEW PROFILE</a>
-                            </div>
+                        <div class="profile-detail-item">
+                            <span class="detail-label">Past Job / Internship / Research / On-Campus Leadership/Job Roles:</span>
+                            <span class="detail-value" data-field="pastRoles">-</span>
                         </div>
-                        <h4 class="member-name">John Hodgkinson</h4>
-                        <p class="member-role">Special Counsel</p>
-                        <div class="member-social-icons">
-                            <a href="mailto:" class="member-email-icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36" fill="none">
-                                <rect x="3.5" y="4.00391" width="28" height="28" rx="2" fill="#CEB477"></rect>
-                                <path d="M28.499 10.5039C28.499 10.2278 28.2751 10.0039 27.999 10.0039H7C6.72386 10.0039 6.5 10.2278 6.5 10.5039V25.5039C6.5 25.78 6.72386 26.0039 7 26.0039H27.999C28.2751 26.0039 28.499 25.78 28.499 25.5039V10.5039Z" fill="#F4F3F1" stroke="#CEB477" stroke-width="1.4"></path>
-                                <path d="M28.499 10.0039L17.857 20.8883C17.6609 21.0889 17.3381 21.0889 17.142 20.8883L6.5 10.0039" stroke="#CEB477" stroke-width="1.4"></path>
-                                <path d="M6.5 26.0039L14.9747 18.5039" stroke="#CEB477" stroke-width="1.4"></path>
-                                <path d="M20.0254 18.5039L28.5001 26.0039" stroke="#CEB477" stroke-width="1.4"></path>
-                                </svg>
-                            </a>
-                            <a href="#" target="_blank" class="member-linkedin-icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36" fill="none">
-                                    <rect x="3.5" y="4.00391" width="28" height="28" rx="2" fill="#CEB477"></rect>
-                                    <path d="M13.5 13.5C14.3284 13.5 15 12.8284 15 12C15 11.1716 14.3284 10.5 13.5 10.5C12.6716 10.5 12 11.1716 12 12C12 12.8284 12.6716 13.5 13.5 13.5Z" fill="#F4F3F1"/>
-                                    <path d="M12 15.5H15V25.5H12V15.5Z" fill="#F4F3F1"/>
-                                    <path d="M18.5 15.5H21.3V17.1C21.8 16.1 22.9 15.3 24.5 15.3C27.6 15.3 28.5 17.2 28.5 20.3V25.5H25.5V20.8C25.5 19.4 25.4 17.7 23.6 17.7C21.8 17.7 21.5 19.1 21.5 20.6V25.5H18.5V15.5Z" fill="#F4F3F1"/>
-                                </svg>
-                            </a>
+                        <div class="profile-detail-item">
+                            <span class="detail-label">Hobbies / Interests:</span>
+                            <span class="detail-value" data-field="hobbies">-</span>
                         </div>
-                    </div>
-
-                    <div class="team-member-card invisible">
-                        <div class="member-image-wrapper">
-                            <div class="member-image"></div>
-                            <div class="member-overlay">
-                                <a href="#" class="view-profile-link">VIEW PROFILE</a>
-                            </div>
+                        <div class="profile-detail-item">
+                            <span class="detail-label">Fun Fact About You:</span>
+                            <span class="detail-value" data-field="funFact">-</span>
                         </div>
-                        <h4 class="member-name">Richard Kouchoo</h4>
-                        <p class="member-role">Special Counsel</p>
-                        <div class="member-social-icons">
-                            <a href="mailto:" class="member-email-icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36" fill="none">
-                                <rect x="3.5" y="4.00391" width="28" height="28" rx="2" fill="#CEB477"></rect>
-                                <path d="M28.499 10.5039C28.499 10.2278 28.2751 10.0039 27.999 10.0039H7C6.72386 10.0039 6.5 10.2278 6.5 10.5039V25.5039C6.5 25.78 6.72386 26.0039 7 26.0039H27.999C28.2751 26.0039 28.499 25.78 28.499 25.5039V10.5039Z" fill="#F4F3F1" stroke="#CEB477" stroke-width="1.4"></path>
-                                <path d="M28.499 10.0039L17.857 20.8883C17.6609 21.0889 17.3381 21.0889 17.142 20.8883L6.5 10.0039" stroke="#CEB477" stroke-width="1.4"></path>
-                                <path d="M6.5 26.0039L14.9747 18.5039" stroke="#CEB477" stroke-width="1.4"></path>
-                                <path d="M20.0254 18.5039L28.5001 26.0039" stroke="#CEB477" stroke-width="1.4"></path>
-                                </svg>
-                            </a>
-                            <a href="#" target="_blank" class="member-linkedin-icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36" fill="none">
-                                    <rect x="3.5" y="4.00391" width="28" height="28" rx="2" fill="#CEB477"></rect>
-                                    <path d="M13.5 13.5C14.3284 13.5 15 12.8284 15 12C15 11.1716 14.3284 10.5 13.5 10.5C12.6716 10.5 12 11.1716 12 12C12 12.8284 12.6716 13.5 13.5 13.5Z" fill="#F4F3F1"/>
-                                    <path d="M12 15.5H15V25.5H12V15.5Z" fill="#F4F3F1"/>
-                                    <path d="M18.5 15.5H21.3V17.1C21.8 16.1 22.9 15.3 24.5 15.3C27.6 15.3 28.5 17.2 28.5 20.3V25.5H25.5V20.8C25.5 19.4 25.4 17.7 23.6 17.7C21.8 17.7 21.5 19.1 21.5 20.6V25.5H18.5V15.5Z" fill="#F4F3F1"/>
-                                </svg>
-                            </a>
+                        <div class="profile-detail-item">
+                            <span class="detail-label">Your personality in 3 words:</span>
+                            <span class="detail-value" data-field="personality">-</span>
                         </div>
-                    </div>
-
-                    <div class="team-member-card invisible">
-                        <div class="member-image-wrapper">
-                            <div class="member-image"></div>
-                            <div class="member-overlay">
-                                <a href="#" class="view-profile-link">VIEW PROFILE</a>
-                            </div>
+                        <div class="profile-detail-item">
+                            <span class="detail-label">Favorite DSP memory?</span>
+                            <span class="detail-value" data-field="favoriteMemory">-</span>
                         </div>
-                        <h4 class="member-name">Giselle Casagrande</h4>
-                        <p class="member-role">Associate</p>
-                        <div class="member-social-icons">
-                            <a href="mailto:" class="member-email-icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36" fill="none">
-                                <rect x="3.5" y="4.00391" width="28" height="28" rx="2" fill="#CEB477"></rect>
-                                <path d="M28.499 10.5039C28.499 10.2278 28.2751 10.0039 27.999 10.0039H7C6.72386 10.0039 6.5 10.2278 6.5 10.5039V25.5039C6.5 25.78 6.72386 26.0039 7 26.0039H27.999C28.2751 26.0039 28.499 25.78 28.499 25.5039V10.5039Z" fill="#F4F3F1" stroke="#CEB477" stroke-width="1.4"></path>
-                                <path d="M28.499 10.0039L17.857 20.8883C17.6609 21.0889 17.3381 21.0889 17.142 20.8883L6.5 10.0039" stroke="#CEB477" stroke-width="1.4"></path>
-                                <path d="M6.5 26.0039L14.9747 18.5039" stroke="#CEB477" stroke-width="1.4"></path>
-                                <path d="M20.0254 18.5039L28.5001 26.0039" stroke="#CEB477" stroke-width="1.4"></path>
-                                </svg>
-                            </a>
-                            <a href="#" target="_blank" class="member-linkedin-icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36" fill="none">
-                                    <rect x="3.5" y="4.00391" width="28" height="28" rx="2" fill="#CEB477"></rect>
-                                    <path d="M13.5 13.5C14.3284 13.5 15 12.8284 15 12C15 11.1716 14.3284 10.5 13.5 10.5C12.6716 10.5 12 11.1716 12 12C12 12.8284 12.6716 13.5 13.5 13.5Z" fill="#F4F3F1"/>
-                                    <path d="M12 15.5H15V25.5H12V15.5Z" fill="#F4F3F1"/>
-                                    <path d="M18.5 15.5H21.3V17.1C21.8 16.1 22.9 15.3 24.5 15.3C27.6 15.3 28.5 17.2 28.5 20.3V25.5H25.5V20.8C25.5 19.4 25.4 17.7 23.6 17.7C21.8 17.7 21.5 19.1 21.5 20.6V25.5H18.5V15.5Z" fill="#F4F3F1"/>
-                                </svg>
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="team-member-card invisible">
-                        <div class="member-image-wrapper">
-                            <div class="member-image"></div>
-                            <div class="member-overlay">
-                                <a href="#" class="view-profile-link">VIEW PROFILE</a>
-                            </div>
-                        </div>
-                        <h4 class="member-name">Gretel Wathen</h4>
-                        <p class="member-role">Associate</p>
-                        <div class="member-social-icons">
-                            <a href="mailto:" class="member-email-icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36" fill="none">
-                                <rect x="3.5" y="4.00391" width="28" height="28" rx="2" fill="#CEB477"></rect>
-                                <path d="M28.499 10.5039C28.499 10.2278 28.2751 10.0039 27.999 10.0039H7C6.72386 10.0039 6.5 10.2278 6.5 10.5039V25.5039C6.5 25.78 6.72386 26.0039 7 26.0039H27.999C28.2751 26.0039 28.499 25.78 28.499 25.5039V10.5039Z" fill="#F4F3F1" stroke="#CEB477" stroke-width="1.4"></path>
-                                <path d="M28.499 10.0039L17.857 20.8883C17.6609 21.0889 17.3381 21.0889 17.142 20.8883L6.5 10.0039" stroke="#CEB477" stroke-width="1.4"></path>
-                                <path d="M6.5 26.0039L14.9747 18.5039" stroke="#CEB477" stroke-width="1.4"></path>
-                                <path d="M20.0254 18.5039L28.5001 26.0039" stroke="#CEB477" stroke-width="1.4"></path>
-                                </svg>
-                            </a>
-                            <a href="#" target="_blank" class="member-linkedin-icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36" fill="none">
-                                    <rect x="3.5" y="4.00391" width="28" height="28" rx="2" fill="#CEB477"></rect>
-                                    <path d="M13.5 13.5C14.3284 13.5 15 12.8284 15 12C15 11.1716 14.3284 10.5 13.5 10.5C12.6716 10.5 12 11.1716 12 12C12 12.8284 12.6716 13.5 13.5 13.5Z" fill="#F4F3F1"/>
-                                    <path d="M12 15.5H15V25.5H12V15.5Z" fill="#F4F3F1"/>
-                                    <path d="M18.5 15.5H21.3V17.1C21.8 16.1 22.9 15.3 24.5 15.3C27.6 15.3 28.5 17.2 28.5 20.3V25.5H25.5V20.8C25.5 19.4 25.4 17.7 23.6 17.7C21.8 17.7 21.5 19.1 21.5 20.6V25.5H18.5V15.5Z" fill="#F4F3F1"/>
-                                </svg>
-                            </a>
+                        <div class="profile-detail-item">
+                            <span class="detail-label">What qualities do you look for in a Little?</span>
+                            <span class="detail-value" data-field="littleQualities">-</span>
                         </div>
                     </div>
                 </div>
-            </div>
-
-            <!-- Xi Class -->
-            <div class="team-category">
-                <div class="category-header">
-                    <h3 class="category-title headingReveal">XI CLASS</h3>
-                    <svg class="arrow-icon invisible" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80">
-                        <polygon points="62.6,67.5 12.4,67.5 12.4,17.2 13.6,17.2 13.6,66.2 62.6,66.2"></polygon>
-                        <rect x="2.2" y="39.3" transform="matrix(0.7075 -0.7067 0.7067 0.7075 -16.5202 40.0866)" width="75.9" height="1.3"></rect>
-                    </svg>
-                </div>
-                <div class="team-grid">
-                    <div class="team-member-card invisible">
-                        <div class="member-image-wrapper">
-                            <div class="member-image"></div>
-                            <div class="member-overlay">
-                                <a href="#" class="view-profile-link">VIEW PROFILE</a>
-                            </div>
-                        </div>
-                        <h4 class="member-name">Lydia Cowie</h4>
-                        <p class="member-role">Paralegal</p>
-                        <div class="member-social-icons">
-                            <a href="mailto:" class="member-email-icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36" fill="none">
-                                    <rect x="3.5" y="4.00391" width="28" height="28" rx="2" fill="#CEB477"></rect>
-                                    <path d="M28.499 10.5039C28.499 10.2278 28.2751 10.0039 27.999 10.0039H7C6.72386 10.0039 6.5 10.2278 6.5 10.5039V25.5039C6.5 25.78 6.72386 26.0039 7 26.0039H27.999C28.2751 26.0039 28.499 25.78 28.499 25.5039V10.5039Z" fill="#F4F3F1" stroke="#CEB477" stroke-width="1.4"></path>
-                                    <path d="M28.499 10.0039L17.857 20.8883C17.6609 21.0889 17.3381 21.0889 17.142 20.8883L6.5 10.0039" stroke="#CEB477" stroke-width="1.4"></path>
-                                    <path d="M6.5 26.0039L14.9747 18.5039" stroke="#CEB477" stroke-width="1.4"></path>
-                                    <path d="M20.0254 18.5039L28.5001 26.0039" stroke="#CEB477" stroke-width="1.4"></path>
-                                </svg>
-                            </a>
-                            <a href="#" target="_blank" class="member-linkedin-icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36" fill="none">
-                                    <rect x="3.5" y="4.00391" width="28" height="28" rx="2" fill="#CEB477"></rect>
-                                    <path d="M13.5 13.5C14.3284 13.5 15 12.8284 15 12C15 11.1716 14.3284 10.5 13.5 10.5C12.6716 10.5 12 11.1716 12 12C12 12.8284 12.6716 13.5 13.5 13.5Z" fill="#F4F3F1"/>
-                                    <path d="M12 15.5H15V25.5H12V15.5Z" fill="#F4F3F1"/>
-                                    <path d="M18.5 15.5H21.3V17.1C21.8 16.1 22.9 15.3 24.5 15.3C27.6 15.3 28.5 17.2 28.5 20.3V25.5H25.5V20.8C25.5 19.4 25.4 17.7 23.6 17.7C21.8 17.7 21.5 19.1 21.5 20.6V25.5H18.5V15.5Z" fill="#F4F3F1"/>
-                                </svg>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="team-member-card invisible">
-                        <div class="member-image-wrapper">
-                            <div class="member-image"></div>
-                            <div class="member-overlay">
-                                <a href="#" class="view-profile-link">VIEW PROFILE</a>
-                            </div>
-                        </div>
-                        <h4 class="member-name">Biljana Nestorovski</h4>
-                        <p class="member-role">Paralegal</p>
-                        <div class="member-social-icons">
-                            <a href="mailto:" class="member-email-icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36" fill="none">
-                                    <rect x="3.5" y="4.00391" width="28" height="28" rx="2" fill="#CEB477"></rect>
-                                    <path d="M28.499 10.5039C28.499 10.2278 28.2751 10.0039 27.999 10.0039H7C6.72386 10.0039 6.5 10.2278 6.5 10.5039V25.5039C6.5 25.78 6.72386 26.0039 7 26.0039H27.999C28.2751 26.0039 28.499 25.78 28.499 25.5039V10.5039Z" fill="#F4F3F1" stroke="#CEB477" stroke-width="1.4"></path>
-                                    <path d="M28.499 10.0039L17.857 20.8883C17.6609 21.0889 17.3381 21.0889 17.142 20.8883L6.5 10.0039" stroke="#CEB477" stroke-width="1.4"></path>
-                                    <path d="M6.5 26.0039L14.9747 18.5039" stroke="#CEB477" stroke-width="1.4"></path>
-                                    <path d="M20.0254 18.5039L28.5001 26.0039" stroke="#CEB477" stroke-width="1.4"></path>
-                                </svg>
-                            </a>
-                            <a href="#" target="_blank" class="member-linkedin-icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36" fill="none">
-                                    <rect x="3.5" y="4.00391" width="28" height="28" rx="2" fill="#CEB477"></rect>
-                                    <path d="M13.5 13.5C14.3284 13.5 15 12.8284 15 12C15 11.1716 14.3284 10.5 13.5 10.5C12.6716 10.5 12 11.1716 12 12C12 12.8284 12.6716 13.5 13.5 13.5Z" fill="#F4F3F1"/>
-                                    <path d="M12 15.5H15V25.5H12V15.5Z" fill="#F4F3F1"/>
-                                    <path d="M18.5 15.5H21.3V17.1C21.8 16.1 22.9 15.3 24.5 15.3C27.6 15.3 28.5 17.2 28.5 20.3V25.5H25.5V20.8C25.5 19.4 25.4 17.7 23.6 17.7C21.8 17.7 21.5 19.1 21.5 20.6V25.5H18.5V15.5Z" fill="#F4F3F1"/>
-                                </svg>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="team-member-card invisible">
-                        <div class="member-image-wrapper">
-                            <div class="member-image"></div>
-                            <div class="member-overlay">
-                                <a href="#" class="view-profile-link">VIEW PROFILE</a>
-                            </div>
-                        </div>
-                        <h4 class="member-name">James Papalii</h4>
-                        <p class="member-role">Paralegal</p>
-                        <div class="member-social-icons">
-                            <a href="mailto:" class="member-email-icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36" fill="none">
-                                    <rect x="3.5" y="4.00391" width="28" height="28" rx="2" fill="#CEB477"></rect>
-                                    <path d="M28.499 10.5039C28.499 10.2278 28.2751 10.0039 27.999 10.0039H7C6.72386 10.0039 6.5 10.2278 6.5 10.5039V25.5039C6.5 25.78 6.72386 26.0039 7 26.0039H27.999C28.2751 26.0039 28.499 25.78 28.499 25.5039V10.5039Z" fill="#F4F3F1" stroke="#CEB477" stroke-width="1.4"></path>
-                                    <path d="M28.499 10.0039L17.857 20.8883C17.6609 21.0889 17.3381 21.0889 17.142 20.8883L6.5 10.0039" stroke="#CEB477" stroke-width="1.4"></path>
-                                    <path d="M6.5 26.0039L14.9747 18.5039" stroke="#CEB477" stroke-width="1.4"></path>
-                                    <path d="M20.0254 18.5039L28.5001 26.0039" stroke="#CEB477" stroke-width="1.4"></path>
-                                </svg>
-                            </a>
-                            <a href="#" target="_blank" class="member-linkedin-icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36" fill="none">
-                                    <rect x="3.5" y="4.00391" width="28" height="28" rx="2" fill="#CEB477"></rect>
-                                    <path d="M13.5 13.5C14.3284 13.5 15 12.8284 15 12C15 11.1716 14.3284 10.5 13.5 10.5C12.6716 10.5 12 11.1716 12 12C12 12.8284 12.6716 13.5 13.5 13.5Z" fill="#F4F3F1"/>
-                                    <path d="M12 15.5H15V25.5H12V15.5Z" fill="#F4F3F1"/>
-                                    <path d="M18.5 15.5H21.3V17.1C21.8 16.1 22.9 15.3 24.5 15.3C27.6 15.3 28.5 17.2 28.5 20.3V25.5H25.5V20.8C25.5 19.4 25.4 17.7 23.6 17.7C21.8 17.7 21.5 19.1 21.5 20.6V25.5H18.5V15.5Z" fill="#F4F3F1"/>
-                                </svg>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="team-member-card invisible">
-                        <div class="member-image-wrapper">
-                            <div class="member-image"></div>
-                            <div class="member-overlay">
-                                <a href="#" class="view-profile-link">VIEW PROFILE</a>
-                            </div>
-                        </div>
-                        <h4 class="member-name">Rosie Mann</h4>
-                        <p class="member-role">Business Operations Administrator</p>
-                        <div class="member-social-icons">
-                            <a href="mailto:" class="member-email-icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36" fill="none">
-                                    <rect x="3.5" y="4.00391" width="28" height="28" rx="2" fill="#CEB477"></rect>
-                                    <path d="M28.499 10.5039C28.499 10.2278 28.2751 10.0039 27.999 10.0039H7C6.72386 10.0039 6.5 10.2278 6.5 10.5039V25.5039C6.5 25.78 6.72386 26.0039 7 26.0039H27.999C28.2751 26.0039 28.499 25.78 28.499 25.5039V10.5039Z" fill="#F4F3F1" stroke="#CEB477" stroke-width="1.4"></path>
-                                    <path d="M28.499 10.0039L17.857 20.8883C17.6609 21.0889 17.3381 21.0889 17.142 20.8883L6.5 10.0039" stroke="#CEB477" stroke-width="1.4"></path>
-                                    <path d="M6.5 26.0039L14.9747 18.5039" stroke="#CEB477" stroke-width="1.4"></path>
-                                    <path d="M20.0254 18.5039L28.5001 26.0039" stroke="#CEB477" stroke-width="1.4"></path>
-                                </svg>
-                            </a>
-                            <a href="#" target="_blank" class="member-linkedin-icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36" fill="none">
-                                    <rect x="3.5" y="4.00391" width="28" height="28" rx="2" fill="#CEB477"></rect>
-                                    <path d="M13.5 13.5C14.3284 13.5 15 12.8284 15 12C15 11.1716 14.3284 10.5 13.5 10.5C12.6716 10.5 12 11.1716 12 12C12 12.8284 12.6716 13.5 13.5 13.5Z" fill="#F4F3F1"/>
-                                    <path d="M12 15.5H15V25.5H12V15.5Z" fill="#F4F3F1"/>
-                                    <path d="M18.5 15.5H21.3V17.1C21.8 16.1 22.9 15.3 24.5 15.3C27.6 15.3 28.5 17.2 28.5 20.3V25.5H25.5V20.8C25.5 19.4 25.4 17.7 23.6 17.7C21.8 17.7 21.5 19.1 21.5 20.6V25.5H18.5V15.5Z" fill="#F4F3F1"/>
-                                </svg>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Omicron Class -->
-            <div class="team-category">
-                <div class="category-header">
-                    <h3 class="category-title headingReveal">OMICRON CLASS</h3>
-                    <svg class="arrow-icon invisible" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80">
-                        <polygon points="62.6,67.5 12.4,67.5 12.4,17.2 13.6,17.2 13.6,66.2 62.6,66.2"></polygon>
-                        <rect x="2.2" y="39.3" transform="matrix(0.7075 -0.7067 0.7067 0.7075 -16.5202 40.0866)" width="75.9" height="1.3"></rect>
-                    </svg>
-                </div>
-                <div class="team-grid">
-                    <div class="team-member-card invisible">
-                        <div class="member-image-wrapper">
-                            <div class="member-image"></div>
-                            <div class="member-overlay">
-                                <a href="#" class="view-profile-link">VIEW PROFILE</a>
-                            </div>
-                        </div>
-                        <h4 class="member-name">Member Name</h4>
-                        <p class="member-role">Position</p>
-                        <div class="member-social-icons">
-                            <a href="mailto:" class="member-email-icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36" fill="none">
-                                    <rect x="3.5" y="4.00391" width="28" height="28" rx="2" fill="#CEB477"></rect>
-                                    <path d="M28.499 10.5039C28.499 10.2278 28.2751 10.0039 27.999 10.0039H7C6.72386 10.0039 6.5 10.2278 6.5 10.5039V25.5039C6.5 25.78 6.72386 26.0039 7 26.0039H27.999C28.2751 26.0039 28.499 25.78 28.499 25.5039V10.5039Z" fill="#F4F3F1" stroke="#CEB477" stroke-width="1.4"></path>
-                                    <path d="M28.499 10.0039L17.857 20.8883C17.6609 21.0889 17.3381 21.0889 17.142 20.8883L6.5 10.0039" stroke="#CEB477" stroke-width="1.4"></path>
-                                    <path d="M6.5 26.0039L14.9747 18.5039" stroke="#CEB477" stroke-width="1.4"></path>
-                                    <path d="M20.0254 18.5039L28.5001 26.0039" stroke="#CEB477" stroke-width="1.4"></path>
-                                </svg>
-                            </a>
-                            <a href="#" target="_blank" class="member-linkedin-icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36" fill="none">
-                                    <rect x="3.5" y="4.00391" width="28" height="28" rx="2" fill="#CEB477"></rect>
-                                    <path d="M13.5 13.5C14.3284 13.5 15 12.8284 15 12C15 11.1716 14.3284 10.5 13.5 10.5C12.6716 10.5 12 11.1716 12 12C12 12.8284 12.6716 13.5 13.5 13.5Z" fill="#F4F3F1"/>
-                                    <path d="M12 15.5H15V25.5H12V15.5Z" fill="#F4F3F1"/>
-                                    <path d="M18.5 15.5H21.3V17.1C21.8 16.1 22.9 15.3 24.5 15.3C27.6 15.3 28.5 17.2 28.5 20.3V25.5H25.5V20.8C25.5 19.4 25.4 17.7 23.6 17.7C21.8 17.7 21.5 19.1 21.5 20.6V25.5H18.5V15.5Z" fill="#F4F3F1"/>
-                                </svg>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Pi Class -->
-            <div class="team-category">
-                <div class="category-header">
-                    <h3 class="category-title headingReveal">PI CLASS</h3>
-                    <svg class="arrow-icon invisible" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80">
-                        <polygon points="62.6,67.5 12.4,67.5 12.4,17.2 13.6,17.2 13.6,66.2 62.6,66.2"></polygon>
-                        <rect x="2.2" y="39.3" transform="matrix(0.7075 -0.7067 0.7067 0.7075 -16.5202 40.0866)" width="75.9" height="1.3"></rect>
-                    </svg>
-                </div>
-                <div class="team-grid">
-                    <div class="team-member-card invisible">
-                        <div class="member-image-wrapper">
-                            <div class="member-image"></div>
-                            <div class="member-overlay">
-                                <a href="#" class="view-profile-link">VIEW PROFILE</a>
-                            </div>
-                        </div>
-                        <h4 class="member-name">Michael Glinatsis</h4>
-                        <p class="member-role">Chief Executive Officer / Director</p>
-                        <div class="member-social-icons">
-                            <a href="mailto:" class="member-email-icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36" fill="none">
-                                    <rect x="3.5" y="4.00391" width="28" height="28" rx="2" fill="#CEB477"></rect>
-                                    <path d="M28.499 10.5039C28.499 10.2278 28.2751 10.0039 27.999 10.0039H7C6.72386 10.0039 6.5 10.2278 6.5 10.5039V25.5039C6.5 25.78 6.72386 26.0039 7 26.0039H27.999C28.2751 26.0039 28.499 25.78 28.499 25.5039V10.5039Z" fill="#F4F3F1" stroke="#CEB477" stroke-width="1.4"></path>
-                                    <path d="M28.499 10.0039L17.857 20.8883C17.6609 21.0889 17.3381 21.0889 17.142 20.8883L6.5 10.0039" stroke="#CEB477" stroke-width="1.4"></path>
-                                    <path d="M6.5 26.0039L14.9747 18.5039" stroke="#CEB477" stroke-width="1.4"></path>
-                                    <path d="M20.0254 18.5039L28.5001 26.0039" stroke="#CEB477" stroke-width="1.4"></path>
-                                </svg>
-                            </a>
-                            <a href="#" target="_blank" class="member-linkedin-icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36" fill="none">
-                                    <rect x="3.5" y="4.00391" width="28" height="28" rx="2" fill="#CEB477"></rect>
-                                    <path d="M13.5 13.5C14.3284 13.5 15 12.8284 15 12C15 11.1716 14.3284 10.5 13.5 10.5C12.6716 10.5 12 11.1716 12 12C12 12.8284 12.6716 13.5 13.5 13.5Z" fill="#F4F3F1"/>
-                                    <path d="M12 15.5H15V25.5H12V15.5Z" fill="#F4F3F1"/>
-                                    <path d="M18.5 15.5H21.3V17.1C21.8 16.1 22.9 15.3 24.5 15.3C27.6 15.3 28.5 17.2 28.5 20.3V25.5H25.5V20.8C25.5 19.4 25.4 17.7 23.6 17.7C21.8 17.7 21.5 19.1 21.5 20.6V25.5H18.5V15.5Z" fill="#F4F3F1"/>
-                                </svg>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="team-member-card invisible">
-                        <div class="member-image-wrapper">
-                            <div class="member-image"></div>
-                            <div class="member-overlay">
-                                <a href="#" class="view-profile-link">VIEW PROFILE</a>
-                            </div>
-                        </div>
-                        <h4 class="member-name">Christina Demetriou</h4>
-                        <p class="member-role">Chief Financial and Operations Officer</p>
-                        <div class="member-social-icons">
-                            <a href="mailto:" class="member-email-icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36" fill="none">
-                                    <rect x="3.5" y="4.00391" width="28" height="28" rx="2" fill="#CEB477"></rect>
-                                    <path d="M28.499 10.5039C28.499 10.2278 28.2751 10.0039 27.999 10.0039H7C6.72386 10.0039 6.5 10.2278 6.5 10.5039V25.5039C6.5 25.78 6.72386 26.0039 7 26.0039H27.999C28.2751 26.0039 28.499 25.78 28.499 25.5039V10.5039Z" fill="#F4F3F1" stroke="#CEB477" stroke-width="1.4"></path>
-                                    <path d="M28.499 10.0039L17.857 20.8883C17.6609 21.0889 17.3381 21.0889 17.142 20.8883L6.5 10.0039" stroke="#CEB477" stroke-width="1.4"></path>
-                                    <path d="M6.5 26.0039L14.9747 18.5039" stroke="#CEB477" stroke-width="1.4"></path>
-                                    <path d="M20.0254 18.5039L28.5001 26.0039" stroke="#CEB477" stroke-width="1.4"></path>
-                                </svg>
-                            </a>
-                            <a href="#" target="_blank" class="member-linkedin-icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36" fill="none">
-                                    <rect x="3.5" y="4.00391" width="28" height="28" rx="2" fill="#CEB477"></rect>
-                                    <path d="M13.5 13.5C14.3284 13.5 15 12.8284 15 12C15 11.1716 14.3284 10.5 13.5 10.5C12.6716 10.5 12 11.1716 12 12C12 12.8284 12.6716 13.5 13.5 13.5Z" fill="#F4F3F1"/>
-                                    <path d="M12 15.5H15V25.5H12V15.5Z" fill="#F4F3F1"/>
-                                    <path d="M18.5 15.5H21.3V17.1C21.8 16.1 22.9 15.3 24.5 15.3C27.6 15.3 28.5 17.2 28.5 20.3V25.5H25.5V20.8C25.5 19.4 25.4 17.7 23.6 17.7C21.8 17.7 21.5 19.1 21.5 20.6V25.5H18.5V15.5Z" fill="#F4F3F1"/>
-                                </svg>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="team-member-card invisible">
-                        <div class="member-image-wrapper">
-                            <div class="member-image"></div>
-                            <div class="member-overlay">
-                                <a href="#" class="view-profile-link">VIEW PROFILE</a>
-                            </div>
-                        </div>
-                        <h4 class="member-name">Marinsa Harper</h4>
-                        <p class="member-role">Head of Business Development</p>
-                        <div class="member-social-icons">
-                            <a href="mailto:" class="member-email-icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36" fill="none">
-                                    <rect x="3.5" y="4.00391" width="28" height="28" rx="2" fill="#CEB477"></rect>
-                                    <path d="M28.499 10.5039C28.499 10.2278 28.2751 10.0039 27.999 10.0039H7C6.72386 10.0039 6.5 10.2278 6.5 10.5039V25.5039C6.5 25.78 6.72386 26.0039 7 26.0039H27.999C28.2751 26.0039 28.499 25.78 28.499 25.5039V10.5039Z" fill="#F4F3F1" stroke="#CEB477" stroke-width="1.4"></path>
-                                    <path d="M28.499 10.0039L17.857 20.8883C17.6609 21.0889 17.3381 21.0889 17.142 20.8883L6.5 10.0039" stroke="#CEB477" stroke-width="1.4"></path>
-                                    <path d="M6.5 26.0039L14.9747 18.5039" stroke="#CEB477" stroke-width="1.4"></path>
-                                    <path d="M20.0254 18.5039L28.5001 26.0039" stroke="#CEB477" stroke-width="1.4"></path>
-                                </svg>
-                            </a>
-                            <a href="#" target="_blank" class="member-linkedin-icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36" fill="none">
-                                    <rect x="3.5" y="4.00391" width="28" height="28" rx="2" fill="#CEB477"></rect>
-                                    <path d="M13.5 13.5C14.3284 13.5 15 12.8284 15 12C15 11.1716 14.3284 10.5 13.5 10.5C12.6716 10.5 12 11.1716 12 12C12 12.8284 12.6716 13.5 13.5 13.5Z" fill="#F4F3F1"/>
-                                    <path d="M12 15.5H15V25.5H12V15.5Z" fill="#F4F3F1"/>
-                                    <path d="M18.5 15.5H21.3V17.1C21.8 16.1 22.9 15.3 24.5 15.3C27.6 15.3 28.5 17.2 28.5 20.3V25.5H25.5V20.8C25.5 19.4 25.4 17.7 23.6 17.7C21.8 17.7 21.5 19.1 21.5 20.6V25.5H18.5V15.5Z" fill="#F4F3F1"/>
-                                </svg>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Rho Class -->
-            <div class="team-category">
-                <div class="category-header">
-                    <h3 class="category-title headingReveal">RHO CLASS</h3>
-                    <svg class="arrow-icon invisible" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80">
-                        <polygon points="62.6,67.5 12.4,67.5 12.4,17.2 13.6,17.2 13.6,66.2 62.6,66.2"></polygon>
-                        <rect x="2.2" y="39.3" transform="matrix(0.7075 -0.7067 0.7067 0.7075 -16.5202 40.0866)" width="75.9" height="1.3"></rect>
-                    </svg>
-                </div>
-                <div class="team-grid">
-                    <div class="team-member-card invisible">
-                        <div class="member-image-wrapper">
-                            <div class="member-image" style="background-image: url('images/Chanul_Dandeniya.jpg'); background-size: cover; background-position: center;"></div>
-                            <div class="member-overlay">
-                                <a href="#" class="view-profile-link">VIEW PROFILE</a>
-                            </div>
-                        </div>
-                        <h4 class="member-name">Chanul Dandeniya</h4>
-                        <p class="member-role">Computer Science + Applied Mathematics & Science, '27</p>
-                        <div class="member-social-icons">
-                            <a href="mailto:" class="member-email-icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36" fill="none">
-                                    <rect x="3.5" y="4.00391" width="28" height="28" rx="2" fill="#CEB477"></rect>
-                                    <path d="M28.499 10.5039C28.499 10.2278 28.2751 10.0039 27.999 10.0039H7C6.72386 10.0039 6.5 10.2278 6.5 10.5039V25.5039C6.5 25.78 6.72386 26.0039 7 26.0039H27.999C28.2751 26.0039 28.499 25.78 28.499 25.5039V10.5039Z" fill="#F4F3F1" stroke="#CEB477" stroke-width="1.4"></path>
-                                    <path d="M28.499 10.0039L17.857 20.8883C17.6609 21.0889 17.3381 21.0889 17.142 20.8883L6.5 10.0039" stroke="#CEB477" stroke-width="1.4"></path>
-                                    <path d="M6.5 26.0039L14.9747 18.5039" stroke="#CEB477" stroke-width="1.4"></path>
-                                    <path d="M20.0254 18.5039L28.5001 26.0039" stroke="#CEB477" stroke-width="1.4"></path>
-                                </svg>
-                            </a>
-                            <a href="#" target="_blank" class="member-linkedin-icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36" fill="none">
-                                    <rect x="3.5" y="4.00391" width="28" height="28" rx="2" fill="#CEB477"></rect>
-                                    <path d="M13.5 13.5C14.3284 13.5 15 12.8284 15 12C15 11.1716 14.3284 10.5 13.5 10.5C12.6716 10.5 12 11.1716 12 12C12 12.8284 12.6716 13.5 13.5 13.5Z" fill="#F4F3F1"/>
-                                    <path d="M12 15.5H15V25.5H12V15.5Z" fill="#F4F3F1"/>
-                                    <path d="M18.5 15.5H21.3V17.1C21.8 16.1 22.9 15.3 24.5 15.3C27.6 15.3 28.5 17.2 28.5 20.3V25.5H25.5V20.8C25.5 19.4 25.4 17.7 23.6 17.7C21.8 17.7 21.5 19.1 21.5 20.6V25.5H18.5V15.5Z" fill="#F4F3F1"/>
-                                </svg>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="team-member-card invisible">
-                        <div class="member-image-wrapper">
-                            <div class="member-image" style="background-image: url('images/Ana Jiang.jpeg'); background-size: cover; background-position: center;"></div>
-                            <div class="member-overlay">
-                                <a href="#" class="view-profile-link">VIEW PROFILE</a>
-                            </div>
-                        </div>
-                        <h4 class="member-name">Ana Jiang</h4>
-                        <p class="member-role">Business Management (Ops Mgmt) & Accounting Minor, '27</p>
-                        <div class="member-social-icons">
-                            <a href="mailto:" class="member-email-icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36" fill="none">
-                                    <rect x="3.5" y="4.00391" width="28" height="28" rx="2" fill="#CEB477"></rect>
-                                    <path d="M28.499 10.5039C28.499 10.2278 28.2751 10.0039 27.999 10.0039H7C6.72386 10.0039 6.5 10.2278 6.5 10.5039V25.5039C6.5 25.78 6.72386 26.0039 7 26.0039H27.999C28.2751 26.0039 28.499 25.78 28.499 25.5039V10.5039Z" fill="#F4F3F1" stroke="#CEB477" stroke-width="1.4"></path>
-                                    <path d="M28.499 10.0039L17.857 20.8883C17.6609 21.0889 17.3381 21.0889 17.142 20.8883L6.5 10.0039" stroke="#CEB477" stroke-width="1.4"></path>
-                                    <path d="M6.5 26.0039L14.9747 18.5039" stroke="#CEB477" stroke-width="1.4"></path>
-                                    <path d="M20.0254 18.5039L28.5001 26.0039" stroke="#CEB477" stroke-width="1.4"></path>
-                                </svg>
-                            </a>
-                            <a href="#" target="_blank" class="member-linkedin-icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36" fill="none">
-                                    <rect x="3.5" y="4.00391" width="28" height="28" rx="2" fill="#CEB477"></rect>
-                                    <path d="M13.5 13.5C14.3284 13.5 15 12.8284 15 12C15 11.1716 14.3284 10.5 13.5 10.5C12.6716 10.5 12 11.1716 12 12C12 12.8284 12.6716 13.5 13.5 13.5Z" fill="#F4F3F1"/>
-                                    <path d="M12 15.5H15V25.5H12V15.5Z" fill="#F4F3F1"/>
-                                    <path d="M18.5 15.5H21.3V17.1C21.8 16.1 22.9 15.3 24.5 15.3C27.6 15.3 28.5 17.2 28.5 20.3V25.5H25.5V20.8C25.5 19.4 25.4 17.7 23.6 17.7C21.8 17.7 21.5 19.1 21.5 20.6V25.5H18.5V15.5Z" fill="#F4F3F1"/>
-                                </svg>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Sigma Class -->
-            <div class="team-category">
-                <div class="category-header">
-                    <h3 class="category-title headingReveal">SIGMA CLASS</h3>
-                    <svg class="arrow-icon invisible" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80">
-                        <polygon points="62.6,67.5 12.4,67.5 12.4,17.2 13.6,17.2 13.6,66.2 62.6,66.2"></polygon>
-                        <rect x="2.2" y="39.3" transform="matrix(0.7075 -0.7067 0.7067 0.7075 -16.5202 40.0866)" width="75.9" height="1.3"></rect>
-                    </svg>
-                </div>
-                <div class="team-grid">
-                    <div class="team-member-card invisible">
-                        <div class="member-image-wrapper">
-                            <div class="member-image"></div>
-                            <div class="member-overlay">
-                                <a href="#" class="view-profile-link">VIEW PROFILE</a>
-                            </div>
-                        </div>
-                        <h4 class="member-name">Member Name</h4>
-                        <p class="member-role">Position</p>
-                        <div class="member-social-icons">
-                            <a href="mailto:" class="member-email-icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36" fill="none">
-                                    <rect x="3.5" y="4.00391" width="28" height="28" rx="2" fill="#CEB477"></rect>
-                                    <path d="M28.499 10.5039C28.499 10.2278 28.2751 10.0039 27.999 10.0039H7C6.72386 10.0039 6.5 10.2278 6.5 10.5039V25.5039C6.5 25.78 6.72386 26.0039 7 26.0039H27.999C28.2751 26.0039 28.499 25.78 28.499 25.5039V10.5039Z" fill="#F4F3F1" stroke="#CEB477" stroke-width="1.4"></path>
-                                    <path d="M28.499 10.0039L17.857 20.8883C17.6609 21.0889 17.3381 21.0889 17.142 20.8883L6.5 10.0039" stroke="#CEB477" stroke-width="1.4"></path>
-                                    <path d="M6.5 26.0039L14.9747 18.5039" stroke="#CEB477" stroke-width="1.4"></path>
-                                    <path d="M20.0254 18.5039L28.5001 26.0039" stroke="#CEB477" stroke-width="1.4"></path>
-                                </svg>
-                            </a>
-                            <a href="#" target="_blank" class="member-linkedin-icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36" fill="none">
-                                    <rect x="3.5" y="4.00391" width="28" height="28" rx="2" fill="#CEB477"></rect>
-                                    <path d="M13.5 13.5C14.3284 13.5 15 12.8284 15 12C15 11.1716 14.3284 10.5 13.5 10.5C12.6716 10.5 12 11.1716 12 12C12 12.8284 12.6716 13.5 13.5 13.5Z" fill="#F4F3F1"/>
-                                    <path d="M12 15.5H15V25.5H12V15.5Z" fill="#F4F3F1"/>
-                                    <path d="M18.5 15.5H21.3V17.1C21.8 16.1 22.9 15.3 24.5 15.3C27.6 15.3 28.5 17.2 28.5 20.3V25.5H25.5V20.8C25.5 19.4 25.4 17.7 23.6 17.7C21.8 17.7 21.5 19.1 21.5 20.6V25.5H18.5V15.5Z" fill="#F4F3F1"/>
-                                </svg>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Scroll to Top Button -->
-    <button class="scroll-to-top" id="scrollToTop" aria-label="Scroll to top">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M18 15l-6-6-6 6"/>
-        </svg>
-    </button>
-
-    <!-- Brother Profile Panel -->
-    <div class="brother-panel-overlay" id="brotherPanelOverlay">
-        <div class="brother-panel" id="brotherPanel">
-            <button class="brother-panel-close" id="brotherPanelClose" aria-label="Close panel">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <line x1="18" y1="6" x2="6" y2="18"></line>
-                    <line x1="6" y1="6" x2="18" y2="18"></line>
-                </svg>
-            </button>
-            <div class="brother-panel-content" id="brotherPanelContent">
-                <!-- Panel content will be dynamically generated here -->
             </div>
         </div>
     </div>
 
+    <script src="brothers-data.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
+
