@@ -16,18 +16,73 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }, observerOptions);
 
-    // Animate hero content on load
-    const heroContent = document.querySelector('.hero-content');
-    if (heroContent) {
-        heroContent.style.opacity = '0';
-        heroContent.style.transform = 'translateY(20px)';
-        heroContent.style.transition = 'opacity 1s ease-out, transform 1s ease-out';
+    // Typewriter effect function - types continuously across both lines
+    function typeWriterContinuous(line1, line2, text1, text2, speed, callback) {
+        let i = 0;
+        const fullText = text1 + ' ' + text2;
+        line1.textContent = '';
+        line2.textContent = '';
+        line1.classList.add('typing');
         
-        setTimeout(() => {
-            heroContent.style.opacity = '1';
-            heroContent.style.transform = 'translateY(0)';
-        }, 100);
+        function type() {
+            if (i < fullText.length) {
+                const char = fullText.charAt(i);
+                const currentPos = i;
+                
+                // Determine which line to add the character to
+                if (currentPos < text1.length) {
+                    line1.textContent += char;
+                } else if (currentPos === text1.length) {
+                    // Space between lines - show line 2 and start typing
+                    line2.classList.add('typing');
+                    line2.textContent += char;
+                } else {
+                    // Typing in line 2
+                    line2.textContent += char;
+                }
+                
+                i++;
+                setTimeout(type, speed);
+            } else {
+                // Finished typing
+                line1.classList.remove('typing');
+                line1.classList.add('complete');
+                line2.classList.remove('typing');
+                line2.classList.add('complete');
+                if (callback) callback();
+            }
+        }
+        
+        type();
     }
+    
+    // Animate hero content with typewriter effect
+    function animateHeroContent() {
+        const line1 = document.querySelector('.line-1');
+        const line2 = document.querySelector('.line-2');
+        const subtext = document.querySelector('.hero-subtext');
+        
+        if (line1 && line2) {
+            const text1 = line1.textContent.trim();
+            const text2 = line2.textContent.trim();
+            
+            setTimeout(() => {
+                typeWriterContinuous(line1, line2, text1, text2, 80, () => {
+                    // After typing completes, show subtitle
+                    if (subtext) {
+                        setTimeout(() => {
+                            subtext.classList.add('animated');
+                        }, 300);
+                    }
+                });
+            }, 300);
+        }
+    }
+    
+    // Start animation after page load
+    setTimeout(() => {
+        animateHeroContent();
+    }, 100);
 
     // Smooth scroll enhancement
     let isScrolling = false;

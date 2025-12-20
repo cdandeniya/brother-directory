@@ -95,16 +95,18 @@ body.loaded {
     text-transform: uppercase;
     color: #000;
     white-space: nowrap;
-    animation: floatUpDown 3s ease-in-out infinite;
+    animation: floatUpDown 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
     display: inline-block;
+    opacity: 1;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 @keyframes floatUpDown {
     0%, 100% {
-        transform: translateY(0);
+        transform: translateY(0px);
     }
     50% {
-        transform: translateY(-8px);
+        transform: translateY(-18px);
     }
 }
 
@@ -159,12 +161,60 @@ body.loaded {
     display: flex;
     flex-direction: column;
     gap: 0;
-    color: #000;
 }
 
 .line-1,
 .line-2 {
     display: block;
+    color: #000;
+    overflow: hidden;
+    position: relative;
+}
+
+.line-2 {
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+}
+
+.line-2.typing,
+.line-2.complete {
+    opacity: 1 !important;
+    max-height: 200px;
+    overflow: visible;
+}
+
+.line-1::after,
+.line-2::after {
+    content: '|';
+    display: inline-block;
+    animation: blink 1s infinite;
+    margin-left: 4px;
+    opacity: 0;
+    vertical-align: text-top;
+    font-weight: 300;
+    color: #000;
+    line-height: 1;
+    height: 1em;
+}
+
+.line-1.typing::after,
+.line-2.typing::after {
+    opacity: 1;
+}
+
+.line-1.complete::after,
+.line-2.complete::after {
+    display: none;
+}
+
+@keyframes blink {
+    0%, 50% {
+        opacity: 1;
+    }
+    51%, 100% {
+        opacity: 0;
+    }
 }
 
 .hero-subtext {
@@ -174,6 +224,14 @@ body.loaded {
     color: #000;
     max-width: 680px;
     margin: 0 auto;
+    opacity: 0;
+    transform: translateY(30px);
+}
+
+.hero-subtext.animated {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1) 1.2s, transform 1.2s cubic-bezier(0.16, 1, 0.3, 1) 1.2s;
 }
 
 /* Scroll Indicator */
