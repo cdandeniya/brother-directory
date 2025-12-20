@@ -178,65 +178,70 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // Custom blue circle cursor - always visible with smooth follow
-    const cursor = document.createElement('div');
-    cursor.className = 'custom-cursor';
-    cursor.style.cssText = `
-        width: 20px;
-        height: 20px;
-        border: 2px solid #3B82F6;
-        border-radius: 50%;
-        position: fixed;
-        pointer-events: none;
-        z-index: 9999;
-        transition: left 0.6s cubic-bezier(0.23, 1, 0.32, 1), top 0.6s cubic-bezier(0.23, 1, 0.32, 1), transform 0.2s ease-out, border-color 0.2s ease-out;
-        transform: translate(-50%, -50%) scale(1);
-        opacity: 1;
-        left: 50%;
-        top: 50%;
-    `;
-    document.body.appendChild(cursor);
+    // Custom blue circle cursor - only on desktop (not mobile/touch devices)
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || 
+                     ('ontouchstart' in window) || 
+                     (navigator.maxTouchPoints > 0) ||
+                     window.innerWidth <= 768;
     
-    // Custom cursor is visible but default cursor is also available
-    
-    let mouseX = window.innerWidth / 2;
-    let mouseY = window.innerHeight / 2;
-    let cursorX = mouseX;
-    let cursorY = mouseY;
-    
-    // Smooth cursor following using requestAnimationFrame
-    function animateCursor() {
-        // Smooth interpolation
-        cursorX += (mouseX - cursorX) * 0.15;
-        cursorY += (mouseY - cursorY) * 0.15;
+    if (!isMobile) {
+        const cursor = document.createElement('div');
+        cursor.className = 'custom-cursor';
+        cursor.style.cssText = `
+            width: 20px;
+            height: 20px;
+            border: 2px solid #3B82F6;
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transition: left 0.6s cubic-bezier(0.23, 1, 0.32, 1), top 0.6s cubic-bezier(0.23, 1, 0.32, 1), transform 0.2s ease-out, border-color 0.2s ease-out;
+            transform: translate(-50%, -50%) scale(1);
+            opacity: 1;
+            left: 50%;
+            top: 50%;
+        `;
+        document.body.appendChild(cursor);
         
-        cursor.style.left = cursorX + 'px';
-        cursor.style.top = cursorY + 'px';
+        let mouseX = window.innerWidth / 2;
+        let mouseY = window.innerHeight / 2;
+        let cursorX = mouseX;
+        let cursorY = mouseY;
         
-        requestAnimationFrame(animateCursor);
+        // Smooth cursor following using requestAnimationFrame
+        function animateCursor() {
+            // Smooth interpolation
+            cursorX += (mouseX - cursorX) * 0.15;
+            cursorY += (mouseY - cursorY) * 0.15;
+            
+            cursor.style.left = cursorX + 'px';
+            cursor.style.top = cursorY + 'px';
+            
+            requestAnimationFrame(animateCursor);
+        }
+        
+        animateCursor();
+        
+        // Update mouse position
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+        });
+        
+        // Scale up on hover over interactive elements
+        const interactiveElements = document.querySelectorAll('a, button, .brother-card');
+        interactiveElements.forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                cursor.style.transform = 'translate(-50%, -50%) scale(1.5)';
+                cursor.style.borderColor = '#1E3A8A';
+            });
+            
+            el.addEventListener('mouseleave', () => {
+                cursor.style.transform = 'translate(-50%, -50%) scale(1)';
+                cursor.style.borderColor = '#3B82F6';
+            });
+        });
     }
-    
-    animateCursor();
-    
-    // Update mouse position
-    document.addEventListener('mousemove', (e) => {
-        mouseX = e.clientX;
-        mouseY = e.clientY;
-    });
-    
-    // Scale up on hover over interactive elements
-    const interactiveElements = document.querySelectorAll('a, button, .brother-card');
-    interactiveElements.forEach(el => {
-        el.addEventListener('mouseenter', () => {
-            cursor.style.transform = 'translate(-50%, -50%) scale(1.5)';
-            cursor.style.borderColor = '#1E3A8A';
-        });
-        
-        el.addEventListener('mouseleave', () => {
-            cursor.style.transform = 'translate(-50%, -50%) scale(1)';
-            cursor.style.borderColor = '#3B82F6';
-        });
-    });
 
     // Smooth page transitions
     document.body.style.opacity = '0';
