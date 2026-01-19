@@ -791,7 +791,11 @@ document.addEventListener('DOMContentLoaded', function() {
     // Close profile modal
     function closeProfile() {
         profileModal.classList.remove('active');
+        // Prevent scrolling on body and html
         document.body.style.overflow = '';
+        document.body.style.position = '';
+        document.documentElement.style.overflow = '';
+        document.documentElement.style.position = '';
         // Clear the current brother name when closing
         if (profileModal) {
             delete profileModal.dataset.currentBrother;
@@ -849,7 +853,13 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Show modal immediately
         profileModal.classList.add('active');
+        // Prevent scrolling on body and html (important for Squarespace embedding)
         document.body.style.overflow = 'hidden';
+        document.body.style.position = 'fixed';
+        document.body.style.width = '100%';
+        document.documentElement.style.overflow = 'hidden';
+        document.documentElement.style.position = 'fixed';
+        document.documentElement.style.width = '100%';
         
         // Set the profile image source
         if (profileImage) {
