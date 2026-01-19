@@ -155,11 +155,61 @@ function isChair(brotherName) {
     return chairs.includes(brotherName);
 }
 
+// Starred functionality with localStorage
+function getStarredBrothers() {
+    try {
+        const starred = localStorage.getItem('starredBrothers');
+        return starred ? JSON.parse(starred) : [];
+    } catch (e) {
+        return [];
+    }
+}
+
+function setStarredBrothers(starredList) {
+    try {
+        localStorage.setItem('starredBrothers', JSON.stringify(starredList));
+    } catch (e) {
+        console.error('Failed to save starred brothers:', e);
+    }
+}
+
+function toggleStar(brotherName) {
+    const starred = getStarredBrothers();
+    const index = starred.indexOf(brotherName);
+    
+    if (index > -1) {
+        starred.splice(index, 1);
+    } else {
+        starred.push(brotherName);
+    }
+    
+    setStarredBrothers(starred);
+    updateProfileStarButton(brotherName);
+    applyFilters(); // Reapply filters to update visibility
+}
+
+function updateProfileStarButton(brotherName) {
+    const starBtn = document.getElementById('profileStarBtn');
+    if (starBtn && brotherName) {
+        const isStarred = getStarredBrothers().includes(brotherName);
+        const starIcon = starBtn.querySelector('.profile-star-icon');
+        
+        if (isStarred) {
+            starBtn.classList.add('starred');
+            if (starIcon) {
+                starIcon.setAttribute('fill', 'currentColor');
+            }
+        } else {
+            starBtn.classList.remove('starred');
+            if (starIcon) {
+                starIcon.setAttribute('fill', 'none');
+            }
+        }
+    }
+}
+
 function isStarred(brotherName) {
-    // For now, we'll need to add a 'starred' field to brothersData
-    // Or you can manually define a list of starred brothers
-    const data = brothersData[brotherName];
-    return data && data.starred === true;
+    return getStarredBrothers().includes(brotherName);
 }
 
 function applyFilters() {
@@ -680,6 +730,7 @@ function setupHoverEffectsWithRetry() {
         return;
     }
     setupCardHoverEffects();
+    setupStarButtons(); // Setup star buttons when cards are ready
 }
 setTimeout(setupHoverEffectsWithRetry, 200);
 
@@ -690,6 +741,19 @@ document.addEventListener('DOMContentLoaded', function() {
     
     const profileClose = document.querySelector('.profile-close');
     const profileOverlay = document.querySelector('.profile-modal-overlay');
+    
+    // Setup profile star button
+    const profileStarBtn = document.getElementById('profileStarBtn');
+    if (profileStarBtn) {
+        profileStarBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            const profileName = document.querySelector('.profile-name');
+            if (profileName && profileName.textContent) {
+                const brotherName = profileName.textContent;
+                toggleStar(brotherName);
+            }
+        });
+    }
     
     // Use event delegation for dynamically generated buttons
     document.addEventListener('click', function(e) {
@@ -1167,6 +1231,9 @@ document.addEventListener('DOMContentLoaded', function() {
         if (profileName) {
             profileName.textContent = data.fullName;
         }
+        
+        // Update star button
+        updateProfileStarButton(brotherName);
         
         // Set all detail fields
         const fields = {
