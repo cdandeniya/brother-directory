@@ -122,13 +122,30 @@ document.addEventListener('DOMContentLoaded', function() {
         observer.observe(sectionTitle);
     }
 
-    // Animate brother cards with stagger
+    // Animate brother cards as they scroll into view with subtle stagger
     const brotherCards = document.querySelectorAll('.brother-card');
-    brotherCards.forEach((card, index) => {
-        card.style.opacity = '0';
-        card.style.transform = 'translate(0, 30px) scale(0.95)';
-        card.style.transition = `opacity 0.6s ease-out ${index * 0.1}s, transform 0.6s ease-out ${index * 0.1}s`;
-        observer.observe(card);
+    const cardObserver = new IntersectionObserver(function(entries) {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+                // Get card's index to calculate stagger delay
+                const cardIndex = Array.from(brotherCards).indexOf(entry.target);
+                const colIndex = cardIndex % 4; // Column position (0-3)
+                
+                // Subtle stagger: 30ms delay per card in row for smooth sequential appearance
+                setTimeout(() => {
+                    entry.target.classList.add('visible');
+                }, colIndex * 30);
+                
+                cardObserver.unobserve(entry.target); // Stop observing once animated
+            }
+        });
+    }, {
+        threshold: 0.1,
+        rootMargin: '0px 0px -100px 0px' // Trigger earlier for smoother appearance
+    });
+    
+    brotherCards.forEach((card) => {
+        cardObserver.observe(card);
     });
 
     // Smooth scroll indicator click

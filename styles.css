@@ -314,12 +314,19 @@ body.loaded {
     border-radius: 20px;
     overflow: hidden;
     cursor: pointer;
-    transition: box-shadow 0.3s ease;
+    transition: box-shadow 0.3s ease, opacity 0.6s ease-out, transform 0.6s ease-out;
     position: relative;
     background: #fff;
-    transform: translate(0, 0) translateZ(0);
-    -webkit-transform: translate(0, 0) translateZ(0);
-    will-change: transform;
+    transform: translate(0, 30px) scale(0.95) translateZ(0);
+    -webkit-transform: translate(0, 30px) scale(0.95) translateZ(0);
+    will-change: transform, opacity;
+    opacity: 0;
+}
+
+.brother-card.visible {
+    opacity: 1;
+    transform: translate(0, 0) scale(1) translateZ(0);
+    -webkit-transform: translate(0, 0) scale(1) translateZ(0);
 }
 
 .card-overlay {
@@ -842,23 +849,23 @@ body.loaded {
     z-index: 3;
 }
 
-/* DSP color accents on different cards - each card has a different color */
-.brother-card:nth-child(1):hover::before {
+/* DSP color accents on different cards - each card has a different color on hover */
+.brother-card:nth-child(4n+1):hover::before {
     border-color: #3B82F6;
     box-shadow: 0 0 0 1px rgba(59, 130, 246, 0.1), 0 8px 24px rgba(59, 130, 246, 0.2);
 }
 
-.brother-card:nth-child(2):hover::before {
+.brother-card:nth-child(4n+2):hover::before {
     border-color: #DC2626;
     box-shadow: 0 0 0 1px rgba(220, 38, 38, 0.1), 0 8px 24px rgba(220, 38, 38, 0.2);
 }
 
-.brother-card:nth-child(3):hover::before {
+.brother-card:nth-child(4n+3):hover::before {
     border-color: #F59E0B;
     box-shadow: 0 0 0 1px rgba(245, 158, 11, 0.1), 0 8px 24px rgba(245, 158, 11, 0.2);
 }
 
-.brother-card:nth-child(4):hover::before {
+.brother-card:nth-child(4n+4):hover::before {
     border-color: #9333EA;
     box-shadow: 0 0 0 1px rgba(147, 51, 234, 0.1), 0 8px 24px rgba(147, 51, 234, 0.2);
 }
