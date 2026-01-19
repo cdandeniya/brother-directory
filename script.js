@@ -68,11 +68,11 @@ document.addEventListener('DOMContentLoaded', function() {
             
             setTimeout(() => {
                 typeWriterContinuous(line1, line2, text1, text2, 80, () => {
-                    // After typing completes, show subtitle
+                    // After typing completes, show subtitle immediately
                     if (subtext) {
                         setTimeout(() => {
                             subtext.classList.add('animated');
-                        }, 300);
+                        }, 100);
                     }
                 });
             }, 300);
