@@ -33,7 +33,7 @@ function generateShuffledBrotherCards() {
         'Rashna Kasaju', // Note: user said "Rashua Kasaju" but data has "Rashna Kasaju"
         'Samuel Zou',
         'Luke Alexander',
-        'Feyintoluwa Bolaji',
+        'Tolu Bolaji',
         'Ana Jiang',
         'Anna Lin',
         'Camila Sanchez',
@@ -145,7 +145,7 @@ function isChair(brotherName) {
         'William Sim',
         'Jenny Chen',
         'Ashley Lee',
-        'Feyintoluwa Bolaji',
+        'Tolu Bolaji',
         'Anna Lin',
         'Aidan Chan',
         'Camila Sanchez',
