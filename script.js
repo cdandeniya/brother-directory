@@ -1,5 +1,132 @@
+// Shuffle function using Fisher-Yates algorithm
+function shuffleArray(array) {
+    const shuffled = [...array];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    return shuffled;
+}
+
+// Dynamically generate and shuffle brother cards in three groups
+function generateShuffledBrotherCards() {
+    if (typeof brothersData === 'undefined') {
+        console.error('Brothers data not loaded');
+        return;
+    }
+    
+    // Define groups (using exact names from brothersData)
+    const yesGroup = [
+        'Isabelle Baginski',
+        'Yuta Kawamura',
+        'Connor Wong', // Note: user said "Connor Wang" but data has "Connor Wong"
+        'Henry Cai',
+        'Aidan Chan',
+        'Hannah Kim',
+        'Siena Rahman',
+        'Charleen You',
+        'Rainer Duchmanh'
+    ];
+    
+    const idkGroup = [
+        'Carrie Song',
+        'Rashna Kasaju', // Note: user said "Rashua Kasaju" but data has "Rashna Kasaju"
+        'Samuel Zou',
+        'Luke Alexander',
+        'Feyintoluwa Bolaji',
+        'Ana Jiang',
+        'Anna Lin',
+        'Camila Sanchez',
+        'Steven Ye',
+        'Alex Chan'
+    ];
+    
+    const noGroup = [
+        'Sandra Obrycki',
+        'Michelle Weng',
+        'Karan Grover',
+        'Estella Saha',
+        'Naoki Sekine',
+        'Madison Stone',
+        'Jaelyn Gunter',
+        'Jack Hardiman',
+        'Chanul Dandeniya',
+        'Vincent Ouyang',
+        'Laaibah Shoaib',
+        'Daniel Yoo',
+        'Adrian Morel',
+        'Brian Ren',
+        'Jenny Chen',
+        'Natsumi Ekanayaka',
+        'Ashley Lee',
+        'Aldo Ramirez',
+        'Reon Sarkar',
+        'Walter Benitez',
+        'Claudelle Cortez',
+        'Jahzeel Requena',
+        'Waylene Hui',
+        'Joshua Jacob',
+        'James Kyung',
+        'William Sim',
+        'Jaden Yang'
+    ];
+    
+    // Filter groups to only include names that exist in brothersData
+    const yesFiltered = yesGroup.filter(name => brothersData[name]);
+    const idkFiltered = idkGroup.filter(name => brothersData[name]);
+    const noFiltered = noGroup.filter(name => brothersData[name]);
+    
+    // Shuffle each group separately
+    const shuffledYes = shuffleArray(yesFiltered);
+    const shuffledIdk = shuffleArray(idkFiltered);
+    const shuffledNo = shuffleArray(noFiltered);
+    
+    // Combine in order: Yes (top), IDK (middle), No (bottom)
+    const finalOrder = [...shuffledYes, ...shuffledIdk, ...shuffledNo];
+    
+    // Get the brothers grid container
+    const brothersGrid = document.querySelector('.brothers-grid');
+    if (!brothersGrid) {
+        console.error('Brothers grid not found');
+        return;
+    }
+    
+    // Clear existing cards
+    brothersGrid.innerHTML = '';
+    
+    // Generate cards in grouped and shuffled order
+    finalOrder.forEach(brotherName => {
+        const data = brothersData[brotherName];
+        if (!data) return;
+        
+        const card = document.createElement('div');
+        card.className = 'brother-card';
+        card.innerHTML = `
+            <div class="card-image">
+                <img src="${data.image}" alt="${data.fullName}">
+            </div>
+            <div class="card-overlay">
+                <h3 class="brother-name">${data.fullName}</h3>
+                <button class="view-profile-btn">View Profile</button>
+            </div>
+        `;
+        
+        brothersGrid.appendChild(card);
+    });
+}
+
 // Smooth scroll behavior
 document.addEventListener('DOMContentLoaded', function() {
+    // Generate shuffled cards - wait for brothersData to be available
+    function tryGenerateCards() {
+        if (typeof brothersData !== 'undefined' && Object.keys(brothersData).length > 0) {
+            generateShuffledBrotherCards();
+        } else {
+            // Retry after a short delay if data isn't loaded yet
+            setTimeout(tryGenerateCards, 50);
+        }
+    }
+    tryGenerateCards();
     
     // Intersection Observer for fade-in animations
     const observerOptions = {
@@ -123,30 +250,42 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Animate brother cards as they scroll into view with subtle stagger
-    const brotherCards = document.querySelectorAll('.brother-card');
-    const cardObserver = new IntersectionObserver(function(entries) {
-        entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-                // Get card's index to calculate stagger delay
-                const cardIndex = Array.from(brotherCards).indexOf(entry.target);
-                const colIndex = cardIndex % 4; // Column position (0-3)
-                
-                // Subtle stagger: 30ms delay per card in row for smooth sequential appearance
-                setTimeout(() => {
-                    entry.target.classList.add('visible');
-                }, colIndex * 30);
-                
-                cardObserver.unobserve(entry.target); // Stop observing once animated
-            }
+    // Use a function that can be called after cards are generated
+    function setupCardAnimations() {
+        const brotherCards = document.querySelectorAll('.brother-card');
+        if (brotherCards.length === 0) {
+            // Cards not generated yet, retry
+            setTimeout(setupCardAnimations, 100);
+            return;
+        }
+        
+        const cardObserver = new IntersectionObserver(function(entries) {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    // Get card's index to calculate stagger delay
+                    const cardIndex = Array.from(brotherCards).indexOf(entry.target);
+                    const colIndex = cardIndex % 4; // Column position (0-3)
+                    
+                    // Subtle stagger: 30ms delay per card in row for smooth sequential appearance
+                    setTimeout(() => {
+                        entry.target.classList.add('visible');
+                    }, colIndex * 30);
+                    
+                    cardObserver.unobserve(entry.target); // Stop observing once animated
+                }
+            });
+        }, {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px' // Trigger earlier for smoother appearance
         });
-    }, {
-        threshold: 0.1,
-        rootMargin: '0px 0px -100px 0px' // Trigger earlier for smoother appearance
-    });
+        
+        brotherCards.forEach((card) => {
+            cardObserver.observe(card);
+        });
+    }
     
-    brotherCards.forEach((card) => {
-        cardObserver.observe(card);
-    });
+    // Setup animations after cards are generated
+    setTimeout(setupCardAnimations, 200);
 
     // Smooth scroll indicator click
     const scrollIndicator = document.querySelector('.scroll-indicator');
@@ -293,58 +432,72 @@ document.addEventListener('click', function(e) {
 });
 
 // Add subtle floating hover effect that stays centered and floats in a square
-document.querySelectorAll('.brother-card').forEach(card => {
-    let animationFrame = null;
-    let startTime = null;
-    let isAnimating = false;
-    const hoverDistance = 6; // pixels to move in each direction
-    
-    card.addEventListener('mouseenter', function() {
-        const cardElement = this;
+// Use event delegation or wait for cards to be generated
+function setupCardHoverEffects() {
+    document.querySelectorAll('.brother-card').forEach(card => {
+        let animationFrame = null;
+        let startTime = null;
+        let isAnimating = false;
+        const hoverDistance = 6; // pixels to move in each direction
         
-        // Stop any existing animation
-        if (animationFrame) {
-            cancelAnimationFrame(animationFrame);
-        }
-        
-        // Reset to center position first
-        cardElement.style.transition = 'none';
-        cardElement.style.transform = 'translate(0, -8px) scale(1.02)';
-        
-        startTime = performance.now();
-        isAnimating = true;
-        
-        function animate(currentTime) {
-            if (!isAnimating) return;
+        card.addEventListener('mouseenter', function() {
+            const cardElement = this;
             
-            if (!startTime) startTime = currentTime;
-            const elapsed = currentTime - startTime;
+            // Stop any existing animation
+            if (animationFrame) {
+                cancelAnimationFrame(animationFrame);
+            }
             
-            // Create a smooth floating motion within a square pattern
-            // Using different frequencies for x and y to create a circular/square pattern
-            const x = Math.sin(elapsed / 2000) * hoverDistance;
-            const y = Math.cos(elapsed / 1800) * hoverDistance;
+            // Reset to center position first
+            cardElement.style.transition = 'none';
+            cardElement.style.transform = 'translate(0, -8px) scale(1.02)';
             
-            // Apply transform: translate for floating around center, scale for zoom
-            // NO rotation, NO translateX/translateY separately - use translate() to keep centered
-            cardElement.style.transform = `translate(${x}px, ${y - 8}px) scale(1.02)`;
+            startTime = performance.now();
+            isAnimating = true;
+            
+            function animate(currentTime) {
+                if (!isAnimating) return;
+                
+                if (!startTime) startTime = currentTime;
+                const elapsed = currentTime - startTime;
+                
+                // Create a smooth floating motion within a square pattern
+                // Using different frequencies for x and y to create a circular/square pattern
+                const x = Math.sin(elapsed / 2000) * hoverDistance;
+                const y = Math.cos(elapsed / 1800) * hoverDistance;
+                
+                // Apply transform: translate for floating around center, scale for zoom
+                // NO rotation, NO translateX/translateY separately - use translate() to keep centered
+                cardElement.style.transform = `translate(${x}px, ${y - 8}px) scale(1.02)`;
+                
+                animationFrame = requestAnimationFrame(animate);
+            }
             
             animationFrame = requestAnimationFrame(animate);
-        }
+        });
         
-        animationFrame = requestAnimationFrame(animate);
+        card.addEventListener('mouseleave', function() {
+            isAnimating = false;
+            if (animationFrame) {
+                cancelAnimationFrame(animationFrame);
+                animationFrame = null;
+            }
+            this.style.transition = 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
+            this.style.transform = 'translate(0, 0) scale(1)';
+        });
     });
-    
-    card.addEventListener('mouseleave', function() {
-        isAnimating = false;
-        if (animationFrame) {
-            cancelAnimationFrame(animationFrame);
-            animationFrame = null;
-        }
-        this.style.transition = 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
-        this.style.transform = 'translate(0, 0) scale(1)';
-    });
-});
+}
+
+// Setup hover effects after cards are generated
+function setupHoverEffectsWithRetry() {
+    const cards = document.querySelectorAll('.brother-card');
+    if (cards.length === 0) {
+        setTimeout(setupHoverEffectsWithRetry, 100);
+        return;
+    }
+    setupCardHoverEffects();
+}
+setTimeout(setupHoverEffectsWithRetry, 200);
 
 // Profile Modal Functionality
 document.addEventListener('DOMContentLoaded', function() {
@@ -353,19 +506,20 @@ document.addEventListener('DOMContentLoaded', function() {
     
     const profileClose = document.querySelector('.profile-close');
     const profileOverlay = document.querySelector('.profile-modal-overlay');
-    const viewProfileButtons = document.querySelectorAll('.view-profile-btn');
     
-    // Open profile modal with morphing animation
-    viewProfileButtons.forEach((button) => {
-        button.addEventListener('click', function(e) {
+    // Use event delegation for dynamically generated buttons
+    document.addEventListener('click', function(e) {
+        if (e.target.classList.contains('view-profile-btn') || e.target.closest('.view-profile-btn')) {
+            const button = e.target.classList.contains('view-profile-btn') ? e.target : e.target.closest('.view-profile-btn');
             e.stopPropagation();
-            const card = this.closest('.brother-card');
+            const card = button.closest('.brother-card');
+            if (!card) return;
             const image = card.querySelector('.card-image img');
             const nameElement = card.querySelector('.brother-name');
             const brotherName = nameElement.textContent;
             
             openProfileWithAnimation(brotherName, image, card);
-        });
+        }
     });
     
     // Close profile modal
