@@ -816,6 +816,15 @@ document.addEventListener('DOMContentLoaded', function() {
         // Restore scroll position
         window.scrollTo(0, parseInt(scrollY) || 0);
         
+        // Notify parent window (Squarespace) to restore scrolling
+        if (window.parent !== window) {
+            try {
+                window.parent.postMessage({ type: 'MODAL_CLOSE', scrollY: scrollY }, '*');
+            } catch (e) {
+                console.log('Could not communicate with parent window');
+            }
+        }
+        
         // Clear the current brother name when closing
         if (profileModal) {
             delete profileModal.dataset.currentBrother;
@@ -930,6 +939,15 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Store scroll position for restoration
         profileModal.dataset.scrollY = scrollY;
+        
+        // Notify parent window (Squarespace) to prevent scrolling
+        if (window.parent !== window) {
+            try {
+                window.parent.postMessage({ type: 'MODAL_OPEN', scrollY: scrollY }, '*');
+            } catch (e) {
+                console.log('Could not communicate with parent window');
+            }
+        }
         
         // Set the profile image source
         if (profileImage) {
