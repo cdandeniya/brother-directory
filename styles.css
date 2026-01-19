@@ -12,6 +12,13 @@ html {
     scroll-padding-top: 0;
 }
 
+html.modal-open {
+    overflow: hidden !important;
+    position: fixed !important;
+    width: 100% !important;
+    height: 100% !important;
+}
+
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
     color: #000;
@@ -21,6 +28,15 @@ body {
     position: relative;
     scroll-behavior: smooth;
     overscroll-behavior: smooth;
+}
+
+body.modal-open {
+    overflow: hidden !important;
+    position: fixed !important;
+    width: 100% !important;
+    height: 100% !important;
+    top: 0 !important;
+    left: 0 !important;
 }
 
 body.is-scrolling {
@@ -736,6 +752,7 @@ body.loaded {
     width: 100vw;
     height: 100vh;
     min-height: 100vh;
+    max-height: 100vh;
     z-index: 999999;
     display: flex;
     align-items: center;
@@ -744,6 +761,7 @@ body.loaded {
     visibility: hidden;
     transition: opacity 0.3s ease, visibility 0.3s ease;
     overflow: hidden;
+    touch-action: none;
 }
 
 .profile-modal.active {
@@ -758,10 +776,13 @@ body.loaded {
     width: 100vw;
     height: 100vh;
     min-height: 100vh;
+    max-height: 100vh;
     background: rgba(0, 0, 0, 0.95);
     backdrop-filter: blur(8px);
     z-index: 1000000;
     overflow: hidden;
+    touch-action: none;
+    overscroll-behavior: none;
 }
 
 .profile-content {

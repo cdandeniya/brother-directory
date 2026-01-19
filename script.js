@@ -791,14 +791,35 @@ document.addEventListener('DOMContentLoaded', function() {
     // Close profile modal
     function closeProfile() {
         profileModal.classList.remove('active');
-        // Prevent scrolling on body and html
+        
+        // Restore scroll position
+        const scrollY = profileModal.dataset.scrollY || 0;
+        
+        // Remove modal-open classes
+        document.body.classList.remove('modal-open');
+        document.documentElement.classList.remove('modal-open');
+        
+        // Restore scrolling on body and html
         document.body.style.overflow = '';
         document.body.style.position = '';
+        document.body.style.top = '';
+        document.body.style.width = '';
+        document.body.style.height = '';
+        document.body.style.left = '';
         document.documentElement.style.overflow = '';
         document.documentElement.style.position = '';
+        document.documentElement.style.width = '';
+        document.documentElement.style.height = '';
+        document.documentElement.style.top = '';
+        document.documentElement.style.left = '';
+        
+        // Restore scroll position
+        window.scrollTo(0, parseInt(scrollY) || 0);
+        
         // Clear the current brother name when closing
         if (profileModal) {
             delete profileModal.dataset.currentBrother;
+            delete profileModal.dataset.scrollY;
         }
     }
     
@@ -828,6 +849,40 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
+    // Prevent scrolling when modal is open (additional safety for Squarespace)
+    let scrollPreventionHandler = function(e) {
+        if (profileModal.classList.contains('active')) {
+            // Only allow scrolling inside the modal content
+            const profileContent = document.querySelector('.profile-content');
+            if (profileContent && !profileContent.contains(e.target)) {
+                e.preventDefault();
+                e.stopPropagation();
+                return false;
+            }
+        }
+    };
+    
+    // Prevent wheel scrolling outside modal
+    document.addEventListener('wheel', scrollPreventionHandler, { passive: false });
+    
+    // Prevent touch scrolling outside modal
+    document.addEventListener('touchmove', scrollPreventionHandler, { passive: false });
+    
+    // Prevent keyboard scrolling (arrow keys, space, page up/down)
+    document.addEventListener('keydown', function(e) {
+        if (profileModal.classList.contains('active')) {
+            const profileContent = document.querySelector('.profile-content');
+            if (profileContent && !profileContent.contains(e.target)) {
+                const scrollKeys = [32, 33, 34, 35, 36, 37, 38, 39, 40]; // space, page up/down, home/end, arrows
+                if (scrollKeys.includes(e.keyCode)) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    return false;
+                }
+            }
+        }
+    });
+    
     function openProfileWithAnimation(brotherName, sourceImage, sourceCard) {
         const imageSrc = sourceImage.src;
         
@@ -853,13 +908,28 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Show modal immediately
         profileModal.classList.add('active');
+        
+        // Store current scroll position
+        const scrollY = window.scrollY || window.pageYOffset || document.documentElement.scrollTop;
+        
         // Prevent scrolling on body and html (important for Squarespace embedding)
+        document.body.classList.add('modal-open');
+        document.documentElement.classList.add('modal-open');
         document.body.style.overflow = 'hidden';
         document.body.style.position = 'fixed';
+        document.body.style.top = `-${scrollY}px`;
         document.body.style.width = '100%';
+        document.body.style.height = '100%';
+        document.body.style.left = '0';
         document.documentElement.style.overflow = 'hidden';
         document.documentElement.style.position = 'fixed';
         document.documentElement.style.width = '100%';
+        document.documentElement.style.height = '100%';
+        document.documentElement.style.top = '0';
+        document.documentElement.style.left = '0';
+        
+        // Store scroll position for restoration
+        profileModal.dataset.scrollY = scrollY;
         
         // Set the profile image source
         if (profileImage) {
