@@ -174,18 +174,27 @@ function setStarredBrothers(starredList) {
 }
 
 function toggleStar(brotherName) {
+    if (!brotherName) {
+        console.error('No brother name provided to toggleStar');
+        return;
+    }
+    
     const starred = getStarredBrothers();
     const index = starred.indexOf(brotherName);
-    
+
     if (index > -1) {
         starred.splice(index, 1);
     } else {
         starred.push(brotherName);
     }
-    
+
     setStarredBrothers(starred);
     updateProfileStarButton(brotherName);
-    applyFilters(); // Reapply filters to update visibility
+    
+    // Only apply filters if filters are set up
+    if (typeof applyFilters === 'function') {
+        applyFilters(); // Reapply filters to update visibility
+    }
 }
 
 function updateProfileStarButton(brotherName) {
@@ -747,10 +756,19 @@ document.addEventListener('DOMContentLoaded', function() {
     if (profileStarBtn) {
         profileStarBtn.addEventListener('click', function(e) {
             e.stopPropagation();
-            const profileName = document.querySelector('.profile-name');
-            if (profileName && profileName.textContent) {
-                const brotherName = profileName.textContent;
+            e.preventDefault();
+            // Get brother name from modal data attribute (more reliable than reading DOM)
+            const profileModal = document.getElementById('profileModal');
+            if (profileModal && profileModal.dataset.currentBrother) {
+                const brotherName = profileModal.dataset.currentBrother;
                 toggleStar(brotherName);
+            } else {
+                // Fallback: try reading from profile name element
+                const profileName = document.querySelector('.profile-name');
+                if (profileName && profileName.textContent) {
+                    const brotherName = profileName.textContent;
+                    toggleStar(brotherName);
+                }
             }
         });
     }
@@ -774,6 +792,10 @@ document.addEventListener('DOMContentLoaded', function() {
     function closeProfile() {
         profileModal.classList.remove('active');
         document.body.style.overflow = '';
+        // Clear the current brother name when closing
+        if (profileModal) {
+            delete profileModal.dataset.currentBrother;
+        }
     }
     
     if (profileClose) {
@@ -804,6 +826,12 @@ document.addEventListener('DOMContentLoaded', function() {
     
     function openProfileWithAnimation(brotherName, sourceImage, sourceCard) {
         const imageSrc = sourceImage.src;
+        
+        // Store current brother name on modal immediately
+        const profileModal = document.getElementById('profileModal');
+        if (profileModal) {
+            profileModal.dataset.currentBrother = brotherName;
+        }
         
         // Clear previous information immediately
         clearProfileContent();
@@ -970,6 +998,22 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     function clearProfileContent() {
+        // Clear the current brother name from modal
+        const profileModal = document.getElementById('profileModal');
+        if (profileModal) {
+            delete profileModal.dataset.currentBrother;
+        }
+        
+        // Reset star button state
+        const starBtn = document.getElementById('profileStarBtn');
+        if (starBtn) {
+            starBtn.classList.remove('starred');
+            const starIcon = starBtn.querySelector('.profile-star-icon');
+            if (starIcon) {
+                starIcon.setAttribute('fill', 'none');
+            }
+        }
+        
         // Scroll to top of profile modal
         const profileContent = document.querySelector('.profile-content');
         const profileInfoSection = document.querySelector('.profile-info-section');
@@ -1064,6 +1108,12 @@ document.addEventListener('DOMContentLoaded', function() {
         if (!data) {
             console.error('No data found for:', brotherName);
             return;
+        }
+        
+        // Store current brother name on modal for easy access
+        const profileModal = document.getElementById('profileModal');
+        if (profileModal) {
+            profileModal.dataset.currentBrother = brotherName;
         }
         
         // Set name
@@ -1205,6 +1255,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 item.style.opacity = '1';
             }, 50 + (index * 25));
         });
+        
+        // Update star button state
+        updateProfileStarButton(brotherName);
     }
     
     function openProfile(brotherName, imageSrc) {
