@@ -101,6 +101,7 @@ function generateShuffledBrotherCards() {
         
         const card = document.createElement('div');
         card.className = 'brother-card';
+        card.dataset.brotherName = brotherName;
         card.innerHTML = `
             <div class="card-image">
                 <img src="${data.image}" alt="${data.fullName}">
@@ -113,7 +114,190 @@ function generateShuffledBrotherCards() {
         
         brothersGrid.appendChild(card);
     });
+    
+    // Apply any active filters after generating cards
+    applyFilters();
 }
+
+// Filter functionality
+function isEC(brotherName) {
+    // EC members list
+    const ecMembers = [
+        'Karan Grover',
+        'Carrie Song',
+        'Sandra Obrycki',
+        'Jaelyn Gunter',
+        'Isabelle Baginski',
+        'Samuel Zou',
+        'Connor Wong',
+        'Naoki Sekine',
+        'Charleen You'
+    ];
+    return ecMembers.includes(brotherName);
+}
+
+function isChair(brotherName) {
+    // Chairs list
+    const chairs = [
+        'James Kyung',
+        'Aldo Ramirez',
+        'Jahzeel Requena',
+        'William Sim',
+        'Jenny Chen',
+        'Ashley Lee',
+        'Feyintoluwa Bolaji',
+        'Anna Lin',
+        'Aidan Chan',
+        'Camila Sanchez',
+        'Walter Benitez',
+        'Claudelle Cortez'
+    ];
+    return chairs.includes(brotherName);
+}
+
+function isStarred(brotherName) {
+    // For now, we'll need to add a 'starred' field to brothersData
+    // Or you can manually define a list of starred brothers
+    const data = brothersData[brotherName];
+    return data && data.starred === true;
+}
+
+function applyFilters() {
+    const filterEC = document.getElementById('filter-ec');
+    const filterChairs = document.getElementById('filter-chairs');
+    const filterStarred = document.getElementById('filter-starred');
+    
+    if (!filterEC || !filterChairs || !filterStarred) return;
+    
+    const showEC = filterEC.checked;
+    const showChairs = filterChairs.checked;
+    const showStarred = filterStarred.checked;
+    
+    // If no filters are active, show all cards
+    const hasActiveFilters = showEC || showChairs || showStarred;
+    
+    const cards = document.querySelectorAll('.brother-card');
+    cards.forEach(card => {
+        const brotherName = card.dataset.brotherName;
+        if (!brotherName) return;
+        
+        let shouldShow = true;
+        
+        if (hasActiveFilters) {
+            shouldShow = false;
+            
+            // Show if matches any active filter
+            if (showEC && isEC(brotherName)) {
+                shouldShow = true;
+            }
+            if (showChairs && isChair(brotherName)) {
+                shouldShow = true;
+            }
+            if (showStarred && isStarred(brotherName)) {
+                shouldShow = true;
+            }
+        }
+        
+        if (shouldShow) {
+            card.classList.remove('hidden');
+        } else {
+            card.classList.add('hidden');
+        }
+    });
+}
+
+// Setup filter event listeners
+document.addEventListener('DOMContentLoaded', function() {
+    function setupFilters() {
+        const filtersToggle = document.getElementById('filtersToggle');
+        const filtersContainer = document.getElementById('filtersContainer');
+        const filterEC = document.getElementById('filter-ec');
+        const filterChairs = document.getElementById('filter-chairs');
+        const filterStarred = document.getElementById('filter-starred');
+        
+        if (!filterEC || !filterChairs || !filterStarred || !filtersToggle || !filtersContainer) {
+            setTimeout(setupFilters, 100);
+            return;
+        }
+        
+        // Toggle filters dropdown
+        filtersToggle.addEventListener('click', function(e) {
+            e.stopPropagation();
+            const isActive = filtersContainer.classList.contains('active');
+            const isMobile = window.innerWidth <= 768;
+            
+            if (isActive) {
+                filtersContainer.classList.remove('active');
+                filtersToggle.classList.remove('active');
+                if (isMobile) {
+                    filtersContainer.style.display = 'none';
+                }
+            } else {
+                filtersContainer.classList.add('active');
+                filtersToggle.classList.add('active');
+                if (isMobile) {
+                    filtersContainer.style.display = 'flex';
+                }
+            }
+        });
+        
+        // Close filters when clicking outside (desktop only)
+        document.addEventListener('click', function(e) {
+            const isMobile = window.innerWidth <= 768;
+            if (!isMobile && !filtersContainer.contains(e.target) && !filtersToggle.contains(e.target)) {
+                filtersContainer.classList.remove('active');
+                filtersToggle.classList.remove('active');
+            }
+        });
+        
+        // Prevent closing when clicking inside filters container
+        filtersContainer.addEventListener('click', function(e) {
+            e.stopPropagation();
+        });
+        
+        // Handle window resize
+        let resizeTimer;
+        window.addEventListener('resize', function() {
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(function() {
+                const isMobile = window.innerWidth <= 768;
+                if (isMobile) {
+                    // On mobile, show filters inline when active
+                    if (filtersContainer.classList.contains('active')) {
+                        filtersContainer.style.display = 'flex';
+                    }
+                } else {
+                    // On desktop, reset display
+                    filtersContainer.style.display = '';
+                }
+            }, 100);
+        });
+        
+        // Add click animation effect
+        function addClickAnimation(checkbox) {
+            checkbox.addEventListener('change', function() {
+                const checkboxLabel = checkbox.closest('.filter-checkbox');
+                if (checkboxLabel) {
+                    // Trigger animation by temporarily removing and re-adding class
+                    checkboxLabel.style.animation = 'none';
+                    setTimeout(() => {
+                        checkboxLabel.style.animation = '';
+                    }, 10);
+                }
+            });
+        }
+        
+        addClickAnimation(filterEC);
+        addClickAnimation(filterChairs);
+        addClickAnimation(filterStarred);
+        
+        filterEC.addEventListener('change', applyFilters);
+        filterChairs.addEventListener('change', applyFilters);
+        filterStarred.addEventListener('change', applyFilters);
+    }
+    
+    setTimeout(setupFilters, 200);
+});
 
 // Smooth scroll behavior
 document.addEventListener('DOMContentLoaded', function() {
