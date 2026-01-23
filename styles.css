@@ -111,18 +111,22 @@ body.loaded {
     text-transform: uppercase;
     color: #000;
     white-space: nowrap;
-    animation: floatUpDown 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    animation: floatUpDown 4s ease-in-out infinite;
     display: inline-block;
     opacity: 1;
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    will-change: transform;
+    transform: translateZ(0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
 }
 
 @keyframes floatUpDown {
     0%, 100% {
-        transform: translateY(0px);
+        transform: translateY(0px) translateZ(0);
     }
     50% {
-        transform: translateY(-18px);
+        transform: translateY(-18px) translateZ(0);
     }
 }
 
@@ -142,10 +146,13 @@ body.loaded {
     letter-spacing: 0.1em;
     text-transform: uppercase;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: all 0.25s ease;
     box-shadow: 0 2px 8px rgba(30, 58, 138, 0.2);
     text-decoration: none;
     display: inline-block;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    transform: translateZ(0);
 }
 
 .contact-btn:hover {
@@ -400,18 +407,21 @@ body.loaded {
     top: calc(100% + 12px);
     background: rgba(255, 255, 255, 0.98);
     backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     border: 1.5px solid rgba(0, 0, 0, 0.08);
     border-radius: 16px;
     padding: 10px 16px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.05);
     opacity: 0;
     visibility: hidden;
-    transform: translateY(-8px);
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transform: translateY(-8px) translateZ(0);
+    transition: opacity 0.25s ease, visibility 0.25s ease, transform 0.25s ease;
     pointer-events: none;
     z-index: 10;
     min-width: 200px;
     justify-content: center;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
 }
 
 .filters-container.active {
@@ -430,13 +440,16 @@ body.loaded {
     font-weight: 400;
     color: #555;
     user-select: none;
-    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.2s ease;
     padding: 8px 14px;
     position: relative;
     white-space: nowrap;
     border-radius: 10px;
     margin: -2px;
     overflow: hidden;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    transform: translateZ(0);
 }
 
 .filter-checkbox::before {
@@ -574,13 +587,15 @@ body.loaded {
     border-radius: 20px;
     overflow: hidden;
     cursor: pointer;
-    transition: box-shadow 0.3s ease, opacity 0.6s ease-out, transform 0.6s ease-out;
+    transition: box-shadow 0.3s ease, opacity 0.4s ease-out, transform 0.4s ease-out;
     position: relative;
     background: #fff;
     transform: translate(0, 30px) scale(0.95) translateZ(0);
     -webkit-transform: translate(0, 30px) scale(0.95) translateZ(0);
     will-change: transform, opacity;
     opacity: 0;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
 }
 
 .star-btn {
@@ -670,9 +685,12 @@ body.loaded {
     justify-content: center;
     align-items: center;
     opacity: 0;
-    transition: opacity 0.3s ease;
+    transition: opacity 0.25s ease;
     z-index: 2;
     border-radius: 20px;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    transform: translateZ(0);
 }
 
 .brother-card:hover .card-overlay {
@@ -728,9 +746,11 @@ body.loaded {
     letter-spacing: 0.1em;
     text-transform: uppercase;
     cursor: pointer;
-    transition: all 0.3s ease;
-    transform: translateY(10px);
+    transition: all 0.25s ease;
+    transform: translateY(10px) translateZ(0);
     opacity: 0;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
 }
 
 .brother-card:hover .view-profile-btn {
@@ -779,10 +799,14 @@ body.loaded {
     max-height: 100vh;
     background: rgba(0, 0, 0, 0.95);
     backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
     z-index: 1000000;
     overflow: hidden;
     touch-action: none;
     overscroll-behavior: none;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    transform: translateZ(0);
 }
 
 .profile-content {
@@ -794,10 +818,13 @@ body.loaded {
     background: #fff;
     border-radius: 24px;
     overflow: hidden;
-    transform: scale(0.9) translateY(20px);
-    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transform: scale(0.9) translateY(20px) translateZ(0);
+    transition: transform 0.25s ease-out;
     display: flex;
     flex-direction: column;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    will-change: transform;
 }
 
 .profile-modal.active .profile-content {
@@ -858,9 +885,12 @@ body.loaded {
     width: 75%;
     padding: 60px;
     overflow-y: auto;
-    transform: translateX(50px);
+    transform: translateX(50px) translateZ(0);
     opacity: 0;
-    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.3s, opacity 0.6s ease 0.3s;
+    transition: transform 0.4s ease-out 0.2s, opacity 0.4s ease-out 0.2s;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    will-change: transform, opacity;
 }
 
 .profile-modal.active .profile-info-section {
@@ -1069,9 +1099,12 @@ body.loaded {
 }
 
 .profile-detail-item {
-    transform: translateY(15px);
+    transform: translateY(15px) translateZ(0);
     opacity: 0;
-    transition: transform 0.4s ease, opacity 0.4s ease;
+    transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    will-change: transform, opacity;
 }
 
 .profile-modal.active .profile-detail-item {
@@ -1079,19 +1112,19 @@ body.loaded {
     opacity: 1;
 }
 
-.profile-modal.active .profile-detail-item:nth-child(1) { transition-delay: 0.6s; }
-.profile-modal.active .profile-detail-item:nth-child(2) { transition-delay: 0.65s; }
-.profile-modal.active .profile-detail-item:nth-child(3) { transition-delay: 0.7s; }
-.profile-modal.active .profile-detail-item:nth-child(4) { transition-delay: 0.75s; }
-.profile-modal.active .profile-detail-item:nth-child(5) { transition-delay: 0.8s; }
-.profile-modal.active .profile-detail-item:nth-child(6) { transition-delay: 0.85s; }
-.profile-modal.active .profile-detail-item:nth-child(7) { transition-delay: 0.9s; }
-.profile-modal.active .profile-detail-item:nth-child(8) { transition-delay: 0.95s; }
-.profile-modal.active .profile-detail-item:nth-child(9) { transition-delay: 1s; }
-.profile-modal.active .profile-detail-item:nth-child(10) { transition-delay: 1.05s; }
-.profile-modal.active .profile-detail-item:nth-child(11) { transition-delay: 1.1s; }
-.profile-modal.active .profile-detail-item:nth-child(12) { transition-delay: 1.15s; }
-.profile-modal.active .profile-detail-item:nth-child(13) { transition-delay: 1.2s; }
+.profile-modal.active .profile-detail-item:nth-child(1) { transition-delay: 0.3s; }
+.profile-modal.active .profile-detail-item:nth-child(2) { transition-delay: 0.32s; }
+.profile-modal.active .profile-detail-item:nth-child(3) { transition-delay: 0.34s; }
+.profile-modal.active .profile-detail-item:nth-child(4) { transition-delay: 0.36s; }
+.profile-modal.active .profile-detail-item:nth-child(5) { transition-delay: 0.38s; }
+.profile-modal.active .profile-detail-item:nth-child(6) { transition-delay: 0.4s; }
+.profile-modal.active .profile-detail-item:nth-child(7) { transition-delay: 0.42s; }
+.profile-modal.active .profile-detail-item:nth-child(8) { transition-delay: 0.44s; }
+.profile-modal.active .profile-detail-item:nth-child(9) { transition-delay: 0.46s; }
+.profile-modal.active .profile-detail-item:nth-child(10) { transition-delay: 0.48s; }
+.profile-modal.active .profile-detail-item:nth-child(11) { transition-delay: 0.5s; }
+.profile-modal.active .profile-detail-item:nth-child(12) { transition-delay: 0.52s; }
+.profile-modal.active .profile-detail-item:nth-child(13) { transition-delay: 0.54s; }
 
 .profile-detail-item {
     display: flex;
@@ -1300,8 +1333,11 @@ body.loaded {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: transform 0.4s ease-out;
     will-change: transform;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    transform: translateZ(0);
 }
 
 .brother-card:hover .card-image img {
@@ -1468,6 +1504,7 @@ body.loaded {
         width: auto;
         justify-content: center;
         min-width: 90px;
+        transition: all 0.2s ease;
     }
     
     .filters-container {
@@ -1482,17 +1519,20 @@ body.loaded {
         flex-wrap: nowrap;
         justify-content: flex-start;
         border-radius: 12px;
-        transform: translateY(-8px);
+        transform: translateY(-8px) translateZ(0);
         opacity: 0;
         visibility: hidden;
         pointer-events: none;
         box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+        transition: opacity 0.2s ease, visibility 0.2s ease, transform 0.2s ease;
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
     }
     
     .filters-container.active {
         opacity: 1;
         visibility: visible;
-        transform: translateY(0);
+        transform: translateY(0) translateZ(0);
         pointer-events: all;
     }
     
@@ -1646,6 +1686,58 @@ body.loaded {
     
     .brother-card {
         max-width: 100%;
+        transition: box-shadow 0.2s ease, opacity 0.3s ease-out, transform 0.3s ease-out;
+    }
+    
+    .brother-card.visible {
+        transform: translate(0, 0) scale(1) translateZ(0);
+        -webkit-transform: translate(0, 0) scale(1) translateZ(0);
+    }
+    
+    .card-image img {
+        transition: transform 0.3s ease-out;
+    }
+    
+    .card-overlay {
+        transition: opacity 0.2s ease;
+    }
+    
+    .profile-content {
+        transition: transform 0.2s ease-out;
+    }
+    
+    .profile-info-section {
+        transition: transform 0.3s ease-out 0.15s, opacity 0.3s ease-out 0.15s;
+    }
+    
+    .profile-detail-item {
+        transition: transform 0.25s ease-out, opacity 0.25s ease-out;
+    }
+    
+    .profile-modal.active .profile-detail-item:nth-child(1) { transition-delay: 0.2s; }
+    .profile-modal.active .profile-detail-item:nth-child(2) { transition-delay: 0.22s; }
+    .profile-modal.active .profile-detail-item:nth-child(3) { transition-delay: 0.24s; }
+    .profile-modal.active .profile-detail-item:nth-child(4) { transition-delay: 0.26s; }
+    .profile-modal.active .profile-detail-item:nth-child(5) { transition-delay: 0.28s; }
+    .profile-modal.active .profile-detail-item:nth-child(6) { transition-delay: 0.3s; }
+    .profile-modal.active .profile-detail-item:nth-child(7) { transition-delay: 0.32s; }
+    .profile-modal.active .profile-detail-item:nth-child(8) { transition-delay: 0.34s; }
+    .profile-modal.active .profile-detail-item:nth-child(9) { transition-delay: 0.36s; }
+    .profile-modal.active .profile-detail-item:nth-child(10) { transition-delay: 0.38s; }
+    .profile-modal.active .profile-detail-item:nth-child(11) { transition-delay: 0.4s; }
+    .profile-modal.active .profile-detail-item:nth-child(12) { transition-delay: 0.42s; }
+    .profile-modal.active .profile-detail-item:nth-child(13) { transition-delay: 0.44s; }
+    
+    .filter-checkbox {
+        transition: all 0.15s ease;
+    }
+    
+    .social-btn {
+        transition: all 0.2s ease;
+    }
+    
+    .profile-star-btn {
+        transition: all 0.2s ease;
     }
     
     .scroll-indicator {
@@ -1796,17 +1888,20 @@ body.loaded {
         flex-wrap: nowrap;
         justify-content: flex-start;
         border-radius: 10px;
-        transform: translateY(-8px);
+        transform: translateY(-8px) translateZ(0);
         opacity: 0;
         visibility: hidden;
         pointer-events: none;
         box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+        transition: opacity 0.2s ease, visibility 0.2s ease, transform 0.2s ease;
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
     }
     
     .filters-container.active {
         opacity: 1;
         visibility: visible;
-        transform: translateY(0);
+        transform: translateY(0) translateZ(0);
         pointer-events: all;
     }
     
@@ -1941,6 +2036,43 @@ body.loaded {
     
     .profile-content {
         max-height: 90vh;
+    }
+}
+
+/* Mobile performance optimizations */
+@media (max-width: 768px) {
+    /* Reduce backdrop-filter complexity on mobile */
+    .profile-modal-overlay {
+        backdrop-filter: blur(4px);
+        -webkit-backdrop-filter: blur(4px);
+    }
+    
+    /* Simplify animations */
+    @keyframes floatUpDown {
+        0%, 100% {
+            transform: translateY(0px) translateZ(0);
+        }
+        50% {
+            transform: translateY(-12px) translateZ(0);
+        }
+    }
+    
+    /* Optimize card hover effects for touch */
+    .brother-card:hover .card-image img {
+        transform: scale(1.02) translateZ(0);
+    }
+    
+    /* Reduce transition complexity */
+    .hero-subtext.animated {
+        transition: opacity 0.4s ease-out 0.15s, transform 0.4s ease-out 0.15s;
+    }
+    
+    .profile-name {
+        transition: transform 0.3s ease-out 0.4s, opacity 0.3s ease-out 0.4s;
+    }
+    
+    .profile-subtitle {
+        transition: transform 0.3s ease-out 0.45s, opacity 0.3s ease-out 0.45s;
     }
 }
 
