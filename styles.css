@@ -786,11 +786,13 @@ body.loaded {
     backface-visibility: hidden;
     transform: translateZ(0);
     will-change: opacity;
+    pointer-events: none;
 }
 
 .profile-modal.active {
     opacity: 1;
     visibility: visible;
+    pointer-events: all;
 }
 
 .profile-modal-overlay {
@@ -811,6 +813,13 @@ body.loaded {
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
     transform: translateZ(0);
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+}
+
+.profile-modal:not(.active) .profile-modal-overlay {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
 }
 
 .profile-content {
@@ -2062,16 +2071,43 @@ body.loaded {
     .profile-modal-overlay {
         backdrop-filter: blur(2px);
         -webkit-backdrop-filter: blur(2px);
+        transition: opacity 0.1s ease, visibility 0.1s ease;
+    }
+    
+    .profile-modal:not(.active) .profile-modal-overlay {
+        opacity: 0 !important;
+        visibility: hidden !important;
+        pointer-events: none !important;
+        z-index: -1 !important;
+    }
+    
+    .profile-modal:not(.active) .profile-content {
+        opacity: 0 !important;
+        pointer-events: none !important;
+        z-index: -1 !important;
+    }
+    
+    .profile-modal:not(.active) {
+        z-index: -1 !important;
     }
     
     /* Faster modal transitions on mobile */
     .profile-modal {
-        transition: opacity 0.15s ease, visibility 0.15s ease;
+        transition: opacity 0.1s ease, visibility 0.1s ease;
+        pointer-events: none;
+    }
+    
+    .profile-modal.active {
+        pointer-events: all;
+    }
+    
+    .profile-modal:not(.active) {
+        pointer-events: none !important;
     }
     
     .profile-content {
         transform: scale(0.98) translateY(5px) translateZ(0);
-        transition: transform 0.15s ease-out, opacity 0.15s ease-out;
+        transition: transform 0.1s ease-out, opacity 0.1s ease-out;
     }
     
     .profile-modal.active .profile-content {
@@ -2080,22 +2116,28 @@ body.loaded {
     
     .profile-info-section {
         transform: translateX(20px) translateZ(0);
-        transition: transform 0.2s ease-out, opacity 0.2s ease-out;
+        transition: transform 0.15s ease-out, opacity 0.15s ease-out;
     }
     
     .profile-name {
         transform: translateY(10px) translateZ(0);
-        transition: transform 0.2s ease-out, opacity 0.2s ease-out;
+        transition: transform 0.15s ease-out, opacity 0.15s ease-out;
     }
     
     .profile-subtitle {
         transform: translateY(10px) translateZ(0);
-        transition: transform 0.2s ease-out, opacity 0.2s ease-out;
+        transition: transform 0.15s ease-out, opacity 0.15s ease-out;
     }
     
     .profile-detail-item {
         transform: translateY(8px) translateZ(0);
-        transition: transform 0.18s ease-out, opacity 0.18s ease-out;
+        transition: transform 0.12s ease-out, opacity 0.12s ease-out;
+    }
+    
+    /* Ensure cards are immediately visible when modal closes */
+    .brother-card {
+        opacity: 1 !important;
+        transition: box-shadow 0.2s ease, transform 0.2s ease-out !important;
     }
     
     /* Simplify animations */

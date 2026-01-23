@@ -792,41 +792,85 @@ document.addEventListener('DOMContentLoaded', function() {
     function closeProfile() {
         const isMobile = window.innerWidth <= 768;
         
+        // Restore scroll position first (before removing modal)
+        const scrollY = profileModal.dataset.scrollY || 0;
+        
+        // On mobile, immediately make overlay transparent and restore body
+        if (isMobile) {
+            const overlay = document.querySelector('.profile-modal-overlay');
+            if (overlay) {
+                overlay.style.opacity = '0';
+                overlay.style.visibility = 'hidden';
+                overlay.style.pointerEvents = 'none';
+                overlay.style.transition = 'opacity 0.05s ease, visibility 0.05s ease';
+            }
+            
+            // Hide modal content immediately
+            const profileContent = document.querySelector('.profile-content');
+            if (profileContent) {
+                profileContent.style.opacity = '0';
+                profileContent.style.transform = 'scale(0.98) translateY(5px)';
+                profileContent.style.transition = 'opacity 0.05s ease, transform 0.05s ease';
+            }
+            
+            // Immediately restore body styles
+            document.body.classList.remove('modal-open');
+            document.documentElement.classList.remove('modal-open');
+            document.body.style.overflow = '';
+            document.body.style.position = '';
+            document.body.style.top = '';
+            document.body.style.width = '';
+            document.body.style.height = '';
+            document.body.style.left = '';
+            document.documentElement.style.overflow = '';
+            document.documentElement.style.position = '';
+            document.documentElement.style.width = '';
+            document.documentElement.style.height = '';
+            document.documentElement.style.top = '';
+            document.documentElement.style.left = '';
+            
+            // Restore scroll immediately
+            window.scrollTo(0, parseInt(scrollY) || 0);
+        }
+        
         // Immediately restore all card opacities to prevent white screen
         const allCards = document.querySelectorAll('.brother-card');
         allCards.forEach(card => {
-            card.style.opacity = '';
+            // Force immediate visibility
+            card.style.opacity = '1';
             card.style.transition = '';
+            card.style.display = '';
+            card.style.visibility = 'visible';
         });
         
-        // Remove modal class
+        // Remove modal class (this triggers CSS transitions)
         profileModal.classList.remove('active');
         
-        // Restore scroll position
-        const scrollY = profileModal.dataset.scrollY || 0;
-        
-        // Remove modal-open classes
-        document.body.classList.remove('modal-open');
-        document.documentElement.classList.remove('modal-open');
-        
-        // Restore scrolling on body and html
-        document.body.style.overflow = '';
-        document.body.style.position = '';
-        document.body.style.top = '';
-        document.body.style.width = '';
-        document.body.style.height = '';
-        document.body.style.left = '';
-        document.documentElement.style.overflow = '';
-        document.documentElement.style.position = '';
-        document.documentElement.style.width = '';
-        document.documentElement.style.height = '';
-        document.documentElement.style.top = '';
-        document.documentElement.style.left = '';
-        
-        // Restore scroll position immediately
-        requestAnimationFrame(() => {
-            window.scrollTo(0, parseInt(scrollY) || 0);
-        });
+        // On desktop, restore body styles after modal closes
+        if (!isMobile) {
+            // Remove modal-open classes
+            document.body.classList.remove('modal-open');
+            document.documentElement.classList.remove('modal-open');
+            
+            // Restore scrolling on body and html
+            document.body.style.overflow = '';
+            document.body.style.position = '';
+            document.body.style.top = '';
+            document.body.style.width = '';
+            document.body.style.height = '';
+            document.body.style.left = '';
+            document.documentElement.style.overflow = '';
+            document.documentElement.style.position = '';
+            document.documentElement.style.width = '';
+            document.documentElement.style.height = '';
+            document.documentElement.style.top = '';
+            document.documentElement.style.left = '';
+            
+            // Restore scroll position
+            requestAnimationFrame(() => {
+                window.scrollTo(0, parseInt(scrollY) || 0);
+            });
+        }
         
         // Notify parent window (Squarespace) to restore scrolling
         if (window.parent !== window) {
@@ -841,6 +885,15 @@ document.addEventListener('DOMContentLoaded', function() {
         if (profileModal) {
             delete profileModal.dataset.currentBrother;
             delete profileModal.dataset.scrollY;
+        }
+        
+        // On mobile, force a repaint to ensure cards are visible
+        if (isMobile) {
+            requestAnimationFrame(() => {
+                allCards.forEach(card => {
+                    card.style.opacity = '1';
+                });
+            });
         }
     }
     
