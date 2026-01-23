@@ -587,7 +587,7 @@ body.loaded {
     border-radius: 20px;
     overflow: hidden;
     cursor: pointer;
-    transition: box-shadow 0.3s ease, opacity 0.4s ease-out, transform 0.4s ease-out;
+    transition: box-shadow 0.3s ease, opacity 0.3s ease-out, transform 0.3s ease-out;
     position: relative;
     background: #fff;
     transform: translate(0, 30px) scale(0.95) translateZ(0);
@@ -779,9 +779,13 @@ body.loaded {
     justify-content: center;
     opacity: 0;
     visibility: hidden;
-    transition: opacity 0.3s ease, visibility 0.3s ease;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
     overflow: hidden;
     touch-action: none;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    transform: translateZ(0);
+    will-change: opacity;
 }
 
 .profile-modal.active {
@@ -818,17 +822,19 @@ body.loaded {
     background: #fff;
     border-radius: 24px;
     overflow: hidden;
-    transform: scale(0.9) translateY(20px) translateZ(0);
-    transition: transform 0.25s ease-out;
+    transform: scale(0.95) translateY(10px) translateZ(0);
+    transition: transform 0.2s ease-out, opacity 0.2s ease-out;
+    opacity: 0;
     display: flex;
     flex-direction: column;
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
-    will-change: transform;
+    will-change: transform, opacity;
 }
 
 .profile-modal.active .profile-content {
-    transform: scale(1) translateY(0);
+    transform: scale(1) translateY(0) translateZ(0);
+    opacity: 1;
 }
 
 .profile-close {
@@ -879,22 +885,27 @@ body.loaded {
     height: 100%;
     object-fit: cover;
     display: block;
+    transition: opacity 0.2s ease;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    transform: translateZ(0);
+    will-change: opacity;
 }
 
 .profile-info-section {
     width: 75%;
     padding: 60px;
     overflow-y: auto;
-    transform: translateX(50px) translateZ(0);
+    transform: translateX(30px) translateZ(0);
     opacity: 0;
-    transition: transform 0.4s ease-out 0.2s, opacity 0.4s ease-out 0.2s;
+    transition: transform 0.3s ease-out, opacity 0.3s ease-out;
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
     will-change: transform, opacity;
 }
 
 .profile-modal.active .profile-info-section {
-    transform: translateX(0);
+    transform: translateX(0) translateZ(0);
     opacity: 1;
 }
 
@@ -991,14 +1002,17 @@ body.loaded {
     color: #000;
     letter-spacing: -0.02em;
     line-height: 1.1;
-    transform: translateY(20px);
+    transform: translateY(15px) translateZ(0);
     opacity: 0;
-    transition: transform 0.5s ease 0.5s, opacity 0.5s ease 0.5s;
+    transition: transform 0.3s ease-out, opacity 0.3s ease-out;
     flex: 1;
+    will-change: transform, opacity;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
 }
 
 .profile-modal.active .profile-name {
-    transform: translateY(0);
+    transform: translateY(0) translateZ(0);
     opacity: 1;
 }
 
@@ -1081,14 +1095,17 @@ body.loaded {
     color: #888;
     letter-spacing: 0.05em;
     text-transform: uppercase;
-    transform: translateY(20px);
+    transform: translateY(15px) translateZ(0);
     opacity: 0;
-    transition: transform 0.5s ease 0.55s, opacity 0.5s ease 0.55s;
+    transition: transform 0.3s ease-out, opacity 0.3s ease-out;
     line-height: 1.4;
+    will-change: transform, opacity;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
 }
 
 .profile-modal.active .profile-subtitle {
-    transform: translateY(0);
+    transform: translateY(0) translateZ(0);
     opacity: 1;
 }
 
@@ -1099,16 +1116,16 @@ body.loaded {
 }
 
 .profile-detail-item {
-    transform: translateY(15px) translateZ(0);
+    transform: translateY(10px) translateZ(0);
     opacity: 0;
-    transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+    transition: transform 0.25s ease-out, opacity 0.25s ease-out;
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
     will-change: transform, opacity;
 }
 
 .profile-modal.active .profile-detail-item {
-    transform: translateY(0);
+    transform: translateY(0) translateZ(0);
     opacity: 1;
 }
 
@@ -1686,7 +1703,7 @@ body.loaded {
     
     .brother-card {
         max-width: 100%;
-        transition: box-shadow 0.2s ease, opacity 0.3s ease-out, transform 0.3s ease-out;
+        transition: box-shadow 0.2s ease, opacity 0.2s ease-out, transform 0.2s ease-out;
     }
     
     .brother-card.visible {
@@ -1703,30 +1720,30 @@ body.loaded {
     }
     
     .profile-content {
-        transition: transform 0.2s ease-out;
+        transition: transform 0.15s ease-out, opacity 0.15s ease-out;
     }
     
     .profile-info-section {
-        transition: transform 0.3s ease-out 0.15s, opacity 0.3s ease-out 0.15s;
+        transition: transform 0.2s ease-out, opacity 0.2s ease-out;
     }
     
     .profile-detail-item {
-        transition: transform 0.25s ease-out, opacity 0.25s ease-out;
+        transition: transform 0.18s ease-out, opacity 0.18s ease-out;
     }
     
-    .profile-modal.active .profile-detail-item:nth-child(1) { transition-delay: 0.2s; }
-    .profile-modal.active .profile-detail-item:nth-child(2) { transition-delay: 0.22s; }
-    .profile-modal.active .profile-detail-item:nth-child(3) { transition-delay: 0.24s; }
-    .profile-modal.active .profile-detail-item:nth-child(4) { transition-delay: 0.26s; }
-    .profile-modal.active .profile-detail-item:nth-child(5) { transition-delay: 0.28s; }
-    .profile-modal.active .profile-detail-item:nth-child(6) { transition-delay: 0.3s; }
-    .profile-modal.active .profile-detail-item:nth-child(7) { transition-delay: 0.32s; }
-    .profile-modal.active .profile-detail-item:nth-child(8) { transition-delay: 0.34s; }
-    .profile-modal.active .profile-detail-item:nth-child(9) { transition-delay: 0.36s; }
-    .profile-modal.active .profile-detail-item:nth-child(10) { transition-delay: 0.38s; }
-    .profile-modal.active .profile-detail-item:nth-child(11) { transition-delay: 0.4s; }
-    .profile-modal.active .profile-detail-item:nth-child(12) { transition-delay: 0.42s; }
-    .profile-modal.active .profile-detail-item:nth-child(13) { transition-delay: 0.44s; }
+    .profile-modal.active .profile-detail-item:nth-child(1) { transition-delay: 0s; }
+    .profile-modal.active .profile-detail-item:nth-child(2) { transition-delay: 0.02s; }
+    .profile-modal.active .profile-detail-item:nth-child(3) { transition-delay: 0.04s; }
+    .profile-modal.active .profile-detail-item:nth-child(4) { transition-delay: 0.06s; }
+    .profile-modal.active .profile-detail-item:nth-child(5) { transition-delay: 0.08s; }
+    .profile-modal.active .profile-detail-item:nth-child(6) { transition-delay: 0.1s; }
+    .profile-modal.active .profile-detail-item:nth-child(7) { transition-delay: 0.12s; }
+    .profile-modal.active .profile-detail-item:nth-child(8) { transition-delay: 0.14s; }
+    .profile-modal.active .profile-detail-item:nth-child(9) { transition-delay: 0.16s; }
+    .profile-modal.active .profile-detail-item:nth-child(10) { transition-delay: 0.18s; }
+    .profile-modal.active .profile-detail-item:nth-child(11) { transition-delay: 0.2s; }
+    .profile-modal.active .profile-detail-item:nth-child(12) { transition-delay: 0.22s; }
+    .profile-modal.active .profile-detail-item:nth-child(13) { transition-delay: 0.24s; }
     
     .filter-checkbox {
         transition: all 0.15s ease;
@@ -2043,8 +2060,42 @@ body.loaded {
 @media (max-width: 768px) {
     /* Reduce backdrop-filter complexity on mobile */
     .profile-modal-overlay {
-        backdrop-filter: blur(4px);
-        -webkit-backdrop-filter: blur(4px);
+        backdrop-filter: blur(2px);
+        -webkit-backdrop-filter: blur(2px);
+    }
+    
+    /* Faster modal transitions on mobile */
+    .profile-modal {
+        transition: opacity 0.15s ease, visibility 0.15s ease;
+    }
+    
+    .profile-content {
+        transform: scale(0.98) translateY(5px) translateZ(0);
+        transition: transform 0.15s ease-out, opacity 0.15s ease-out;
+    }
+    
+    .profile-modal.active .profile-content {
+        transform: scale(1) translateY(0) translateZ(0);
+    }
+    
+    .profile-info-section {
+        transform: translateX(20px) translateZ(0);
+        transition: transform 0.2s ease-out, opacity 0.2s ease-out;
+    }
+    
+    .profile-name {
+        transform: translateY(10px) translateZ(0);
+        transition: transform 0.2s ease-out, opacity 0.2s ease-out;
+    }
+    
+    .profile-subtitle {
+        transform: translateY(10px) translateZ(0);
+        transition: transform 0.2s ease-out, opacity 0.2s ease-out;
+    }
+    
+    .profile-detail-item {
+        transform: translateY(8px) translateZ(0);
+        transition: transform 0.18s ease-out, opacity 0.18s ease-out;
     }
     
     /* Simplify animations */
@@ -2067,13 +2118,20 @@ body.loaded {
         transition: opacity 0.4s ease-out 0.15s, transform 0.4s ease-out 0.15s;
     }
     
-    .profile-name {
-        transition: transform 0.3s ease-out 0.4s, opacity 0.3s ease-out 0.4s;
-    }
-    
-    .profile-subtitle {
-        transition: transform 0.3s ease-out 0.45s, opacity 0.3s ease-out 0.45s;
-    }
+    /* Remove transition delays on mobile for instant feedback */
+    .profile-modal.active .profile-detail-item:nth-child(1) { transition-delay: 0s; }
+    .profile-modal.active .profile-detail-item:nth-child(2) { transition-delay: 0.02s; }
+    .profile-modal.active .profile-detail-item:nth-child(3) { transition-delay: 0.04s; }
+    .profile-modal.active .profile-detail-item:nth-child(4) { transition-delay: 0.06s; }
+    .profile-modal.active .profile-detail-item:nth-child(5) { transition-delay: 0.08s; }
+    .profile-modal.active .profile-detail-item:nth-child(6) { transition-delay: 0.1s; }
+    .profile-modal.active .profile-detail-item:nth-child(7) { transition-delay: 0.12s; }
+    .profile-modal.active .profile-detail-item:nth-child(8) { transition-delay: 0.14s; }
+    .profile-modal.active .profile-detail-item:nth-child(9) { transition-delay: 0.16s; }
+    .profile-modal.active .profile-detail-item:nth-child(10) { transition-delay: 0.18s; }
+    .profile-modal.active .profile-detail-item:nth-child(11) { transition-delay: 0.2s; }
+    .profile-modal.active .profile-detail-item:nth-child(12) { transition-delay: 0.22s; }
+    .profile-modal.active .profile-detail-item:nth-child(13) { transition-delay: 0.24s; }
 }
 
 /* Tablet portrait */

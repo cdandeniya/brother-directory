@@ -790,6 +790,16 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Close profile modal
     function closeProfile() {
+        const isMobile = window.innerWidth <= 768;
+        
+        // Immediately restore all card opacities to prevent white screen
+        const allCards = document.querySelectorAll('.brother-card');
+        allCards.forEach(card => {
+            card.style.opacity = '';
+            card.style.transition = '';
+        });
+        
+        // Remove modal class
         profileModal.classList.remove('active');
         
         // Restore scroll position
@@ -813,8 +823,10 @@ document.addEventListener('DOMContentLoaded', function() {
         document.documentElement.style.top = '';
         document.documentElement.style.left = '';
         
-        // Restore scroll position
-        window.scrollTo(0, parseInt(scrollY) || 0);
+        // Restore scroll position immediately
+        requestAnimationFrame(() => {
+            window.scrollTo(0, parseInt(scrollY) || 0);
+        });
         
         // Notify parent window (Squarespace) to restore scrolling
         if (window.parent !== window) {
@@ -894,6 +906,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     function openProfileWithAnimation(brotherName, sourceImage, sourceCard) {
         const imageSrc = sourceImage.src;
+        const isMobile = window.innerWidth <= 768;
         
         // Store current brother name on modal immediately
         const profileModal = document.getElementById('profileModal');
@@ -914,9 +927,6 @@ document.addEventListener('DOMContentLoaded', function() {
         // Get target position (profile modal image section)
         const profileImageSection = document.querySelector('.profile-image-section');
         const profileImage = document.querySelector('.profile-image');
-        
-        // Show modal immediately
-        profileModal.classList.add('active');
         
         // Store current scroll position
         const scrollY = window.scrollY || window.pageYOffset || document.documentElement.scrollTop;
@@ -949,16 +959,87 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
         
-        // Set the profile image source
+        // Set the profile image source immediately
         if (profileImage) {
             profileImage.src = imageSrc;
             profileImage.alt = brotherName;
             profileImage.style.opacity = '0';
         }
         
+        // Set button links immediately (before animation)
+        const data = brothersData[brotherName];
+        if (data) {
+            // Set LinkedIn button immediately
+            const linkedinBtn = document.querySelector('.linkedin-btn[data-field="linkedin"]');
+            if (linkedinBtn) {
+                if (data.linkedin && data.linkedin.trim() !== '' && data.linkedin !== '-') {
+                    let linkedinUrl = data.linkedin.trim();
+                    if (!linkedinUrl.startsWith('http://') && !linkedinUrl.startsWith('https://')) {
+                        linkedinUrl = 'https://' + linkedinUrl;
+                    }
+                    linkedinBtn.href = linkedinUrl;
+                    linkedinBtn.target = '_blank';
+                    linkedinBtn.rel = 'noopener noreferrer';
+                    linkedinBtn.style.display = 'flex';
+                    linkedinBtn.style.pointerEvents = 'auto';
+                    linkedinBtn.style.cursor = 'pointer';
+                    linkedinBtn.onclick = function(e) {
+                        e.stopPropagation();
+                        e.stopImmediatePropagation();
+                        if (linkedinUrl && linkedinUrl !== '#' && !linkedinUrl.includes('#')) {
+                            window.open(linkedinUrl, '_blank', 'noopener,noreferrer');
+                        }
+                        return false;
+                    };
+                } else {
+                    linkedinBtn.style.display = 'none';
+                }
+            }
+            
+            // Set Gmail button immediately
+            const gmailBtn = document.querySelector('.gmail-btn[data-field="email"]');
+            if (gmailBtn) {
+                if (data.email && data.email.trim() !== '' && data.email !== '-') {
+                    const emailUrl = `mailto:${data.email.trim()}`;
+                    gmailBtn.href = emailUrl;
+                    gmailBtn.style.display = 'flex';
+                    gmailBtn.style.pointerEvents = 'auto';
+                    gmailBtn.style.cursor = 'pointer';
+                } else {
+                    gmailBtn.style.display = 'none';
+                }
+            }
+        }
+        
+        // On mobile, use simpler animation without clone
+        if (isMobile) {
+            // Show modal immediately
+            profileModal.classList.add('active');
+            
+            // Show profile image immediately
+            if (profileImage) {
+                profileImage.style.opacity = '1';
+                profileImage.style.transition = 'opacity 0.2s ease';
+            }
+            
+            // Show content immediately with minimal delay
+            requestAnimationFrame(() => {
+                showProfileContent(brotherName);
+            });
+            
+            // Restore source card opacity immediately
+            sourceCard.style.opacity = '';
+            
+            return;
+        }
+        
+        // Desktop: Use full animation with clone
+        // Show modal immediately
+        profileModal.classList.add('active');
+        
         // Calculate target position
-        setTimeout(() => {
-            const targetRect = profileImageSection.getBoundingClientRect();
+        requestAnimationFrame(() => {
+            const targetRect = profileImageSection ? profileImageSection.getBoundingClientRect() : { left: 0, top: 0, width: 300, height: 400 };
             const targetX = targetRect.left;
             const targetY = targetRect.top;
             const targetWidth = targetRect.width;
@@ -1009,7 +1090,7 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Start smooth morph animation using transform for better performance
             requestAnimationFrame(() => {
-                animatedCard.style.transition = 'transform 0.6s cubic-bezier(0.25, 0.1, 0.25, 1), width 0.6s cubic-bezier(0.25, 0.1, 0.25, 1), height 0.6s cubic-bezier(0.25, 0.1, 0.25, 1), border-radius 0.6s cubic-bezier(0.25, 0.1, 0.25, 1)';
+                animatedCard.style.transition = 'transform 0.5s cubic-bezier(0.25, 0.1, 0.25, 1), width 0.5s cubic-bezier(0.25, 0.1, 0.25, 1), height 0.5s cubic-bezier(0.25, 0.1, 0.25, 1), border-radius 0.5s cubic-bezier(0.25, 0.1, 0.25, 1)';
                 animatedCard.style.transform = `translate(${deltaX}px, ${deltaY}px) translateZ(0)`;
                 animatedCard.style.width = `${targetWidth}px`;
                 animatedCard.style.height = `${targetHeight}px`;
@@ -1022,64 +1103,12 @@ document.addEventListener('DOMContentLoaded', function() {
                     profileImage.style.opacity = '1';
                     profileImage.style.transition = 'opacity 0.1s ease';
                 }
-            }, 550);
-            
-            // Set button links immediately (before animation)
-            const data = brothersData[brotherName];
-            if (data) {
-                // Set LinkedIn button immediately
-                const linkedinBtn = document.querySelector('.linkedin-btn[data-field="linkedin"]');
-                if (linkedinBtn) {
-                    if (data.linkedin && data.linkedin.trim() !== '' && data.linkedin !== '-') {
-                        let linkedinUrl = data.linkedin.trim();
-                        if (!linkedinUrl.startsWith('http://') && !linkedinUrl.startsWith('https://')) {
-                            linkedinUrl = 'https://' + linkedinUrl;
-                        }
-                        linkedinBtn.href = linkedinUrl;
-                        linkedinBtn.target = '_blank';
-                        linkedinBtn.rel = 'noopener noreferrer';
-                        linkedinBtn.style.display = 'flex';
-                        linkedinBtn.style.pointerEvents = 'auto';
-                        linkedinBtn.style.cursor = 'pointer';
-                        // Use onclick to ensure it works - this will override any other handlers
-                        linkedinBtn.onclick = function(e) {
-                            e.stopPropagation(); // Prevent overlay from closing modal
-                            e.stopImmediatePropagation(); // Prevent other handlers
-                            if (linkedinUrl && linkedinUrl !== '#' && !linkedinUrl.includes('#')) {
-                                window.open(linkedinUrl, '_blank', 'noopener,noreferrer');
-                            }
-                            return false; // Additional safeguard
-                        };
-                        console.log('LinkedIn button set:', linkedinUrl);
-                    } else {
-                        linkedinBtn.style.display = 'none';
-                    }
-                } else {
-                    console.error('LinkedIn button not found');
-                }
-                
-                // Set Gmail button immediately
-                const gmailBtn = document.querySelector('.gmail-btn[data-field="email"]');
-                if (gmailBtn) {
-                    if (data.email && data.email.trim() !== '' && data.email !== '-') {
-                        const emailUrl = `mailto:${data.email.trim()}`;
-                        gmailBtn.href = emailUrl;
-                        gmailBtn.style.display = 'flex';
-                        gmailBtn.style.pointerEvents = 'auto';
-                        gmailBtn.style.cursor = 'pointer';
-                        console.log('Gmail button set:', emailUrl);
-                    } else {
-                        gmailBtn.style.display = 'none';
-                    }
-                } else {
-                    console.error('Gmail button not found');
-                }
-            }
+            }, 450);
             
             // Start showing information earlier - while image is still animating
             setTimeout(() => {
                 showProfileContent(brotherName);
-            }, 300);
+            }, 250);
             
             // After animation completes, remove animated card smoothly
             setTimeout(() => {
@@ -1091,8 +1120,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     animatedCard.remove();
                     sourceCard.style.opacity = '';
                 }, 50);
-            }, 600);
-        }, 10);
+            }, 500);
+        });
     }
     
     function clearProfileContent() {
@@ -1331,27 +1360,36 @@ document.addEventListener('DOMContentLoaded', function() {
         void profileModal.offsetWidth;
         
         // Trigger animations immediately - description slides in faster
+        const isMobile = window.innerWidth <= 768;
+        const baseDelay = isMobile ? 0 : 50;
+        const itemDelay = isMobile ? 15 : 25;
+        
         requestAnimationFrame(() => {
             if (profileInfoEl) {
+                profileInfoEl.style.transition = isMobile ? 'transform 0.25s ease-out, opacity 0.25s ease-out' : 'transform 0.4s ease-out 0.2s, opacity 0.4s ease-out 0.2s';
                 profileInfoEl.style.transform = 'translateX(0)';
                 profileInfoEl.style.opacity = '1';
             }
             if (profileNameEl2) {
+                profileNameEl2.style.transition = isMobile ? 'transform 0.25s ease-out, opacity 0.25s ease-out' : 'transform 0.5s ease 0.5s, opacity 0.5s ease 0.5s';
                 profileNameEl2.style.transform = 'translateY(0)';
                 profileNameEl2.style.opacity = '1';
             }
+            const profileSubtitleEl2 = document.querySelector('.profile-subtitle');
             if (profileSubtitleEl2) {
+                profileSubtitleEl2.style.transition = isMobile ? 'transform 0.25s ease-out, opacity 0.25s ease-out' : 'transform 0.5s ease 0.55s, opacity 0.5s ease 0.55s';
                 profileSubtitleEl2.style.transform = 'translateY(0)';
                 profileSubtitleEl2.style.opacity = '1';
             }
         });
         
-        // Animate detail items faster with shorter delays
+        // Animate detail items faster with shorter delays on mobile
         detailItems.forEach((item, index) => {
             setTimeout(() => {
+                item.style.transition = isMobile ? 'transform 0.2s ease-out, opacity 0.2s ease-out' : 'transform 0.3s ease-out, opacity 0.3s ease-out';
                 item.style.transform = 'translateY(0)';
                 item.style.opacity = '1';
-            }, 50 + (index * 25));
+            }, baseDelay + (index * itemDelay));
         });
         
         // Update star button state
