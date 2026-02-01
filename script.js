@@ -95,16 +95,18 @@ function generateShuffledBrotherCards() {
     brothersGrid.innerHTML = '';
     
     // Generate cards in grouped and shuffled order
-    finalOrder.forEach(brotherName => {
+    finalOrder.forEach((brotherName, index) => {
         const data = brothersData[brotherName];
         if (!data) return;
         
+        const isHighPriority = index < 4;
+        const isEager = index < 8;
         const card = document.createElement('div');
         card.className = 'brother-card';
         card.dataset.brotherName = brotherName;
         card.innerHTML = `
             <div class="card-image">
-                <img src="${data.image}" alt="${data.fullName}">
+                <img src="${data.image}" alt="${data.fullName}" loading="${isEager ? 'eager' : 'lazy'}" decoding="async" fetchpriority="${isHighPriority ? 'high' : 'low'}">
             </div>
             <div class="card-overlay">
                 <h3 class="brother-name">${data.fullName}</h3>
