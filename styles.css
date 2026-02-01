@@ -69,6 +69,11 @@ body.loaded {
     box-shadow: 0 2px 8px rgba(59, 130, 246, 0.2);
 }
 
+.line-1::after,
+.line-2::after {
+    color: #000;
+}
+
 /* Header Navigation */
 .header {
     display: flex;
@@ -1511,6 +1516,20 @@ body.loaded {
 }
 
 @media (max-width: 768px) {
+    .hero::before {
+        opacity: 0.22;
+    }
+
+    .hero::after {
+        width: 220px;
+        height: 140px;
+        bottom: -20px;
+        left: -20px;
+        opacity: 0.65;
+        background-size: 22px 22px;
+        background-position: 0 0, 0 11px, 11px -11px, -11px 0;
+    }
+
     .section-header {
         flex-direction: row;
         align-items: center;

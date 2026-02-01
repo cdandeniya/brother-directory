@@ -655,6 +655,7 @@ document.addEventListener('DOMContentLoaded', function() {
     window.addEventListener('load', () => {
         document.body.classList.add('loaded');
     });
+
 });
 
 // Smooth scroll for any anchor links - use event delegation to handle dynamically changed hrefs
