@@ -8,81 +8,15 @@ function shuffleArray(array) {
     return shuffled;
 }
 
-// Dynamically generate and shuffle brother cards in three groups
+// Dynamically generate and shuffle brother cards
 function generateShuffledBrotherCards() {
     if (typeof brothersData === 'undefined') {
         console.error('Brothers data not loaded');
         return;
     }
     
-    // Define groups (using exact names from brothersData)
-    const yesGroup = [
-        'Isabelle Baginski',
-        'Yuta Kawamura',
-        'Connor Wong', // Note: user said "Connor Wang" but data has "Connor Wong"
-        'Henry Cai',
-        'Aidan Chan',
-        'Hannah Kim',
-        'Siena Rahman',
-        'Charleen You',
-        'Rainer Duchmanh'
-    ];
-    
-    const idkGroup = [
-        'Carrie Song',
-        'Rashna Kasaju', // Note: user said "Rashua Kasaju" but data has "Rashna Kasaju"
-        'Samuel Zou',
-        'Luke Alexander',
-        'Tolu Bolaji',
-        'Ana Jiang',
-        'Anna Lin',
-        'Camila Sanchez',
-        'Steven Ye',
-        'Alex Chan'
-    ];
-    
-    const noGroup = [
-        'Sandra Obrycki',
-        'Michelle Weng',
-        'Karan Grover',
-        'Estella Saha',
-        'Naoki Sekine',
-        'Madison Stone',
-        'Jaelyn Gunter',
-        'Jack Hardiman',
-        'Chanul Dandeniya',
-        'Vincent Ouyang',
-        'Laaibah Shoaib',
-        'Daniel Yoo',
-        'Adrian Morel',
-        'Brian Ren',
-        'Jenny Chen',
-        'Natsumi Ekanayaka',
-        'Ashley Lee',
-        'Aldo Ramirez',
-        'Reon Sarkar',
-        'Walter Benitez',
-        'Claudelle Cortez',
-        'Jahzeel Requena',
-        'Waylene Hui',
-        'Joshua Jacob',
-        'James Kyung',
-        'William Sim',
-        'Jaden Yang'
-    ];
-    
-    // Filter groups to only include names that exist in brothersData
-    const yesFiltered = yesGroup.filter(name => brothersData[name]);
-    const idkFiltered = idkGroup.filter(name => brothersData[name]);
-    const noFiltered = noGroup.filter(name => brothersData[name]);
-    
-    // Shuffle each group separately
-    const shuffledYes = shuffleArray(yesFiltered);
-    const shuffledIdk = shuffleArray(idkFiltered);
-    const shuffledNo = shuffleArray(noFiltered);
-    
-    // Combine in order: Yes (top), IDK (middle), No (bottom)
-    const finalOrder = [...shuffledYes, ...shuffledIdk, ...shuffledNo];
+    // Shuffle all brothers each refresh
+    const finalOrder = shuffleArray(Object.keys(brothersData));
     
     // Get the brothers grid container
     const brothersGrid = document.querySelector('.brothers-grid');
