@@ -2545,25 +2545,6 @@ body.loaded {
    COFFEE CHAT — CARD UI
    ============================================= */
 
-/* Request count badge (top-left of card) */
-.cc-count {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    z-index: 4;
-    width: 28px;
-    height: 28px;
-    border-radius: 50%;
-    background: rgba(59, 130, 246, 0.9);
-    color: #fff;
-    font-size: 12px;
-    font-weight: 700;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    backdrop-filter: blur(4px);
-    box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
-}
 
 /* Checkmark badge (top-right of card, below star area) */
 .cc-checkmark {

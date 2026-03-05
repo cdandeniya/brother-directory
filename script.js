@@ -135,15 +135,10 @@ function updateAllCardCoffeeChatUI() {
         const name = card.dataset.brotherName;
         if (!name) return;
 
-        const countBadge = card.querySelector('.cc-count');
         const checkmark = card.querySelector('.cc-checkmark');
         const count = getCoffeeChatCount(name);
         const met = meetsRequirement(name);
 
-        if (countBadge) {
-            countBadge.textContent = count;
-            countBadge.style.display = count > 0 ? 'flex' : 'none';
-        }
         if (checkmark) {
             checkmark.style.display = met ? 'flex' : 'none';
         }
@@ -231,7 +226,6 @@ function generateShuffledBrotherCards() {
             <div class="card-image">
                 <img src="${data.image}" alt="${data.fullName}" loading="${isEager ? 'eager' : 'lazy'}" decoding="async" fetchpriority="${isHighPriority ? 'high' : 'low'}">
             </div>
-            <div class="cc-count" style="display:${count > 0 ? 'flex' : 'none'}">${count}</div>
             <div class="cc-checkmark" style="display:${met ? 'flex' : 'none'}">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
             </div>
@@ -1849,23 +1843,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 card.classList.remove('hidden');
                 card.style.order = resultMap[name].rank;
 
-                // Add match reasons as chips
-                const result = resultMap[name];
-                if (result.reasons && result.reasons.length > 0) {
-                    const overlay = card.querySelector('.card-overlay');
-                    if (overlay) {
-                        const reasonsDiv = document.createElement('div');
-                        reasonsDiv.className = 'match-reasons';
-                        result.reasons.slice(0, 2).forEach(reason => {
-                            const chip = document.createElement('span');
-                            chip.className = 'match-chip';
-                            chip.textContent = reason;
-                            chip.title = reason;
-                            reasonsDiv.appendChild(chip);
-                        });
-                        overlay.appendChild(reasonsDiv);
-                    }
-                }
+                // No match chips on hover
             } else {
                 card.classList.add('hidden');
                 card.style.order = '';
