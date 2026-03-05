@@ -1972,6 +1972,8 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    // Coffee chat requests are handled in the profile modal
+
     // Initialize pledge UI + fetch coffee chats
     updatePledgeUI();
     fetchCoffeeChats();
