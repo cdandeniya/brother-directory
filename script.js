@@ -13,6 +13,8 @@ function shuffleArray(array) {
 // =============================================
 let coffeeChatData = {}; // { brotherName: [pledgeName, ...] }
 let currentPledge = localStorage.getItem('selectedPledge') || null;
+const COFFEE_CHAT_API_BASE = window.COFFEE_CHAT_API_BASE || '';
+const coffeeChatApiUrl = (path) => COFFEE_CHAT_API_BASE ? `${COFFEE_CHAT_API_BASE}${path}` : path;
 
 function getSelectedPledge() {
     return currentPledge;
@@ -45,7 +47,7 @@ function updatePledgeUI() {
 // Fetch coffee chat data from server
 async function fetchCoffeeChats() {
     try {
-        const res = await fetch('/api/coffee-chats');
+        const res = await fetch(coffeeChatApiUrl('/api/coffee-chats'));
         if (res.ok) {
             coffeeChatData = await res.json();
             updateAllCardCoffeeChatUI();
@@ -64,7 +66,7 @@ async function requestCoffeeChat(brotherName) {
         return;
     }
     try {
-        const res = await fetch('/api/coffee-chats', {
+        const res = await fetch(coffeeChatApiUrl('/api/coffee-chats'), {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ pledgeName: pledge, brotherName }),
@@ -85,7 +87,7 @@ async function unrequestCoffeeChat(brotherName) {
     const pledge = getSelectedPledge();
     if (!pledge) return;
     try {
-        const res = await fetch('/api/coffee-chats', {
+        const res = await fetch(coffeeChatApiUrl('/api/coffee-chats'), {
             method: 'DELETE',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ pledgeName: pledge, brotherName }),
