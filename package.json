@@ -1,0 +1,12 @@
+{
+  "name": "brother-directory",
+  "version": "1.0.0",
+  "description": "Delta Sigma Pi Brother Directory with AI-powered search",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.21.0"
+  }
+}
