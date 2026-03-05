@@ -8,33 +8,220 @@ function shuffleArray(array) {
     return shuffled;
 }
 
+// =============================================
+// COFFEE CHAT STATE
+// =============================================
+let coffeeChatData = {}; // { brotherName: [pledgeName, ...] }
+let currentPledge = localStorage.getItem('selectedPledge') || null;
+
+function getSelectedPledge() {
+    return currentPledge;
+}
+
+function setSelectedPledge(name) {
+    currentPledge = name;
+    if (name) {
+        localStorage.setItem('selectedPledge', name);
+    } else {
+        localStorage.removeItem('selectedPledge');
+    }
+    updatePledgeUI();
+    updateAllCardCoffeeChatUI();
+    sortBrotherCards();
+}
+
+function updatePledgeUI() {
+    const btn = document.getElementById('pledgeSelectBtn');
+    const welcomeText = document.querySelector('.welcome-text');
+    if (currentPledge) {
+        if (btn) btn.textContent = 'SWITCH USER';
+        if (welcomeText) welcomeText.textContent = `HELLO ${currentPledge.toUpperCase()}`;
+    } else {
+        if (btn) btn.textContent = 'SELECT USER';
+        if (welcomeText) welcomeText.textContent = 'WELCOME TAU CLASS';
+    }
+}
+
+// Fetch coffee chat data from server
+async function fetchCoffeeChats() {
+    try {
+        const res = await fetch('/api/coffee-chats');
+        if (res.ok) {
+            coffeeChatData = await res.json();
+            updateAllCardCoffeeChatUI();
+            sortBrotherCards();
+        }
+    } catch (e) {
+        console.error('Failed to fetch coffee chats:', e);
+    }
+}
+
+// Request a coffee chat
+async function requestCoffeeChat(brotherName) {
+    const pledge = getSelectedPledge();
+    if (!pledge) {
+        openPledgeModal();
+        return;
+    }
+    try {
+        const res = await fetch('/api/coffee-chats', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ pledgeName: pledge, brotherName }),
+        });
+        if (res.ok) {
+            const result = await res.json();
+            coffeeChatData = result.data;
+            updateAllCardCoffeeChatUI();
+            sortBrotherCards();
+        }
+    } catch (e) {
+        console.error('Failed to request coffee chat:', e);
+    }
+}
+
+// Unrequest a coffee chat
+async function unrequestCoffeeChat(brotherName) {
+    const pledge = getSelectedPledge();
+    if (!pledge) return;
+    try {
+        const res = await fetch('/api/coffee-chats', {
+            method: 'DELETE',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ pledgeName: pledge, brotherName }),
+        });
+        if (res.ok) {
+            const result = await res.json();
+            coffeeChatData = result.data;
+            updateAllCardCoffeeChatUI();
+            sortBrotherCards();
+        }
+    } catch (e) {
+        console.error('Failed to unrequest coffee chat:', e);
+    }
+}
+
+// Get request count for a brother
+function getCoffeeChatCount(brotherName) {
+    return (coffeeChatData[brotherName] || []).length;
+}
+
+// Check if current pledge already requested this brother
+function hasRequested(brotherName) {
+    const pledge = getSelectedPledge();
+    if (!pledge) return false;
+    return (coffeeChatData[brotherName] || []).includes(pledge);
+}
+
+// Check if a brother meets the coffee chat requirement
+// Seniors (graduating May 2026) need 1 coffee chat, everyone else needs 2
+function meetsRequirement(brotherName) {
+    if (typeof brothersData === 'undefined') return false;
+    const data = brothersData[brotherName];
+    if (!data) return false;
+
+    const gradDate = (data.graduationDate || '').toLowerCase();
+    const isSenior = gradDate.includes('2026');
+    const required = isSenior ? 1 : 2;
+    const count = getCoffeeChatCount(brotherName);
+    return count >= required;
+}
+
+// Update coffee chat UI on all cards
+function updateAllCardCoffeeChatUI() {
+    document.querySelectorAll('.brother-card').forEach(card => {
+        const name = card.dataset.brotherName;
+        if (!name) return;
+
+        const countBadge = card.querySelector('.cc-count');
+        const checkmark = card.querySelector('.cc-checkmark');
+        const count = getCoffeeChatCount(name);
+        const met = meetsRequirement(name);
+
+        if (countBadge) {
+            countBadge.textContent = count;
+            countBadge.style.display = count > 0 ? 'flex' : 'none';
+        }
+        if (checkmark) {
+            checkmark.style.display = met ? 'flex' : 'none';
+        }
+    });
+}
+
+// Sort brother cards: unmet first (lowest count → alpha), met at bottom (randomly shuffled)
+function sortBrotherCards() {
+    const grid = document.querySelector('.brothers-grid');
+    if (!grid) return;
+
+    const cards = Array.from(grid.querySelectorAll('.brother-card'));
+    if (cards.length === 0) return;
+
+    // Don't sort if search is active (search has its own ordering)
+    const searchBanner = document.getElementById('aiSearchBanner');
+    if (searchBanner && searchBanner.style.display !== 'none') return;
+
+    // Split into met and unmet groups
+    const unmet = [];
+    const met = [];
+    cards.forEach(card => {
+        if (meetsRequirement(card.dataset.brotherName)) {
+            met.push(card);
+        } else {
+            unmet.push(card);
+        }
+    });
+
+    // Sort unmet: lowest request count first, then alphabetical
+    unmet.sort((a, b) => {
+        const countA = getCoffeeChatCount(a.dataset.brotherName);
+        const countB = getCoffeeChatCount(b.dataset.brotherName);
+        if (countA !== countB) return countA - countB;
+        return a.dataset.brotherName.localeCompare(b.dataset.brotherName);
+    });
+
+    // Randomly shuffle met group
+    for (let i = met.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [met[i], met[j]] = [met[j], met[i]];
+    }
+
+    // Combine: unmet first, then met
+    const sorted = [...unmet, ...met];
+    sorted.forEach((card, i) => {
+        card.style.order = i;
+    });
+}
+
 // Dynamically generate and shuffle brother cards
 function generateShuffledBrotherCards() {
     if (typeof brothersData === 'undefined') {
         console.error('Brothers data not loaded');
         return;
     }
-    
+
     // Shuffle all brothers each refresh
     const finalOrder = shuffleArray(Object.keys(brothersData));
-    
+
     // Get the brothers grid container
     const brothersGrid = document.querySelector('.brothers-grid');
     if (!brothersGrid) {
         console.error('Brothers grid not found');
         return;
     }
-    
+
     // Clear existing cards
     brothersGrid.innerHTML = '';
-    
+
     // Generate cards in grouped and shuffled order
     finalOrder.forEach((brotherName, index) => {
         const data = brothersData[brotherName];
         if (!data) return;
-        
+
         const isHighPriority = index < 4;
         const isEager = index < 8;
+        const count = getCoffeeChatCount(brotherName);
+        const met = meetsRequirement(brotherName);
+
         const card = document.createElement('div');
         card.className = 'brother-card';
         card.dataset.brotherName = brotherName;
@@ -42,15 +229,19 @@ function generateShuffledBrotherCards() {
             <div class="card-image">
                 <img src="${data.image}" alt="${data.fullName}" loading="${isEager ? 'eager' : 'lazy'}" decoding="async" fetchpriority="${isHighPriority ? 'high' : 'low'}">
             </div>
+            <div class="cc-count" style="display:${count > 0 ? 'flex' : 'none'}">${count}</div>
+            <div class="cc-checkmark" style="display:${met ? 'flex' : 'none'}">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            </div>
             <div class="card-overlay">
                 <h3 class="brother-name">${data.fullName}</h3>
                 <button class="view-profile-btn">View Profile</button>
             </div>
         `;
-        
+
         brothersGrid.appendChild(card);
     });
-    
+
     // Apply any active filters after generating cards
     applyFilters();
 }
@@ -501,14 +692,14 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Animate header nav but keep welcome text static
     if (headerNav) {
-        const contactBtn = headerNav.querySelector('.contact-btn');
-        if (contactBtn) {
-            contactBtn.style.opacity = '0';
-            contactBtn.style.transform = 'translateY(-10px)';
-            contactBtn.style.transition = 'opacity 0.6s ease-out 0.2s, transform 0.6s ease-out 0.2s';
+        const pledgeBtn = headerNav.querySelector('#pledgeSelectBtn');
+        if (pledgeBtn) {
+            pledgeBtn.style.opacity = '0';
+            pledgeBtn.style.transform = 'translateY(-10px)';
+            pledgeBtn.style.transition = 'opacity 0.6s ease-out 0.2s, transform 0.6s ease-out 0.2s';
             setTimeout(() => {
-                contactBtn.style.opacity = '1';
-                contactBtn.style.transform = 'translateY(0)';
+                pledgeBtn.style.opacity = '1';
+                pledgeBtn.style.transform = 'translateY(0)';
             }, 400);
         }
     }
@@ -1238,6 +1429,27 @@ document.addEventListener('DOMContentLoaded', function() {
         if (profileNameEl) {
             profileNameEl.textContent = data.fullName;
         }
+
+        // Set coffee chat checkmark on profile
+        const profileCheckmark = document.getElementById('profileCcCheckmark');
+        if (profileCheckmark) {
+            profileCheckmark.style.display = meetsRequirement(brotherName) ? 'inline-flex' : 'none';
+        }
+
+        // Set coffee chat button on profile
+        const profileCcBtn = document.getElementById('profileCcBtn');
+        if (profileCcBtn) {
+            const pledge = getSelectedPledge();
+            profileCcBtn.style.display = pledge ? 'block' : 'none';
+            const requested = hasRequested(brotherName);
+            if (requested) {
+                profileCcBtn.classList.add('requested');
+                profileCcBtn.textContent = 'Requested';
+            } else {
+                profileCcBtn.classList.remove('requested');
+                profileCcBtn.textContent = 'Coffee Chat';
+            }
+        }
         
         // Set subtitle (Major | Pledge Class | Grad Year)
         const profileSubtitleEl = document.querySelector('.profile-subtitle');
@@ -1499,4 +1711,266 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }, 350);
     }
+});
+
+// =============================================
+// AI-Powered Search Functionality
+// =============================================
+document.addEventListener('DOMContentLoaded', function() {
+    const searchInput = document.getElementById('aiSearchInput');
+    const searchClear = document.getElementById('aiSearchClear');
+    const searchBanner = document.getElementById('aiSearchBanner');
+    const searchBannerLabel = document.getElementById('aiSearchResultsLabel');
+    const searchBannerClear = document.getElementById('aiSearchBannerClear');
+    const searchWrapper = document.getElementById('aiSearchWrapper');
+
+    if (!searchInput) return;
+
+    let searchDebounceTimer = null;
+    let isSearchActive = false;
+    let currentSearchResults = null;
+
+    // Show/hide clear button based on input
+    searchInput.addEventListener('input', function() {
+        searchClear.style.display = this.value.length > 0 ? 'flex' : 'none';
+    });
+
+    // Search on Enter
+    searchInput.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            performSearch(this.value.trim());
+        }
+    });
+
+    // Clear search
+    searchClear.addEventListener('click', function() {
+        clearSearch();
+    });
+
+    if (searchBannerClear) {
+        searchBannerClear.addEventListener('click', function() {
+            clearSearch();
+        });
+    }
+
+    async function performSearch(query) {
+        if (!query || query.length < 2) {
+            clearSearch();
+            return;
+        }
+
+        const inputWrapper = searchInput.closest('.ai-search-input-wrapper');
+        inputWrapper.classList.add('loading');
+        searchInput.disabled = true;
+
+        try {
+            const response = await fetch('/api/search', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ query }),
+            });
+
+            if (!response.ok) {
+                throw new Error('Search request failed');
+            }
+
+            const data = await response.json();
+            currentSearchResults = data;
+            isSearchActive = true;
+            displaySearchResults(data);
+        } catch (err) {
+            console.error('Search error:', err);
+            // Show error state
+            searchBanner.style.display = 'block';
+            searchBannerLabel.textContent = 'Search unavailable. Make sure the server is running.';
+        } finally {
+            inputWrapper.classList.remove('loading');
+            searchInput.disabled = false;
+            searchInput.focus();
+        }
+    }
+
+    function displaySearchResults(data) {
+        const brothersGrid = document.querySelector('.brothers-grid');
+        if (!brothersGrid) return;
+
+        if (!data.hasGoodMatches || data.results.length === 0) {
+            // Show no results
+            searchBanner.style.display = 'block';
+            searchBannerLabel.textContent = `No strong matches for "${data.query}"`;
+
+            // Hide all cards and show message
+            const cards = document.querySelectorAll('.brother-card');
+            cards.forEach(c => c.classList.add('hidden'));
+
+            // Remove old no-results message
+            const oldMsg = brothersGrid.querySelector('.ai-no-results');
+            if (oldMsg) oldMsg.remove();
+
+            const noResults = document.createElement('div');
+            noResults.className = 'ai-no-results';
+            noResults.innerHTML = `<strong>No strong matches found</strong>Try a broader interest or fewer constraints.`;
+            brothersGrid.appendChild(noResults);
+            return;
+        }
+
+        // Remove no-results message if present
+        const oldMsg = brothersGrid.querySelector('.ai-no-results');
+        if (oldMsg) oldMsg.remove();
+
+        // Show banner
+        searchBanner.style.display = 'block';
+        searchBannerLabel.textContent = `Showing ${data.results.length} matches for "${data.query}"`;
+
+        // Build a map of name -> result for ordering and filtering
+        const resultMap = {};
+        data.results.forEach((r, idx) => {
+            resultMap[r.name] = { ...r, rank: idx };
+        });
+
+        // Get all cards
+        const cards = Array.from(document.querySelectorAll('.brother-card'));
+
+        // Remove old match badges and chips
+        cards.forEach(card => {
+            const oldBadge = card.querySelector('.match-score-badge');
+            if (oldBadge) oldBadge.remove();
+            const oldReasons = card.querySelector('.match-reasons');
+            if (oldReasons) oldReasons.remove();
+        });
+
+        // Show/hide and reorder cards
+        cards.forEach(card => {
+            const name = card.dataset.brotherName;
+            if (resultMap[name]) {
+                card.classList.remove('hidden');
+                card.style.order = resultMap[name].rank;
+
+                // Add match reasons as chips
+                const result = resultMap[name];
+                if (result.reasons && result.reasons.length > 0) {
+                    const overlay = card.querySelector('.card-overlay');
+                    if (overlay) {
+                        const reasonsDiv = document.createElement('div');
+                        reasonsDiv.className = 'match-reasons';
+                        result.reasons.slice(0, 2).forEach(reason => {
+                            const chip = document.createElement('span');
+                            chip.className = 'match-chip';
+                            chip.textContent = reason;
+                            chip.title = reason;
+                            reasonsDiv.appendChild(chip);
+                        });
+                        overlay.appendChild(reasonsDiv);
+                    }
+                }
+            } else {
+                card.classList.add('hidden');
+                card.style.order = '';
+            }
+        });
+    }
+
+    function clearSearch() {
+        searchInput.value = '';
+        searchClear.style.display = 'none';
+        searchBanner.style.display = 'none';
+        isSearchActive = false;
+        currentSearchResults = null;
+
+        // Remove no-results message
+        const brothersGrid = document.querySelector('.brothers-grid');
+        const oldMsg = brothersGrid?.querySelector('.ai-no-results');
+        if (oldMsg) oldMsg.remove();
+
+        // Restore all cards
+        const cards = document.querySelectorAll('.brother-card');
+        cards.forEach(card => {
+            card.classList.remove('hidden');
+            card.style.order = '';
+
+            // Remove match badges and chips
+            const oldBadge = card.querySelector('.match-score-badge');
+            if (oldBadge) oldBadge.remove();
+            const oldReasons = card.querySelector('.match-reasons');
+            if (oldReasons) oldReasons.remove();
+        });
+
+        // Reapply filters
+        applyFilters();
+        // Re-sort after clearing search
+        sortBrotherCards();
+    }
+});
+
+// =============================================
+// PLEDGE SELECTOR MODAL
+// =============================================
+function openPledgeModal() {
+    const modal = document.getElementById('pledgeModal');
+    if (modal) modal.classList.add('active');
+}
+
+function closePledgeModal() {
+    const modal = document.getElementById('pledgeModal');
+    if (modal) modal.classList.remove('active');
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Pledge select button in header
+    const pledgeSelectBtn = document.getElementById('pledgeSelectBtn');
+    if (pledgeSelectBtn) {
+        pledgeSelectBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            openPledgeModal();
+        });
+    }
+
+    // Pledge modal overlay close
+    const pledgeOverlay = document.querySelector('.pledge-modal-overlay');
+    if (pledgeOverlay) {
+        pledgeOverlay.addEventListener('click', closePledgeModal);
+    }
+
+    // Pledge option buttons
+    document.querySelectorAll('.pledge-option').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const name = this.dataset.pledge;
+            setSelectedPledge(name);
+            closePledgeModal();
+        });
+    });
+
+    // Coffee chat request button in profile modal
+    const profileCcBtn = document.getElementById('profileCcBtn');
+    if (profileCcBtn) {
+        profileCcBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            const profileModal = document.getElementById('profileModal');
+            if (!profileModal) return;
+            const brotherName = profileModal.dataset.currentBrother;
+            if (!brotherName) return;
+
+            if (!getSelectedPledge()) {
+                openPledgeModal();
+                return;
+            }
+
+            if (hasRequested(brotherName)) {
+                unrequestCoffeeChat(brotherName).then(() => {
+                    profileCcBtn.classList.remove('requested');
+                    profileCcBtn.textContent = 'Coffee Chat';
+                });
+            } else {
+                requestCoffeeChat(brotherName).then(() => {
+                    profileCcBtn.classList.add('requested');
+                    profileCcBtn.textContent = 'Requested';
+                });
+            }
+        });
+    }
+
+    // Initialize pledge UI + fetch coffee chats
+    updatePledgeUI();
+    fetchCoffeeChats();
 });

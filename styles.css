@@ -350,6 +350,191 @@ body.loaded {
     display: none;
 }
 
+/* Section Header Controls (search + filters row) */
+.section-header-controls {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-shrink: 0;
+}
+
+/* AI Search */
+.ai-search-wrapper {
+    position: relative;
+}
+
+.ai-search-input-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    background: rgba(255, 255, 255, 0.9);
+    border: 1.5px solid rgba(0, 0, 0, 0.1);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    min-width: 260px;
+}
+
+.ai-search-input-wrapper:focus-within {
+    border-color: #3B82F6;
+    box-shadow: 0 4px 16px rgba(59, 130, 246, 0.15);
+    background: #fff;
+}
+
+.ai-search-icon {
+    flex-shrink: 0;
+    color: #999;
+    transition: color 0.2s ease;
+}
+
+.ai-search-input-wrapper:focus-within .ai-search-icon {
+    color: #3B82F6;
+}
+
+.ai-search-input {
+    border: none;
+    outline: none;
+    background: transparent;
+    font-size: 14px;
+    font-weight: 400;
+    color: #000;
+    width: 100%;
+    font-family: inherit;
+}
+
+.ai-search-input::placeholder {
+    color: #aaa;
+    font-style: italic;
+}
+
+.ai-search-clear {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #999;
+    padding: 2px;
+    border-radius: 50%;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+}
+
+.ai-search-clear:hover {
+    color: #333;
+    background: rgba(0, 0, 0, 0.05);
+}
+
+/* Search loading state */
+.ai-search-input-wrapper.loading {
+    border-color: #3B82F6;
+}
+
+.ai-search-input-wrapper.loading .ai-search-icon {
+    animation: searchPulse 1s ease-in-out infinite;
+    color: #3B82F6;
+}
+
+@keyframes searchPulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+}
+
+/* Search Results Banner */
+.ai-search-results-banner {
+    margin-bottom: 24px;
+    padding: 12px 20px;
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.06), rgba(147, 51, 234, 0.04));
+    border: 1px solid rgba(59, 130, 246, 0.15);
+    border-radius: 14px;
+}
+
+.ai-search-results-info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.ai-search-results-label {
+    font-size: 14px;
+    color: #444;
+    font-weight: 500;
+}
+
+.ai-search-results-clear {
+    background: none;
+    border: none;
+    color: #3B82F6;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    padding: 4px 10px;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+}
+
+.ai-search-results-clear:hover {
+    background: rgba(59, 130, 246, 0.1);
+}
+
+/* Match reason chips on cards */
+.match-reasons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin-top: 6px;
+    max-width: 100%;
+}
+
+.match-chip {
+    display: inline-block;
+    padding: 2px 8px;
+    background: rgba(59, 130, 246, 0.15);
+    color: #1E3A8A;
+    font-size: 10px;
+    font-weight: 500;
+    border-radius: 6px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 180px;
+}
+
+/* Match score badge */
+.match-score-badge {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    padding: 3px 8px;
+    background: rgba(59, 130, 246, 0.9);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 600;
+    border-radius: 8px;
+    z-index: 2;
+    backdrop-filter: blur(4px);
+}
+
+/* No results message */
+.ai-no-results {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 60px 20px;
+    color: #666;
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+.ai-no-results strong {
+    display: block;
+    margin-bottom: 8px;
+    color: #333;
+    font-size: 18px;
+}
+
 /* Filters Wrapper */
 .filters-wrapper {
     position: relative;
@@ -2208,6 +2393,290 @@ body.loaded {
 @media (min-width: 769px) and (max-width: 1024px) and (orientation: landscape) {
     .brothers-grid {
         grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* AI Search responsive */
+@media (max-width: 1024px) {
+    .ai-search-input-wrapper {
+        min-width: 220px;
+    }
+}
+
+@media (max-width: 768px) {
+    .section-header-controls {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 8px;
+        width: 100%;
+    }
+
+    .section-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .ai-search-input-wrapper {
+        min-width: unset;
+        width: 100%;
+    }
+
+    .ai-search-results-banner {
+        margin-bottom: 16px;
+        padding: 10px 16px;
+    }
+
+    .match-chip {
+        max-width: 140px;
+    }
+}
+
+@media (max-width: 480px) {
+    .ai-search-input-wrapper {
+        padding: 7px 12px;
+    }
+
+    .ai-search-input {
+        font-size: 13px;
+    }
+}
+
+/* =============================================
+   PLEDGE SELECTOR MODAL
+   ============================================= */
+.pledge-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 1000010;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.25s ease, visibility 0.25s ease;
+    pointer-events: none;
+}
+
+.pledge-modal.active {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: all;
+}
+
+.pledge-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+}
+
+.pledge-modal-content {
+    position: relative;
+    z-index: 1;
+    background: #fff;
+    border-radius: 20px;
+    padding: 40px;
+    max-width: 420px;
+    width: 90%;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+    transform: scale(0.95) translateY(10px);
+    transition: transform 0.25s ease;
+}
+
+.pledge-modal.active .pledge-modal-content {
+    transform: scale(1) translateY(0);
+}
+
+.pledge-modal-title {
+    font-size: 24px;
+    font-weight: 700;
+    color: #000;
+    margin-bottom: 6px;
+    text-align: center;
+}
+
+.pledge-modal-subtitle {
+    font-size: 14px;
+    color: #888;
+    text-align: center;
+    margin-bottom: 24px;
+}
+
+.pledge-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+}
+
+.pledge-option {
+    padding: 10px 20px;
+    border: 1.5px solid rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    background: #fff;
+    font-size: 14px;
+    font-weight: 500;
+    color: #333;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: inherit;
+}
+
+.pledge-option:hover {
+    border-color: #3B82F6;
+    background: rgba(59, 130, 246, 0.06);
+    color: #1E3A8A;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15);
+}
+
+.pledge-option:active {
+    transform: scale(0.97);
+}
+
+/* =============================================
+   COFFEE CHAT — CARD UI
+   ============================================= */
+
+/* Request count badge (top-left of card) */
+.cc-count {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    z-index: 4;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: rgba(59, 130, 246, 0.9);
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(4px);
+    box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
+}
+
+/* Checkmark badge (top-right of card, below star area) */
+.cc-checkmark {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 4;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: #22c55e;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 8px rgba(34, 197, 94, 0.3);
+}
+
+/* Name row with checkmark */
+.profile-name-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Checkmark badge on profile modal (next to name) */
+.profile-cc-checkmark {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: #22c55e;
+    margin-left: 8px;
+    vertical-align: middle;
+    box-shadow: 0 2px 8px rgba(34, 197, 94, 0.3);
+    flex-shrink: 0;
+}
+
+/* Coffee Chat request button on card overlay */
+.cc-request-btn {
+    background: transparent;
+    border: 2px solid #3B82F6;
+    color: #3B82F6;
+    padding: 8px 20px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    margin-top: 10px;
+    font-family: inherit;
+}
+
+.cc-request-btn:hover {
+    background: #3B82F6;
+    color: #fff;
+}
+
+.cc-request-btn.requested {
+    background: rgba(34, 197, 94, 0.2);
+    border-color: #22c55e;
+    color: #22c55e;
+}
+
+.cc-request-btn.requested:hover {
+    background: rgba(220, 38, 38, 0.15);
+    border-color: #DC2626;
+    color: #DC2626;
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+    .pledge-modal-content {
+        padding: 30px 20px;
+    }
+
+    .pledge-modal-title {
+        font-size: 20px;
+    }
+
+    .pledge-option {
+        padding: 8px 16px;
+        font-size: 13px;
+    }
+
+    .cc-count {
+        width: 24px;
+        height: 24px;
+        font-size: 11px;
+    }
+
+    .cc-checkmark {
+        width: 22px;
+        height: 22px;
+    }
+
+    .cc-request-btn {
+        padding: 7px 16px;
+        font-size: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .pledge-modal-content {
+        padding: 24px 16px;
+    }
+
+    .pledge-option {
+        padding: 7px 14px;
+        font-size: 12px;
     }
 }
 
