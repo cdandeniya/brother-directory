@@ -350,190 +350,6 @@ body.loaded {
     display: none;
 }
 
-/* Section Header Controls (search + filters row) */
-.section-header-controls {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    flex-shrink: 0;
-}
-
-/* AI Search */
-.ai-search-wrapper {
-    position: relative;
-}
-
-.ai-search-input-wrapper {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 8px 16px;
-    background: rgba(255, 255, 255, 0.9);
-    border: 1.5px solid rgba(0, 0, 0, 0.1);
-    border-radius: 20px;
-    transition: all 0.3s ease;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-    min-width: 260px;
-}
-
-.ai-search-input-wrapper:focus-within {
-    border-color: #3B82F6;
-    box-shadow: 0 4px 16px rgba(59, 130, 246, 0.15);
-    background: #fff;
-}
-
-.ai-search-icon {
-    flex-shrink: 0;
-    color: #999;
-    transition: color 0.2s ease;
-}
-
-.ai-search-input-wrapper:focus-within .ai-search-icon {
-    color: #3B82F6;
-}
-
-.ai-search-input {
-    border: none;
-    outline: none;
-    background: transparent;
-    font-size: 14px;
-    font-weight: 400;
-    color: #000;
-    width: 100%;
-    font-family: inherit;
-}
-
-.ai-search-input::placeholder {
-    color: #aaa;
-    font-style: italic;
-}
-
-.ai-search-clear {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: none;
-    border: none;
-    cursor: pointer;
-    color: #999;
-    padding: 2px;
-    border-radius: 50%;
-    transition: all 0.2s ease;
-    flex-shrink: 0;
-}
-
-.ai-search-clear:hover {
-    color: #333;
-    background: rgba(0, 0, 0, 0.05);
-}
-
-/* Search loading state */
-.ai-search-input-wrapper.loading {
-    border-color: #3B82F6;
-}
-
-.ai-search-input-wrapper.loading .ai-search-icon {
-    animation: searchPulse 1s ease-in-out infinite;
-    color: #3B82F6;
-}
-
-@keyframes searchPulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.3; }
-}
-
-/* Search Results Banner */
-.ai-search-results-banner {
-    margin-bottom: 24px;
-    padding: 12px 20px;
-    background: linear-gradient(135deg, rgba(59, 130, 246, 0.06), rgba(147, 51, 234, 0.04));
-    border: 1px solid rgba(59, 130, 246, 0.15);
-    border-radius: 14px;
-}
-
-.ai-search-results-info {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-}
-
-.ai-search-results-label {
-    font-size: 14px;
-    color: #444;
-    font-weight: 500;
-}
-
-.ai-search-results-clear {
-    background: none;
-    border: none;
-    color: #3B82F6;
-    font-size: 13px;
-    font-weight: 500;
-    cursor: pointer;
-    padding: 4px 10px;
-    border-radius: 8px;
-    transition: all 0.2s ease;
-}
-
-.ai-search-results-clear:hover {
-    background: rgba(59, 130, 246, 0.1);
-}
-
-/* Match reason chips on cards */
-.match-reasons {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 4px;
-    margin-top: 6px;
-    max-width: 100%;
-}
-
-.match-chip {
-    display: inline-block;
-    padding: 2px 8px;
-    background: rgba(59, 130, 246, 0.15);
-    color: #1E3A8A;
-    font-size: 10px;
-    font-weight: 500;
-    border-radius: 6px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 180px;
-}
-
-/* Match score badge */
-.match-score-badge {
-    position: absolute;
-    top: 8px;
-    right: 8px;
-    padding: 3px 8px;
-    background: rgba(59, 130, 246, 0.9);
-    color: #fff;
-    font-size: 11px;
-    font-weight: 600;
-    border-radius: 8px;
-    z-index: 2;
-    backdrop-filter: blur(4px);
-}
-
-/* No results message */
-.ai-no-results {
-    grid-column: 1 / -1;
-    text-align: center;
-    padding: 60px 20px;
-    color: #666;
-    font-size: 16px;
-    line-height: 1.6;
-}
-
-.ai-no-results strong {
-    display: block;
-    margin-bottom: 8px;
-    color: #333;
-    font-size: 18px;
-}
 
 /* Filters Wrapper */
 .filters-wrapper {
@@ -591,27 +407,57 @@ body.loaded {
     display: flex;
     align-items: center;
     gap: 8px;
+    flex-wrap: wrap;
     padding: 0;
     position: absolute;
     right: 0;
     top: calc(100% + 12px);
-    background: rgba(255, 255, 255, 0.98);
+    background:
+        radial-gradient(120% 140% at 0% 0%, rgba(59, 130, 246, 0.12), transparent 60%),
+        radial-gradient(140% 140% at 100% 0%, rgba(147, 51, 234, 0.1), transparent 55%),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.98) 0%, rgba(245, 247, 255, 0.98) 100%);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
-    border: 1.5px solid rgba(0, 0, 0, 0.08);
-    border-radius: 16px;
-    padding: 10px 16px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.05);
+    border: 1.5px solid rgba(59, 130, 246, 0.22);
+    border-radius: 20px;
+    padding: 12px 18px;
+    box-shadow:
+        0 12px 36px rgba(59, 130, 246, 0.16),
+        0 6px 16px rgba(0, 0, 0, 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 0.8);
     opacity: 0;
     visibility: hidden;
     transform: translateY(-8px) translateZ(0);
     transition: opacity 0.25s ease, visibility 0.25s ease, transform 0.25s ease;
     pointer-events: none;
     z-index: 10;
-    min-width: 200px;
-    justify-content: center;
+    min-width: 240px;
+    max-width: 560px;
+    justify-content: flex-start;
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
+}
+
+.filters-group-label {
+    width: 100%;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #1E3A8A;
+    padding: 8px 6px 2px;
+    position: relative;
+}
+
+.filters-group-label::after {
+    content: '';
+    display: block;
+    height: 2px;
+    width: 28px;
+    margin-top: 6px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, #3B82F6, #9333EA);
+    opacity: 0.7;
 }
 
 .filters-container.active {
@@ -627,16 +473,17 @@ body.loaded {
     gap: 10px;
     cursor: pointer;
     font-size: 14px;
-    font-weight: 400;
-    color: #555;
+    font-weight: 500;
+    color: #0f172a;
     user-select: none;
     transition: all 0.2s ease;
     padding: 8px 14px;
     position: relative;
     white-space: nowrap;
-    border-radius: 10px;
+    border-radius: 12px;
     margin: -2px;
     overflow: hidden;
+    border: 1px solid rgba(59, 130, 246, 0.08);
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
     transform: translateZ(0);
@@ -649,8 +496,8 @@ body.loaded {
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0, 0, 0, 0.03);
-    border-radius: 10px;
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.08), rgba(147, 51, 234, 0.06));
+    border-radius: 12px;
     opacity: 0;
     transition: opacity 0.25s cubic-bezier(0.4, 0, 0.2, 1), background 0.25s cubic-bezier(0.4, 0, 0.2, 1);
     z-index: 0;
@@ -664,7 +511,7 @@ body.loaded {
     width: 0;
     height: 0;
     border-radius: 50%;
-    background: rgba(59, 130, 246, 0.2);
+    background: rgba(59, 130, 246, 0.22);
     transform: translate(-50%, -50%);
     transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1), height 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     opacity: 0;
@@ -673,12 +520,14 @@ body.loaded {
 }
 
 .filter-checkbox:hover {
-    color: #000;
+    color: #0f172a;
+    border-color: rgba(59, 130, 246, 0.2);
+    box-shadow: 0 6px 16px rgba(59, 130, 246, 0.18);
 }
 
 .filter-checkbox:hover::before {
     opacity: 1;
-    background: rgba(0, 0, 0, 0.05);
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.12), rgba(147, 51, 234, 0.1));
 }
 
 .filter-checkbox:active {
@@ -727,7 +576,12 @@ body.loaded {
 
 .filter-checkbox:has(.filter-input:checked)::before {
     opacity: 1;
-    background: linear-gradient(135deg, rgba(59, 130, 246, 0.12) 0%, rgba(147, 51, 234, 0.12) 100%);
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.2) 0%, rgba(147, 51, 234, 0.18) 100%);
+}
+
+.filter-checkbox:has(.filter-input:checked) {
+    border-color: rgba(59, 130, 246, 0.35);
+    box-shadow: 0 6px 18px rgba(59, 130, 246, 0.22);
 }
 
 .filter-checkbox:has(.filter-input:checked) .filter-input {
@@ -923,6 +777,21 @@ body.loaded {
 
 .brother-card:hover .brother-name {
     transform: translateY(0);
+}
+
+.card-checkmark {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 4;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: #22c55e;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 8px rgba(34, 197, 94, 0.35);
 }
 
 .view-profile-btn {
@@ -2393,271 +2262,6 @@ body.loaded {
 @media (min-width: 769px) and (max-width: 1024px) and (orientation: landscape) {
     .brothers-grid {
         grid-template-columns: repeat(3, 1fr);
-    }
-}
-
-/* AI Search responsive */
-@media (max-width: 1024px) {
-    .ai-search-input-wrapper {
-        min-width: 220px;
-    }
-}
-
-@media (max-width: 768px) {
-    .section-header-controls {
-        flex-direction: column;
-        align-items: stretch;
-        gap: 8px;
-        width: 100%;
-    }
-
-    .section-header {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .ai-search-input-wrapper {
-        min-width: unset;
-        width: 100%;
-    }
-
-    .ai-search-results-banner {
-        margin-bottom: 16px;
-        padding: 10px 16px;
-    }
-
-    .match-chip {
-        max-width: 140px;
-    }
-}
-
-@media (max-width: 480px) {
-    .ai-search-input-wrapper {
-        padding: 7px 12px;
-    }
-
-    .ai-search-input {
-        font-size: 13px;
-    }
-}
-
-/* =============================================
-   PLEDGE SELECTOR MODAL
-   ============================================= */
-.pledge-modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    z-index: 1000010;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.25s ease, visibility 0.25s ease;
-    pointer-events: none;
-}
-
-.pledge-modal.active {
-    opacity: 1;
-    visibility: visible;
-    pointer-events: all;
-}
-
-.pledge-modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.6);
-    backdrop-filter: blur(4px);
-    -webkit-backdrop-filter: blur(4px);
-}
-
-.pledge-modal-content {
-    position: relative;
-    z-index: 1;
-    background: #fff;
-    border-radius: 20px;
-    padding: 40px;
-    max-width: 420px;
-    width: 90%;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
-    transform: scale(0.95) translateY(10px);
-    transition: transform 0.25s ease;
-}
-
-.pledge-modal.active .pledge-modal-content {
-    transform: scale(1) translateY(0);
-}
-
-.pledge-modal-title {
-    font-size: 24px;
-    font-weight: 700;
-    color: #000;
-    margin-bottom: 6px;
-    text-align: center;
-}
-
-.pledge-modal-subtitle {
-    font-size: 14px;
-    color: #888;
-    text-align: center;
-    margin-bottom: 24px;
-}
-
-.pledge-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    justify-content: center;
-}
-
-.pledge-option {
-    padding: 10px 20px;
-    border: 1.5px solid rgba(0, 0, 0, 0.1);
-    border-radius: 12px;
-    background: #fff;
-    font-size: 14px;
-    font-weight: 500;
-    color: #333;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    font-family: inherit;
-}
-
-.pledge-option:hover {
-    border-color: #3B82F6;
-    background: rgba(59, 130, 246, 0.06);
-    color: #1E3A8A;
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15);
-}
-
-.pledge-option:active {
-    transform: scale(0.97);
-}
-
-/* =============================================
-   COFFEE CHAT — CARD UI
-   ============================================= */
-
-
-/* Checkmark badge (top-right of card, below star area) */
-.cc-checkmark {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    z-index: 4;
-    width: 26px;
-    height: 26px;
-    border-radius: 50%;
-    background: #22c55e;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 2px 8px rgba(34, 197, 94, 0.3);
-}
-
-/* Name row with checkmark */
-.profile-name-row {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-/* Checkmark badge on profile modal (next to name) */
-.profile-cc-checkmark {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 22px;
-    height: 22px;
-    border-radius: 50%;
-    background: #22c55e;
-    margin-left: 8px;
-    vertical-align: middle;
-    box-shadow: 0 2px 8px rgba(34, 197, 94, 0.3);
-    flex-shrink: 0;
-}
-
-/* Coffee Chat request button on card overlay */
-.cc-request-btn {
-    background: transparent;
-    border: 2px solid #3B82F6;
-    color: #3B82F6;
-    padding: 8px 20px;
-    border-radius: 20px;
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-    cursor: pointer;
-    transition: all 0.25s ease;
-    margin-top: 10px;
-    font-family: inherit;
-}
-
-.cc-request-btn:hover {
-    background: #3B82F6;
-    color: #fff;
-}
-
-.cc-request-btn.requested {
-    background: rgba(34, 197, 94, 0.2);
-    border-color: #22c55e;
-    color: #22c55e;
-}
-
-.cc-request-btn.requested:hover {
-    background: rgba(220, 38, 38, 0.15);
-    border-color: #DC2626;
-    color: #DC2626;
-}
-
-/* Mobile adjustments */
-@media (max-width: 768px) {
-    .pledge-modal-content {
-        padding: 30px 20px;
-    }
-
-    .pledge-modal-title {
-        font-size: 20px;
-    }
-
-    .pledge-option {
-        padding: 8px 16px;
-        font-size: 13px;
-    }
-
-    .cc-count {
-        width: 24px;
-        height: 24px;
-        font-size: 11px;
-    }
-
-    .cc-checkmark {
-        width: 22px;
-        height: 22px;
-    }
-
-    .cc-request-btn {
-        padding: 7px 16px;
-        font-size: 10px;
-    }
-}
-
-@media (max-width: 480px) {
-    .pledge-modal-content {
-        padding: 24px 16px;
-    }
-
-    .pledge-option {
-        padding: 7px 14px;
-        font-size: 12px;
     }
 }
 

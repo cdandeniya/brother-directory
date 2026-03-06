@@ -36,6 +36,7 @@ const brothersData = {
         funFact: '',
         personality: '',
         favoriteMemory: '',
+        hasCheckmark: true,
         littleQualities: ''
     },
     'Camila Sanchez': {
@@ -74,6 +75,7 @@ const brothersData = {
         funFact: 'I made the Brother Directory!',
         personality: 'Nonchalant',
         favoriteMemory: 'Skydiving with my big, chilling with the brothers after chapter.',
+        hasCheckmark: true,
         littleQualities: ''
     },
     'Sandra Obrycki': {
@@ -188,6 +190,7 @@ const brothersData = {
         funFact: 'I skipped a grade',
         personality: 'Inquisitive',
         favoriteMemory: 'Picking up all my littos',
+        hasCheckmark: true,
         littleQualities: ''
     },
     'Adrian Morel': {
@@ -283,6 +286,7 @@ const brothersData = {
         funFact: 'I\'m 12% Korean',
         personality: 'Fast-paced, energetic, reliable',
         favoriteMemory: 'Attending LEAD conference for the first time',
+        hasCheckmark: true,
         littleQualities: ''
     },
     'Carrie Song': {
@@ -340,6 +344,7 @@ const brothersData = {
         funFact: 'I have scoliosis',
         personality: 'Adventurous, Outgoing, Hardworking',
         favoriteMemory: 'Took a trip to Puerto Rico with some brothers for Spring Break.',
+        hasCheckmark: true,
         littleQualities: ''
     },
     'Jaelyn Gunter': {
@@ -378,6 +383,7 @@ const brothersData = {
         funFact: 'I\'ve been to Africa',
         personality: 'Easygoing, nice, good',
         favoriteMemory: 'When Brian Ren and I took on those 2 guys behind the library',
+        hasCheckmark: true,
         littleQualities: ''
     },
     'Rashna Kasaju': {
@@ -416,6 +422,7 @@ const brothersData = {
         funFact: 'Traveled four countries in one month!',
         personality: '',
         favoriteMemory: '',
+        hasCheckmark: true,
         littleQualities: ''
     },
     'Samuel Zou': {
@@ -435,6 +442,7 @@ const brothersData = {
         funFact: 'I\'m allergic to peanuts but I love eating peanut butter noodles.',
         personality: 'Chill, Hardworking, Funny',
         favoriteMemory: 'Semi-Formal',
+        hasCheckmark: true,
         littleQualities: ''
     },
     'Steven Ye': {
@@ -530,6 +538,7 @@ const brothersData = {
         funFact: 'I have 16 piercings ⛓️‍💥',
         personality: 'Silly, Outgoing, Cheerful',
         favoriteMemory: 'Recruitment',
+        hasCheckmark: true,
         littleQualities: ''
     },
     'Waylene Hui': {
@@ -568,6 +577,7 @@ const brothersData = {
         funFact: 'The producer FNZ who co-produced hits like L$D, first person shooter, what did I miss, donda, and purity actually liked one of my beats on instagram',
         personality: 'Go with the flow',
         favoriteMemory: 'My initiation',
+        hasCheckmark: true,
         littleQualities: ''
     },
     'Tolu Bolaji': {
@@ -682,6 +692,7 @@ const brothersData = {
         funFact: 'I played the violin for 10 years!',
         personality: 'Curious, Empathetic, and Compassionate',
         favoriteMemory: 'Staying up late to bake for our fundraiser or homecoming!',
+        hasCheckmark: true,
         littleQualities: ''
     },
     'Natsumi Ekanayaka': {
@@ -739,6 +750,7 @@ const brothersData = {
         funFact: 'I\'m a military brat',
         personality: 'Charismatic, Respectful, Ridiculous',
         favoriteMemory: 'End-of-Semester Potluck',
+        hasCheckmark: true,
         littleQualities: ''
     },
     'Ashley Lee': {
@@ -758,6 +770,7 @@ const brothersData = {
         funFact: 'I\'ve fractured my finger twice, both from football',
         personality: 'Spontaneous, active, foodie',
         favoriteMemory: 'Pledging, hoco, and semis',
+        hasCheckmark: true,
         littleQualities: ''
     },
     'Aldo Ramirez': {
@@ -796,6 +809,7 @@ const brothersData = {
         funFact: 'I have a brown belt in karate',
         personality: 'Swag, calm, agreeable',
         favoriteMemory: 'Homecoming',
+        hasCheckmark: true,
         littleQualities: ''
     },
     'Reon Sarkar': {
@@ -815,6 +829,7 @@ const brothersData = {
         funFact: 'I was bit by a cobra',
         personality: '',
         favoriteMemory: 'Homecoming',
+        hasCheckmark: true,
         littleQualities: ''
     },
     'William Sim': {
@@ -853,6 +868,7 @@ const brothersData = {
         funFact: 'I used to produce music.',
         personality: 'Compassionate, Chill, Genuine',
         favoriteMemory: 'Homecoming with the brothers',
+        hasCheckmark: true,
         littleQualities: ''
     }
 };
