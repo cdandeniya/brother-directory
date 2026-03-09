@@ -88,8 +88,21 @@ function generateShuffledBrotherCards() {
         return;
     }
 
-    // Shuffle all brothers each refresh
-    const finalOrder = shuffleArray(Object.keys(brothersData));
+    // Shuffle with non-checkmarked first, checkmarked last
+    const allNames = Object.keys(brothersData);
+    const unchecked = [];
+    const checked = [];
+    allNames.forEach((name) => {
+        if (brothersData[name]?.hasCheckmark) {
+            checked.push(name);
+        } else {
+            unchecked.push(name);
+        }
+    });
+    const finalOrder = [
+        ...shuffleArray(unchecked),
+        ...shuffleArray(checked)
+    ];
 
     // Get the brothers grid container
     const brothersGrid = document.querySelector('.brothers-grid');

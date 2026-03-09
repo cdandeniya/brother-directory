@@ -267,6 +267,7 @@ const brothersData = {
         funFact: 'I\'ve been told I look like Jenna Ortega well over 50 times',
         personality: 'Lowkey a narcissist',
         favoriteMemory: 'Making tiramisu',
+        hasCheckmark: true,
         littleQualities: ''
     },
     'Naoki Sekine': {
@@ -558,6 +559,7 @@ const brothersData = {
         funFact: 'I like cats',
         personality: 'Determined, driven, diligent',
         favoriteMemory: 'Going to a concert with brothers!',
+        hasCheckmark: true,
         littleQualities: ''
     },
     'Luke Alexander': {
@@ -597,6 +599,7 @@ const brothersData = {
         funFact: 'My Spotify Playlist is 7,000+ songs',
         personality: '',
         favoriteMemory: 'Formal',
+        hasCheckmark: true,
         littleQualities: ''
     },
     'Henry Cai': {
@@ -673,6 +676,7 @@ const brothersData = {
         funFact: 'I lived in China for 5 years',
         personality: 'Thoughtful, ambitious, dependable',
         favoriteMemory: 'Homecoming',
+        hasCheckmark: true,
         littleQualities: ''
     },
     'Claudelle Cortez': {
@@ -790,6 +794,7 @@ const brothersData = {
         funFact: 'I\'ve run 2 marathons so far. I love listening to new music',
         personality: '',
         favoriteMemory: 'Hoco',
+        hasCheckmark: true,
         littleQualities: ''
     },
     'Jahzeel Requena': {
