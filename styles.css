@@ -432,7 +432,7 @@ body.loaded {
     pointer-events: none;
     z-index: 10;
     min-width: 240px;
-    max-width: 560px;
+    max-width: min(620px, 92vw);
     justify-content: flex-start;
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
@@ -1595,6 +1595,7 @@ body.loaded {
     .filters-wrapper {
         flex-shrink: 0;
         margin-bottom: 0;
+        width: auto;
     }
     
     .filters-toggle {
@@ -1610,22 +1611,27 @@ body.loaded {
         position: absolute;
         right: 0;
         top: calc(100% + 8px);
-        width: auto;
-        min-width: 180px;
+        width: min(94vw, 520px);
+        min-width: 220px;
         margin-top: 0;
-        gap: 6px;
-        padding: 10px 12px;
-        flex-wrap: nowrap;
-        justify-content: flex-start;
-        border-radius: 12px;
+        gap: 8px;
+        padding: 12px 12px;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        justify-content: stretch;
+        border-radius: 14px;
         transform: translateY(-8px) translateZ(0);
         opacity: 0;
         visibility: hidden;
         pointer-events: none;
-        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
         transition: opacity 0.2s ease, visibility 0.2s ease, transform 0.2s ease;
         backdrop-filter: blur(8px);
         -webkit-backdrop-filter: blur(8px);
+        max-height: min(60vh, 420px);
+        overflow: auto;
+        overflow-x: hidden;
+        overscroll-behavior: contain;
     }
     
     .filters-container.active {
@@ -1638,10 +1644,11 @@ body.loaded {
     .filter-checkbox {
         font-size: 12px;
         padding: 6px 10px;
-        flex: 0 0 auto;
-        min-width: auto;
+        width: 100%;
+        min-width: 0;
         justify-content: flex-start;
-        white-space: nowrap;
+        white-space: normal;
+        word-break: break-word;
     }
     
     .filter-input {
@@ -1897,6 +1904,51 @@ body.loaded {
     
     .detail-value {
         font-size: 14px;
+    }
+}
+
+@media (max-width: 640px) {
+    .section-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .filters-wrapper {
+        width: 100%;
+    }
+
+    .filters-toggle {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .filters-container {
+        position: static;
+        left: 0;
+        right: 0;
+        top: auto;
+        width: 100%;
+        min-width: 0;
+        max-width: none;
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 8px;
+        margin-top: 8px;
+        max-height: none;
+        overflow: visible;
+        overflow-x: hidden;
+        transform: none;
+    }
+
+    .filters-group-label {
+        grid-column: 1 / -1;
+    }
+
+    .filter-checkbox {
+        width: 100%;
+        justify-content: flex-start;
     }
 }
 

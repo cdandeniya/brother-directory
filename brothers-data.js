@@ -56,6 +56,7 @@ const brothersData = {
         funFact: 'I love dying my hair and I\'m a huge fan of Lana del Rey and The Neighbourhood',
         personality: 'Bright, SMILE, Hardworking',
         favoriteMemory: 'Going out to any social event with my friends in DSP',
+        hasCheckmark: true,
         littleQualities: ''
     },
     'Chanul Dandeniya': {
@@ -210,6 +211,7 @@ const brothersData = {
         funFact: '',
         personality: '',
         favoriteMemory: '',
+        hasCheckmark: true,
         littleQualities: ''
     },
     'Laaibah Shoaib': {
@@ -307,6 +309,7 @@ const brothersData = {
         funFact: 'I\'ve been to 6 countries',
         personality: '',
         favoriteMemory: 'Secret Santa',
+        hasCheckmark: true,
         littleQualities: ''
     },
     'Madison Stone': {
@@ -365,6 +368,7 @@ const brothersData = {
         funFact: 'I\'ve been to Puerto Rico more than 10 times',
         personality: 'Passionate, caring & loyal',
         favoriteMemory: 'The day I became a brother ☺️',
+        hasCheckmark: true,
         littleQualities: ''
     },
     'Jack Hardiman': {
@@ -559,7 +563,6 @@ const brothersData = {
         funFact: 'I like cats',
         personality: 'Determined, driven, diligent',
         favoriteMemory: 'Going to a concert with brothers!',
-        hasCheckmark: true,
         littleQualities: ''
     },
     'Luke Alexander': {
@@ -854,6 +857,7 @@ const brothersData = {
         funFact: '',
         personality: '',
         favoriteMemory: '',
+        hasCheckmark: true,
         littleQualities: ''
     },
     'Jaden Yang': {
