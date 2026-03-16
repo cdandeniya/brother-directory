@@ -17,6 +17,7 @@ const brothersData = {
         funFact: 'I am recently bilingual',
         personality: 'Smile, outgoing, chill',
         favoriteMemory: 'Baking and playing games with my fellow brothers',
+        hasCheckmark: true,
         littleQualities: ''
     },
     'Ana Jiang': {
@@ -96,6 +97,7 @@ const brothersData = {
         funFact: 'Studied abroad in Italy for a summer',
         personality: 'Bubbly, compassionate, kind',
         favoriteMemory: 'Going to dinners with my littles!!',
+        hasCheckmark: true,
         littleQualities: ''
     },
     'Vincent Ouyang': {
@@ -115,6 +117,7 @@ const brothersData = {
         funFact: 'Eat, sleep, rave',
         personality: 'Crazy, Chill, Paranoid',
         favoriteMemory: 'Formal/Hoco: Hanging with all the goofs',
+        hasCheckmark: true,
         littleQualities: ''
     },
     'Michelle Weng': {
@@ -134,6 +137,7 @@ const brothersData = {
         funFact: '',
         personality: '',
         favoriteMemory: '',
+        hasCheckmark: true,
         littleQualities: ''
     },
     'Daniel Yoo': {
@@ -153,6 +157,7 @@ const brothersData = {
         funFact: '',
         personality: '',
         favoriteMemory: '',
+        hasCheckmark: true,
         littleQualities: ''
     },
     'Rainer Duchmanh': {
@@ -172,6 +177,7 @@ const brothersData = {
         funFact: '',
         personality: '',
         favoriteMemory: '',
+        hasCheckmark: true,
         littleQualities: ''
     },
     'Karan Grover': {
@@ -231,6 +237,7 @@ const brothersData = {
         funFact: 'I played violin for 8 years',
         personality: '',
         favoriteMemory: '',
+        hasCheckmark: true,
         littleQualities: ''
     },
     'Brian Ren': {
@@ -250,6 +257,7 @@ const brothersData = {
         funFact: 'I caught a baby shark once while fishing',
         personality: '',
         favoriteMemory: 'When Jack Hardiman and I fought 2 guys behind the library',
+        hasCheckmark: true,
         littleQualities: ''
     },
     'Estella Saha': {
@@ -329,6 +337,7 @@ const brothersData = {
         funFact: 'I have a dog named Diggity',
         personality: 'Caring, friendly, creative',
         favoriteMemory: 'Seeing how much all of the brothers want to help each other and genuinely want the best for each other',
+        hasCheckmark: true,
         littleQualities: ''
     },
     'Isabelle Baginski': {
@@ -408,6 +417,7 @@ const brothersData = {
         funFact: 'I\'ve been working with social media since I was 11!',
         personality: 'Open-minded, ambitious, and creative',
         favoriteMemory: 'Beach cleanups!',
+        hasCheckmark: true,
         littleQualities: ''
     },
     'Connor Wong': {
@@ -467,6 +477,7 @@ const brothersData = {
         funFact: 'Aldo\'s my twin',
         personality: 'Cool',
         favoriteMemory: 'Semi-Formal',
+        hasCheckmark: true,
         littleQualities: ''
     },
     'Charleen You': {
@@ -486,6 +497,7 @@ const brothersData = {
         funFact: 'I\'ve traveled to 10 countries',
         personality: 'Bubbly, curious, and optimistic',
         favoriteMemory: 'is when ana kneeled down and handed me the green thai tea then carried me back to the dorm and rubbed my feet',
+        hasCheckmark: true,
         littleQualities: ''
     },
     'Hannah Kim': {
@@ -505,6 +517,7 @@ const brothersData = {
         funFact: 'I eat spicy wontons three times a week',
         personality: 'Outgoing, sociable, friendly',
         favoriteMemory: 'Formal last Spring of 2025 after I crossed. I had such a fun time with my class and brothers overall.',
+        hasCheckmark: true,
         littleQualities: ''
     },
     'Anna Lin': {
@@ -524,6 +537,7 @@ const brothersData = {
         funFact: 'I have 5 siblings',
         personality: 'Spontaneous, Funny, Chill',
         favoriteMemory: 'Crossing with my class',
+        hasCheckmark: true,
         littleQualities: ''
     },
     'Siena Rahman': {
@@ -563,6 +577,7 @@ const brothersData = {
         funFact: 'I like cats',
         personality: 'Determined, driven, diligent',
         favoriteMemory: 'Going to a concert with brothers!',
+        hasCheckmark: true,
         littleQualities: ''
     },
     'Luke Alexander': {
@@ -622,6 +637,7 @@ const brothersData = {
         funFact: 'I can eat mala everyday',
         personality: 'Outgoing, compassionate, responsible',
         favoriteMemory: 'Formal',
+        hasCheckmark: true,
         littleQualities: ''
     },
     'Alex Chan': {
@@ -641,6 +657,7 @@ const brothersData = {
         funFact: '',
         personality: '',
         favoriteMemory: '',
+        hasCheckmark: true,
         littleQualities: ''
     },
     'Walter Benitez': {
@@ -660,6 +677,7 @@ const brothersData = {
         funFact: 'I have 40+ chickens and 4 cats',
         personality: 'Unserious but serious',
         favoriteMemory: 'Anytime we get food',
+        hasCheckmark: true,
         littleQualities: ''
     },
     'Jenny Chen': {
@@ -719,6 +737,7 @@ const brothersData = {
         funFact: 'I love the color pink',
         personality: 'Thoughtful, adaptable, spontaneous',
         favoriteMemory: 'Pledge process and initiation!',
+        hasCheckmark: true,
         littleQualities: ''
     },
     'Joshua Jacob': {
@@ -738,6 +757,7 @@ const brothersData = {
         funFact: 'I\'ve had the same dorm fish since freshman year',
         personality: '',
         favoriteMemory: '',
+        hasCheckmark: true,
         littleQualities: ''
     },
     'James Kyung': {
